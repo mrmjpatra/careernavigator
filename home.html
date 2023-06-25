@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        ul {
+            position: relative;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        ul li {
+            list-style: none;
+            background-color: transparent;
+        }
+
+        .list::after {
+            content: "";
+            position: absolute;
+            right: 17px;
+            top: 43%;
+            border: solid black;
+            border-width: 0 2px 2px 0;
+            padding: 3px;
+            transform: rotate(45deg);
+            z-index: 10;
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li class="list">Home</li>
+        <li class="list">About</li>
+        <li class="list">Contact</li>
+        <li class="list">Help</li>
+        <li class="list">More</li>
+    </ul>
+</body>
+
+</html>
