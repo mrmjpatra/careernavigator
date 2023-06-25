@@ -1,9 +1,8 @@
 'use client'
 import Header from "@/components/Home/Header";
-import NavigationBar from "@/components/NavigationBar";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { setIsOpen } from "@/redux/navbar/slice.nav";
-import { useState } from "react";
+import HomeSwipper from "@/components/Home/HomeSwipper";
+import TopCategories from "@/components/Home/TopCategories";
+
 
 
 export default function Home() {
@@ -12,6 +11,8 @@ export default function Home() {
     <main className="bg-[#F2F6F9]">
       <section>
         <Header/>
+        <HomeSwipper/>
+        <TopCategories/>
       </section>
     </main>
   )

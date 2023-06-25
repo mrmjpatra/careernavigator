@@ -6,7 +6,7 @@ import styles from '@/styles/navigationbar.module.scss'
 import { createElement, useEffect, useRef, useState } from "react"
 import { HiOutlineBars3BottomRight } from 'react-icons/hi2'
 import { FaXmark } from 'react-icons/fa6';
-import {IoChevronBackOutline} from 'react-icons/io5'
+import { IoChevronBackOutline } from 'react-icons/io5'
 import Link from "next/link"
 const NavigationBar = () => {
     const [open, setOpen] = useState(false);
@@ -55,7 +55,7 @@ const NavigationBar = () => {
                             className={`${!open ? 'hidden' : 'block'} transition-all duration-500 ease-linear`}
                         />
                     </div>
-                    <div className={`${open ? 'translate-x-[0px]' : 'translate-x-[340px]'} fixed right-0 top-[8%] w-[340px] h-full  overflow-x-hidden bg-white transition-all duration-500 ease-in-out`}>
+                    <div className={`${open ? 'translate-x-[0px]' : 'translate-x-[340px]'} fixed right-0 top-[8%] w-[340px] pb-3 rounded bg-white transition-all duration-500 ease-in-out`}>
                         <div className="p-5 bg-sky-600 text-white">
                             <h3>Hi Welcome to Carrer Navigator!</h3>
                         </div>
@@ -153,7 +153,7 @@ const MenuItemComponentMobile: React.FC<MenuItem> = ({ title, menu, icon }) => {
     return (
         <>
             <div className="p-0 w-full relative group"
-    onMouseLeave={()=>setIsHovered(false)}>
+                onMouseLeave={() => setIsHovered(false)}>
                 <div className="text-left font-medium border-b-[1px] border-blue-600 py-3">
                     <div className="flex items-center gap-x-2" onClick={() => setIsHovered(true)}>
                         <div className="bg-blue-600 text-white rounded-xl p-2 text-2xl">
@@ -164,20 +164,20 @@ const MenuItemComponentMobile: React.FC<MenuItem> = ({ title, menu, icon }) => {
                 </div>
                 {
                     len !== 0 &&
-                    <div className={`${isHovered ? 'translate-x-[0px]' : 'translate-x-[340px]'} fixed right-0 top-0 w-[340px]  bg-white transition-all duration-500 ease-in-out z-10`}>
-                       <div className="flex items-center p-3 bg-blue-600 text-white" onClick={() => setIsHovered(false)}>
+                    <div className={`${isHovered ? 'translate-x-[0px]' : 'translate-x-[340px]'} fixed right-0 top-0 w-[340px] rounded bg-white transition-all duration-500 ease-in-out z-10`}>
+                        <div className="flex items-center p-3 bg-blue-600 text-white" onClick={() => setIsHovered(false)}>
                             <IoChevronBackOutline size={'1.5rem'} />
                             <span>{title}</span>
-                       </div>
-                       <div className="px-4 py-2">
-                       {
-                            menu.map(category => {
-                                return (
-                                    <DropDownMobile key={category.category} {...category} />
-                                )
-                            })
-                        }
-                       </div>
+                        </div>
+                        <div className="px-4 py-2">
+                            {
+                                menu.map(category => {
+                                    return (
+                                        <DropDownMobile key={category.category} {...category} />
+                                    )
+                                })
+                            }
+                        </div>
                     </div>
                 }
             </div>
@@ -187,24 +187,29 @@ const MenuItemComponentMobile: React.FC<MenuItem> = ({ title, menu, icon }) => {
 const DropDownMobile: React.FC<CategoryItem> = ({ category, scategory }) => {
     const [isHovered, setIsHovered] = useState(false);
     return (
-        <div key={category} onClick={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)} >
-           <div className="mb-2  border-b-[1px] border-blue-600">
-             <h3 className="font-bold cursor-pointer mb-2">{category}</h3>
-           </div>
-            <div className={`${isHovered ? 'translate-x-[0px]' : 'translate-x-[340px]'} fixed right-0 top-0 w-[340px] h-full overflow-y-scroll overflow-x-hidden bg-white transition-all duration-500 ease-in-out z-10 px-4 py-2`}>
-                {scategory.map((subcategory) => (
-                    <div key={subcategory.id} className="ml-2">
-                        <h4 className="m-0 font-bold">{subcategory.title}</h4>
-                        <ul className="m-0 pl-2">
-                            {subcategory.contents.map((content) => (
-                                <li key={content.id} className="list-none mb-1">
-                                    <Link href={content.link}>{content.title}</Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                ))}
+        <div key={category}  onMouseLeave={() => setIsHovered(false)} >
+            <div className="mb-2  border-b-[1px] border-blue-600" onClick={() => setIsHovered(true)}>
+                <h3 className="font-bold cursor-pointer mb-2">{category}</h3>
+            </div>
+            <div className={`${isHovered ? 'translate-x-[0px]' : 'translate-x-[340px]'} fixed right-0 top-0 w-[340px] h-full overflow-y-scroll overflow-x-hidden bg-white transition-all duration-500 ease-in-out rounded z-10`}>
+                <div className="flex items-center p-3 bg-blue-600 text-white" onClick={() => setIsHovered(false)}>
+                    <IoChevronBackOutline size={'1.5rem'} />
+                    <span>{category}</span>
+                </div>
+                <div className="px-4 py-2">
+                    {scategory.map((subcategory) => (
+                        <div key={subcategory.id} className="ml-2">
+                            <h4 className="m-0 font-bold">{subcategory.title}</h4>
+                            <ul className="m-0 pl-2">
+                                {subcategory.contents.map((content) => (
+                                    <li key={content.id} className="list-none mb-1">
+                                        <Link href={content.link}>{content.title}</Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     )
