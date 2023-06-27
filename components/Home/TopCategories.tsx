@@ -14,25 +14,27 @@ import { createElement } from 'react';
 import Image from 'next/image';
 const TopCategories = () => {
     return (
-        <div className='w-11/12 mx-auto md:py-4 mb-8'>
+        <div className='bg-white'>
+
+            <div className=' w-11/12 mx-auto md:py-4 mb-8'>
                 <h1 className='font-medium text-2xl md:text-4xl mb-4 text-blue-800' >Explore Top College</h1>
-                <div>
-                    <ul className='grid grid-cols-1 md:grid-cols-3 gap-2'>
-                        {
-                            TopCollegeList.map(list =>
-                                <li key={list.id} className='rounded shadow-lg shadow-indigo-600/20 cursor-pointer group'>
-                                    <div className='px-3 py-5 flex items-center gap-3 relative'>
-                                        <span className='text-4xl md:text-6xl transition-all ease-out duration-200 -translate-y-0 group-hover:-translate-y-3 bg-indigo-600 rounded-3xl p-3 text-white'> {createElement(list.icon)}</span>
-                                        <div className='flex flex-col w-full'>
-                                            <span className='text-2xl '>{list.title}</span>
-                                            <span>Explore</span>
-                                        </div>
+                <ul className='grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-10'>
+                    {
+                        TopCollegeList.map(list =>
+                            <li key={list.id} className='rounded shadow-lg bg-indigo-50 shadow-indigo-600/20 cursor-pointer group'>
+                                <div className='px-3 py-5 flex items-center gap-3 relative'>
+                                    <span className='text-xl md:text-3xl transition-all ease-out duration-200 -translate-y-0 group-hover:-translate-y-3 bg-indigo-600 rounded-3xl p-3 text-white'> {createElement(list.icon)}</span>
+                                    <div className='flex flex-col w-full'>
+                                        <span className='text-2xl '>{list.title}</span>
+                                        <span>Explore</span>
                                     </div>
-                                </li>)
-                        }
-                    </ul>
-                </div>
+                                </div>
+                            </li>)
+                    }
+                </ul>
+            </div>
         </div>
+
     )
 }
 

@@ -28,7 +28,7 @@ const NavigationBar = () => {
 
 
     return (
-        <nav className="bg-[#F2F6F9] py-2 navbar" ref={menuRef}>
+        <nav className="bg-[#F2F6F9] py-2 navbar sticky top-0 z-10 " ref={menuRef}>
             <div className="sm:w-[640px] md:w-[768px] lg:w-[1200px] max-w-[1300px] mx-auto flex  justify-between md:justify-start">
                 {/* logo */}
                 <div className="">
@@ -55,7 +55,7 @@ const NavigationBar = () => {
                             className={`${!open ? 'hidden' : 'block'} transition-all duration-500 ease-linear`}
                         />
                     </div>
-                    <div className={`${open ? 'translate-x-[0px]' : 'translate-x-[340px]'} fixed right-0 top-[8%] w-[340px] pb-3 rounded bg-white transition-all duration-500 ease-in-out`}>
+                    <div className={`${open ? 'translate-x-[0px]' : 'translate-x-[340px]'} fixed right-0 top-[8%] w-[340px] pb-3 z-10 rounded bg-white transition-all duration-500 ease-in-out`}>
                         <div className="p-5 bg-sky-600 text-white">
                             <h3>Hi Welcome to Carrer Navigator!</h3>
                         </div>
@@ -155,11 +155,14 @@ const MenuItemComponentMobile: React.FC<MenuItem> = ({ title, menu, icon }) => {
             <div className="p-0 w-full relative group"
                 onMouseLeave={() => setIsHovered(false)}>
                 <div className="text-left font-medium border-b-[1px] border-blue-600 py-3">
-                    <div className="flex items-center gap-x-2" onClick={() => setIsHovered(true)}>
+                    <div className="flex items-center gap-x-2 relative" onClick={() => setIsHovered(true)}>
                         <div className="bg-blue-600 text-white rounded-xl p-2 text-2xl">
                             {createElement(icon)}
                         </div>
                         {title}
+                        <div className="">
+                            <span className="text-2xl text-blue-600 absolute right-[10%] top-[15%]"> <IoChevronBackOutline className="rotate-180"/></span>
+                        </div>
                     </div>
                 </div>
                 {
@@ -187,7 +190,7 @@ const MenuItemComponentMobile: React.FC<MenuItem> = ({ title, menu, icon }) => {
 const DropDownMobile: React.FC<CategoryItem> = ({ category, scategory }) => {
     const [isHovered, setIsHovered] = useState(false);
     return (
-        <div key={category}  onMouseLeave={() => setIsHovered(false)} >
+        <div key={category} onMouseLeave={() => setIsHovered(false)} >
             <div className="mb-2  border-b-[1px] border-blue-600" onClick={() => setIsHovered(true)}>
                 <h3 className="font-bold cursor-pointer mb-2">{category}</h3>
             </div>

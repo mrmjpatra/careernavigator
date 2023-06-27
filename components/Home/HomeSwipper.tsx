@@ -77,7 +77,6 @@ const NoticeCarousel = () => {
             >
                 {
                     NoticeList.sort((a, b) => b.date.getTime() - a.date.getTime()).map(notice => {
-                        console.log(notice.date)
                         return (
                             <SwiperSlide key={notice.id}>
                                 <Link href={notice.link}>
