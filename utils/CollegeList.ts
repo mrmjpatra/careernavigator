@@ -1,0 +1,31 @@
+import { v4 as uuid } from "uuid"
+export const collegeList=[
+    {
+        id:uuid(),
+        clgName:'',
+        category:{
+            stream:'',
+            degree:'',
+            state:'',
+            city:'',
+            specialization:'',
+            courseType:'',
+            studyMode:'',
+            ownership:'',
+            facilities:{
+                sports:true,
+                wifi:true,
+                music:true,
+                mess:true,
+                hostel:true,
+                gym:true,
+                computerlab:true,
+                atm:true
+            },
+            fees:{
+                from:'',
+                to:''
+            }
+        }
+    }
+]

@@ -55,7 +55,7 @@ const NavigationBar = () => {
                             className={`${!open ? 'hidden' : 'block'} transition-all duration-500 ease-linear`}
                         />
                     </div>
-                    <div className={`${open ? 'translate-x-[0px]' : 'translate-x-[340px]'} fixed right-0 top-[8%] w-[340px] pb-3 z-10 rounded bg-white transition-all duration-500 ease-in-out`}>
+                    <div className={`${open ? 'translate-x-[0px]' : 'translate-x-[340px]'}  fixed right-0 top-[8%] w-[340px] pb-3 z-10 rounded bg-white transition-all duration-500 ease-in-out`}>
                         <div className="p-5 bg-sky-600 text-white">
                             <h3>Hi Welcome to Carrer Navigator!</h3>
                         </div>

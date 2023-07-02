@@ -5,10 +5,9 @@ import Header from "@/components/Home/Header";
 import HomeSwipper from "@/components/Home/HomeSwipper";
 import TopCategories from "@/components/Home/TopCategories";
 
-
-
+const key=process.env.API
 export default function Home() {
-
+  console.log(key)
   return (
     <main className="bg-[#F2F6F9]">
       <section>

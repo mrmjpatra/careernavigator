@@ -8,10 +8,9 @@ import { FaHotel } from 'react-icons/fa'
 import { MdComputer } from 'react-icons/md'
 import { GiBlackBook } from 'react-icons/gi'
 import { AiOutlineMedicineBox } from 'react-icons/ai'
-import CourseSearching from '@/public/assets/personsearchingbooks.png'
 import { v4 as uuid } from 'uuid'
 import { createElement } from 'react';
-import Image from 'next/image';
+
 const TopCategories = () => {
     return (
         <div className='bg-white'>
