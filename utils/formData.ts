@@ -72,6 +72,17 @@ export const StreamList: Stream[] = [
         value: 'education',
         name: 'Education'
     },
+    {
+        id: uuid(),
+        value: 'arts',
+        name: 'Arts'
+    },
+    {
+        id: uuid(),
+        value: 'pg',
+        name: 'PG'
+    },
+   
 ]
 
 
@@ -6317,6 +6328,10 @@ export const SpecializationList: Specialization[] = [
     {
         id: uuid(),
         name: 'Civil Engineering'
+    },
+    {
+        id: uuid(),
+        name: 'PG'
     },
     {
         id: uuid(),

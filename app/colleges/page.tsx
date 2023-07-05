@@ -1,152 +1,201 @@
 'use client'
-import useSorting from '@/hooks/useSorting';
-import { Degree, DegreeList, Specialization, SpecializationList, Stream, StreamList } from '@/utils/formData';
-import { ChangeEvent, useCallback, useState } from 'react'
-import { FiSearch } from 'react-icons/fi'
-import { TiTick } from 'react-icons/ti'
-const College = () => {
-  const [selectedStream, setSelectedStream] = useState<string>(''); // Update initial value to an empty string
-  const [degree, setDegree] = useState(false)
-  const [state, setState] = useState(false)
-  const [city, setCity] = useState(false)
-  const [specialization, setSpecialization] = useState(false)
-  const [courseType, setCourseType] = useState(false)
-  const [studyMode, setStudyMode] = useState(false)
-  const [ownership, setOwnership] = useState(false);
-  const { data: sortedStreamList } = useSorting(StreamList, useCallback((a: Stream, b: Stream) => a.name.localeCompare(b.name), []))
-  const { data: sortedDegreeList } = useSorting(DegreeList, useCallback((a: Degree, b: Degree) => a.name.localeCompare(b.name), []))
 
-  const { data: sortedSpecializationList } = useSorting(SpecializationList, useCallback((a: Specialization, b: Specialization) => a.name.localeCompare(b.name), []));
+import axios from 'axios';
+import { useCallback, useEffect, useState } from 'react'
+import { useQuery } from '@tanstack/react-query';
+import UseCollegesFormData, { CollegeDetails } from '@/utils/collegesFormData';
+import CollegeList from '@/components/colleges/CollegeList';
+import FilteredList from '@/components/colleges/FilteredList';
+import FilteredListName from '@/components/colleges/FilteredListName';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import { LuSettings2 } from 'react-icons/lu';
 
-  console.log(selectedStream)
+export type CollegesFormData = {
+  selectedStream: string;
+  selectedDegree: string;
+  selectedState: string;
+  selectedCity: string;
+  selectedSpecialization: string;
+  selectedCourseType: string;
+  selectedStudyMode: string;
+  selectedOwnership: string;
+}
+
+
+const fetchCollegeDetails = async () => {
+  const { data } = await axios.get('http://localhost:3000/api/college/colleges');
+  const details: CollegeDetails[] = data.collegeDetails;
+  return details;
+}
+
+const Colleges = () => {
+
+  const { uniqueStatesArray, sortedStreamList, sortedDegreeList, sortedCityList, sortedSpecializationList, sortedCourse, sortedOwnerShip, sortedStudyMode } = UseCollegesFormData()
+  const [collegesFormData, setCollegesFormData] = useState<CollegesFormData>({
+    selectedStream: '',
+    selectedDegree: '',
+    selectedState: '',
+    selectedCity: '',
+    selectedSpecialization: '',
+    selectedCourseType: '',
+    selectedStudyMode: '',
+    selectedOwnership: '',
+  })
+  const [filteredColleges, setFilteredColleges] = useState<CollegeDetails[]>([]);
+  const [isFilterSelected, setIsFilterSelected] = useState(false);
+
+  const { isLoading, error, data: allCollegeDetails } = useQuery({
+    queryKey: ['collegeData'],
+    queryFn: () => fetchCollegeDetails()
+  });
+
+  const filterColleges = useCallback(() => {
+    if (allCollegeDetails && Object.values(collegesFormData).some((element) => element !== '')) {
+      const filteredColleges = allCollegeDetails.filter((college) => {
+        const matchingCourse = college.courses.find((course) => {
+          const conditions = [
+            course.stream === collegesFormData.selectedStream,
+            course.degree === collegesFormData.selectedDegree,
+            course.specialization === collegesFormData.selectedSpecialization,
+            course.courseType === collegesFormData.selectedCourseType,
+            course.studyMode === collegesFormData.selectedStudyMode,
+            college.city === collegesFormData.selectedCity,
+            college.state === collegesFormData.selectedState,
+            college.ownership === collegesFormData.selectedOwnership
+          ];
+          return conditions.some((condition) => condition);
+        });
+        return matchingCourse !== undefined;
+      });
+
+      setFilteredColleges(filteredColleges);
+      setIsFilterSelected(true);
+    }
+  }, [allCollegeDetails, collegesFormData])
+
+  useEffect(() => {
+    filterColleges();
+  }, [filterColleges, collegesFormData]);
+
+  const handleFilterChange = (selected: string, value: string) => {
+    setCollegesFormData(prev => ({ ...prev, [selected]: value }))
+  };
 
   return (
-    <div className="xl:max-[1100px] mx-auto h-full xl:w-[90%] py-4">
-      <div className="flex gap-3 justify-between">
-        <div className="w-[280px] border">
-          <div className="shadow-md shadow-white/10 pt-2">
-            {/* /Stream */}
-            <div>
-              <div>
-                <section className="border-b border-black/10 mb-3 px-4 pb-5">
-                  <div className="py-3 uppercase font-medium">Stream</div>
-                  <div className="max-h-[165px] overflow-y-auto pr-1">
-                    {/* FilterSearch */}
-                    <div className="mb-3 sticky top-0 z-10 bg-white">
-                      <input type="text" placeholder="Search....." id="Stream" className='w-full pt-2 pr-3 pb-2 pl-9 rounded border border-black' />
-                      <FiSearch className='absolute top-3 left-3' />
-                    </div>
-                    {/* StreamLIst */}
-                    <ul>
+    <div className="xl:max-[1100px] mx-auto h-full xl:w-[90%] py-4 md:[1000px] ">
+      <SkeletonTheme baseColor="#cecece" highlightColor="#444">
+        <div className="md:flex md:gap-3 md:justify-between">
+          {/* filter state */}
+          <div className='flex justify-end pr-4 items-center cursor-pointer md:hidden '>
+            <LuSettings2 color='#0081fa' />
+            <span>Filters</span>
+          </div>
+          
+          <div className="w-[280px] border hidden md:block">
+            <div className="shadow-md shadow-white/10 pt-2">
+              {/* /Stream */}
+              <FilteredList
+                title="Stream"
+                list={sortedStreamList}
+                selectedItem={collegesFormData.selectedStream}
+                selected={'selectedStream'}
+                onFilterChange={handleFilterChange}
+                name='name'
+                isLoading={isLoading}
+              />
+              {/* Degree */}
+              <FilteredList
+                title="Degree"
+                list={sortedDegreeList}
+                selectedItem={collegesFormData.selectedDegree}
+                selected={'selectedDegree'}
+                onFilterChange={handleFilterChange}
+                name='name'
+                isLoading={isLoading}
+              />
+              {/* State */}
+              {/* <FilteredList
+                title="State"
+                list={uniqueStatesArray}
+                selectedItem={collegesFormData.selectedState}
+                selected={'selectedState'}
+                onFilterChange={handleFilterChange}
+                isLoading={isLoading}
+              /> */}
 
-                      {
-                        sortedStreamList.map((stream) => (
-                          <li key={stream.id} className='flex items-center gap-3 mb-3 relative'>
-                            <input
-                              type="radio"
-                              name="stream"
-                              value={stream.value}
-                              checked={stream.value === selectedStream}
-                              onChange={() => setSelectedStream(stream.value)}
-                              className="hidden"
-                              id={stream.value}
-                            />
-                            <label
-                              htmlFor={stream.value}
-                              className="flex items-center gap-3 mb-3 cursor-pointer"
-                            >
-                              <span
-                                className={`w-5 h-5 inline-block border-2 rounded-full ${stream.value === selectedStream ? 'bg-blue-500 border-blue-500' : 'border-gray-400'
-                                  }`}
-                              >
-                                {stream.value === selectedStream && (
-                                  <span  ><TiTick color='white' /></span>
 
-                                )}
-                              </span>
-                              <span>{stream.name}</span>
-                            </label>
+              {/* City */}
+              {/* <FilteredListName
+                title='City'
+                list={sortedCityList}
+                selectedItem={collegesFormData.selectedCity}
+                selected='selectedCity'
+                onFilterChange={handleFilterChange}
+                isLoading={isLoading}
+              /> */}
 
-                          </li>
-                        ))
-                      }
-                    </ul>
-                  </div>
-                </section>
-              </div>
+              {/* Specialization */}
+              {/* <FilteredListName
+                title='Specialization'
+                list={sortedSpecializationList}
+                selectedItem={collegesFormData.selectedSpecialization}
+                selected='selectedSpecialization'
+                onFilterChange={handleFilterChange}
+                name='name'
+                isLoading={isLoading}
+              /> */}
 
+              {/* Course TYpe */}
+              {/* <FilteredList
+                title="Course Type"
+                list={sortedCourse}
+                selectedItem={collegesFormData.selectedCourseType}
+                selected={'selectedCourseType'}
+                onFilterChange={handleFilterChange}
+                isLoading={isLoading}
+              /> */}
+
+              {/* Study Mode */}
+              {/* <FilteredList
+                title="Study Mode"
+                list={sortedStudyMode}
+                selectedItem={collegesFormData.selectedStudyMode}
+                selected={'selectedStudyMode'}
+                onFilterChange={handleFilterChange}
+                isLoading={isLoading}
+              /> */}
+              {/* Ownership */}
+              {/* <FilteredList
+                title="Ownership"
+                list={sortedOwnerShip}
+                selectedItem={collegesFormData.selectedOwnership}
+                selected={'selectedOwnership'}
+                onFilterChange={handleFilterChange}
+                isLoading={isLoading}
+              /> */}
             </div>
-            {/* Degree */}
+          </div>
+          {/* Content */}
+          <div className='md:w-[72%]'>
             <div>
+              {/* selcted column */}
+              <div></div>
+              {/* list of colleges */}
               <div>
-                <section className="border-b border-black/10 mb-3 px-4 pb-5">
-                  <div className="py-3 uppercase font-medium">Degree</div>
-                  <div className="max-h-[165px] overflow-y-auto pr-1">
-                    {/* FilterSearch */}
-                    <div className="mb-3 sticky top-0 z-10 bg-white">
-                      <input type="text" placeholder="Search....." id="Stream" className='w-full pt-2 pr-3 pb-2 pl-9 rounded border border-black' />
-                      <FiSearch className='absolute top-3 left-3' />
-                    </div>
-                    {/* StreamLIst */}
-                    <ul>
-
-                    </ul>
-                  </div>
-                </section>
+                {/* filterListCont */}
+                <div className='py-5 mt-5 border'>
+                  {
+                    isFilterSelected ? <CollegeList isLoading={isLoading} selected={collegesFormData.selectedStream.toUpperCase()} filteredColleges={filteredColleges} /> :
+                      <CollegeList selected={collegesFormData.selectedStream.toUpperCase()} isLoading={isLoading} filteredColleges={allCollegeDetails ? allCollegeDetails : []} />
+                  }
+                </div>
               </div>
-
             </div>
-            {/* State */}
-            <div>
-              <div>
-                <section className="border-b border-black/10 mb-3 px-4 pb-5">
-                  <div className="py-3 uppercase font-medium">State</div>
-                  <div className="max-h-[165px] overflow-y-auto pr-1">
-                    {/* FilterSearch */}
-                    <div className="mb-3 sticky top-0 z-10 bg-white">
-                      <input type="text" placeholder="Search....." id="Stream" className='w-full pt-2 pr-3 pb-2 pl-9 rounded border border-black' />
-                      <FiSearch className='absolute top-3 left-3' />
-                    </div>
-                    {/* StreamLIst */}
-                    <ul>
-
-                    </ul>
-                  </div>
-                </section>
-              </div>
-
-            </div>
-            {/* City */}
-            <div>
-              <div>
-                <section className="border-b border-black/10 mb-3 px-4 pb-5">
-                  <div className="py-3 uppercase font-medium">City</div>
-                  <div className="max-h-[165px] overflow-y-auto pr-1">
-                    {/* FilterSearch */}
-                    <div className="mb-3 sticky top-0 z-10 bg-white">
-                      <input type="text" placeholder="Search....." id="Stream" className='w-full pt-2 pr-3 pb-2 pl-9 rounded border border-black' />
-                      <FiSearch className='absolute top-3 left-3' />
-                    </div>
-                    {/* StreamLIst */}
-                    <ul>
-
-                    </ul>
-                  </div>
-                </section>
-              </div>
-
-            </div>
-            {/* Specialization */}
-            {/* Course TYpe */}
-            {/* Study Mode */}
-            {/* Ownership */}
           </div>
         </div>
-        {/* Content */}
-        <div></div>
-      </div>
+      </SkeletonTheme>
     </div>
   )
 }
 
-export default College
+export default Colleges
