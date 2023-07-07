@@ -1,12 +1,8 @@
-import CollegeDetails from "@/components/PhotoDetails/CollegeDetails";
-interface PhotoPageProps {
-  params: {
-    id: string;
-  };
-}
-const CollegePage = async ({ params }: PhotoPageProps) => {
+import CollegeDetailedPage from "@/components/CollegeDetails/CollegeDetails";
+
+const CollegePage = async({ params }: {params: { id: string}}) => {
   return (
-    <CollegeDetails />
+    <CollegeDetailedPage id={params.id} />
   );
 };
 

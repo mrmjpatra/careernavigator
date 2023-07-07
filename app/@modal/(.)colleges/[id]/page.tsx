@@ -1,11 +1,13 @@
+import CollegeDetailedPage from "@/components/CollegeDetails/CollegeDetails";
 import Modal from "@/components/Modal";
-import CollegeDetails from "@/components/PhotoDetails/CollegeDetails";
-const PhotoModalPage = async () => {
+
+const CollegePageModal = async({ params }: {params: { id: string}}) => {
+
   return (
     <Modal>
-      <CollegeDetails/>
+      <CollegeDetailedPage id={params.id}/>
     </Modal>
   );
 };
 
-export default PhotoModalPage;
+export default CollegePageModal;

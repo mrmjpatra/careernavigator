@@ -25,7 +25,7 @@ export type CollegesFormData = {
 
 
 const fetchCollegeDetails = async () => {
-  const { data } = await axios.get('http://localhost:3000/api/college/colleges');
+  const { data } = await axios.get(`http://localhost:3000/api/college/colleges`);
   const details: CollegeDetails[] = data.collegeDetails;
   return details;
 }
@@ -95,7 +95,7 @@ const Colleges = () => {
           <div className={`${showModal ? 'fixed bottom-0 top-[1%] left-[10%] shadow-lg shadow-blue-500 overflow-y-scroll z-20 w-4/5' : 'md:w-[280px] md:border hidden md:block'}`}>
             <div className={`${showModal ? 'bg-white rounded-lg w-full ' : 'shadow-md shadow-white/10 pt-2'}`}>
               <div className={`${showModal ? 'flex justify-end bg-blue-600 py-3' : 'hidden'}`}>
-                <span className='bg-red-500 p-1 m-1 rounded-full hover:bg-red-400 transition-all duration-200 ease-in cursor-pointer' onClick={()=>setShowModal(false)}>
+                <span className='bg-red-500 p-1 m-1 rounded-full hover:bg-red-400 transition-all duration-200 ease-in cursor-pointer' onClick={() => setShowModal(false)}>
                   <IoClose color='#fff' size={'2rem'} className='' />
                 </span>
               </div>

@@ -5,6 +5,7 @@ import { Hind, Roboto } from 'next/font/google'
 import ReduxProvider from '@/redux/Provider'
 import Footer from '@/components/Footer'
 import { FC, ReactNode } from 'react'
+import Providers from '@/utils/provider'
 
 const roboto = Roboto({
   weight: ['400', '500', '700', '900'],
@@ -30,10 +31,12 @@ const RootLayout: FC<RootLayoutProps> = ({ children, modal }) => {
     <html lang="en" >
       <body className={`${roboto.className} ${hind.className}`} suppressHydrationWarning={true} >
         <ReduxProvider>
-          <NavigationBar />
-          {children}
-          {modal}
-          <Footer />
+          <Providers>
+            <NavigationBar />
+            {children}
+            {modal}
+            <Footer />
+          </Providers>
         </ReduxProvider>
       </body>
     </html >
