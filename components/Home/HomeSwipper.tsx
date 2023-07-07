@@ -19,10 +19,10 @@ const HomeSwipper = () => {
     return (
         <div className="flex flex-col md:flex-row px-4 py-4 gap-8">
             <div className="md:w-3/5">
-                <Swiper pagination={{
+                <Swiper 
+                pagination={{
                     clickable: true,
                 }}
-
                     autoplay={{
                         delay: 2500,
                         disableOnInteraction: false

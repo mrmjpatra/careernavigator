@@ -25,7 +25,7 @@ export type CollegesFormData = {
 
 
 const fetchCollegeDetails = async () => {
-  const { data } = await axios.get(`http://localhost:3000/api/college/colleges`);
+  const { data } = await axios.get(`${process.env.HOST}/api/college/colleges`);
   const details: CollegeDetails[] = data.collegeDetails;
   return details;
 }

@@ -54,4 +54,10 @@ export type CollegeDetails = {
       courseType: string;
       studyMode: string;
     }[];
+    reviews: {
+        id:string,
+        name:string,
+        content:string,
+        photo:string
+    }[];
   }

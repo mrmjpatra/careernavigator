@@ -31,11 +31,11 @@ type detailsType = {
 
 const Overview = ({ details, description }: detailsType) => {
   return (
-    <div>
-      <h2 className='text-blue-500 text-3xl'>Description</h2>
+    <div className='px-4 py-3'>
+      <h2 className='text-blue-500 text-xl md:text-3xl'>Description</h2>
       <hr className='bg-blue-500 w-1/2 h-1 border-t-0 my-3 rounded' />
-      <p className='text-xl indent-8'>{convertWord(description)}</p>
-      <div className='space-y-4 mt-5 grid grid-cols-2 w-3/4 mx-auto mb-4'>
+      <p className='text-xl indent-8'>{convertWord(description?.toLowerCase())}</p>
+      <div className='space-y-4 mt-5 md:grid  md:grid-cols-2 md:w-3/4 md:mx-auto mb-4'>
         <div className='flex items-center gap-2'>
           <h3 className='flex gap-2 items-center text-2xl' style={{fontFamily:'Hind'}}>
             <span className='bg-blue-600 text-white rounded-full p-2'>
@@ -60,20 +60,16 @@ const Overview = ({ details, description }: detailsType) => {
             Campus Size</h3>
           <span>{details?.campusSize}</span>
         </div>
-        <div className='flex items-center gap-2'>
-
+        <div className='flex items-center gap-2 col-span-2'>
           <h3 className='flex gap-2 items-center text-2xl' style={{fontFamily:'Hind'}}>
-
             <span className='bg-blue-600 text-white rounded-full p-2'>
               <FaLocationDot />
             </span>
             Address</h3>
           <span>{details?.address.fullAddrs}</span>
         </div>
-        <div className='flex items-center gap-2'>
-
+        <div className='flex items-center gap-2 col-span-2'>
           <h3 className='flex gap-2 items-center text-2xl' style={{fontFamily:'Hind'}}>
-
             <span className='bg-blue-600 text-white rounded-full p-2'>
               <IoCallSharp />
             </span>
