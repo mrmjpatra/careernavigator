@@ -1,11 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Hind:wght@500&family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+.swiper-pagination-bullet {
+  width: 20px !important;
+  height: 20px !important;
+  text-align: center;
+  line-height: 20px;
+  font-size: 12px;
+  color: #000 !important;
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.2) !important;
+  opacity: 1 !important;
+}
+
+.swiper-pagination-bullet-active {
+  color: #fff !important;
+  background: #007aff !important;
+}
+.swiper-pagination-bullets.swiper-pagination-horizontal{
+  bottom: 2rem !important;
+}

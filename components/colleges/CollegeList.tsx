@@ -28,6 +28,7 @@ const CollegeList = ({ filteredColleges, isLoading, selected }: { filteredColleg
         filteringCollges();
     }, [filteredColleges, filteringCollges]);
 
+    
     return (
         <>
             <div>

@@ -31,9 +31,9 @@ const NavigationBar = () => {
         <nav className="bg-[#F2F6F9] py-2 navbar sticky top-0 z-20 " ref={menuRef}>
             <div className="sm:w-[640px] md:w-[768px] lg:w-[1200px] max-w-[1300px] mx-auto flex  justify-between md:justify-start">
                 {/* logo */}
-                <div className="">
+                <Link href={'/'} >
                     <Image src={collegedekhologo} width={100} alt="logo" style={{ backgroundColor: 'red' }} />
-                </div>
+                </Link>
                 {/* menu */}
                 {/* Mobile View */}
                 <div className="relative w-full md:hidden">

@@ -58,7 +58,8 @@ const FilteredList: FC<FilterSectionProps> = ({ title,
                     </div>
                     {/* FilterList */}
                     {
-                        name ? (<ul>
+                        name ? (
+                        <ul>
                             {filteredList?.map((item) => (
                                 <li key={item.id} className="flex items-center gap-3 mb-3 relative">
                                     {

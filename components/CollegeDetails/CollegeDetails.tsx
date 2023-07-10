@@ -36,7 +36,7 @@ const CollegeDetailedPage = ({ id }: { id: string }) => {
           <div className="relative h-72  overflow-hidden">
             {
               collegeDetails?.details?.collegePhoto ? <Image src={collegeDetails?.details?.collegePhoto} alt="college banner"
-                fill />:<Skeleton/>
+                fill />:<Skeleton height={'20rem'} style={{ width: '100%' }} />
             }
           </div>
           <div className="bg-black/50 absolute top-0 left-0 h-full w-full">

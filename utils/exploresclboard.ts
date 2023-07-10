@@ -3,41 +3,49 @@ export const exploreschoolboard=[
     {
         id:uuid(),
         title:'CBSE',
-        link:''
+        link:'/school',
+        data:'cbse'
     },
     {
         id:uuid(),
         title:'CHSE',
-        link:''
+        link:'/school',
+        data:'chse'
     },
     {
         id:uuid(),
         title:'Class 11th',
-        link:''
+        link:'/school',
+        data:'chse'
     },
     {
         id:uuid(),
         title:'Class 12th',
-        link:''
+        link:'/school',
+        data:'chse'
     },
     {
         id:uuid(),
         title:'Study Material',
-        link:''
+        link:'/school',
+        data:'chse'
     },
     {
         id:uuid(),
         title:'Previous Year Papers',
-        link:''
+        link:'/school',
+        data:'chse'
     },
     {
         id:uuid(),
         title:'Syllabus',
-        link:''
+        link:'/school',
+        data:'chse'
     },
     {
         id:uuid(),
         title:'Coaching',
-        link:''
+        link:'/school',
+        data:'chse'
     },
 ]

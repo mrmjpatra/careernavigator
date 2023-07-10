@@ -13,12 +13,12 @@ const ExploreSchoolBoard = () => {
                 <div className='md:w-3/5'>
                     <div className='flex justify-between pb-5'>
                         <h1 className='md:text-4xl text-2xl text-blue-800'>Explore School Board</h1>
-                        <button className='text-blue-600 px-3 py-1 border rounded border-blue-600 hover:bg-blue-600 hover:text-white transition-all ease-out duration-200'>EXPLORE</button>
+                        <Link href={'/school'} className='text-blue-600 px-3 mt-2 py-1 border rounded border-blue-600 hover:bg-blue-600 hover:text-white transition-all ease-out duration-200'>EXPLORE</Link>
                     </div>
                     <ul className='flex flex-wrap'>
                         {
                             exploreschoolboard.map(list=><li  key={list.id} className='py-2 px-5 border border-black/70 bg-white rounded mr-3 mb-3 min-[125px]'>
-                            <Link href={list.link} className='flex items-center gap-4 justify-between' >
+                            <Link href={{ pathname: list.link, query: { data: list.data } }} className='flex items-center gap-4 justify-between' >
                                 {list.title}
                                 <MdOutlineArrowBackIos className='rotate-180' />
                             </Link>
