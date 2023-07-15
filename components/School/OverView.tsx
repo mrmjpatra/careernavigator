@@ -22,6 +22,8 @@ const SchoolOverView = ({ schoolName, description, state, city, facultyStrength,
         // Update the preview whenever the content state changes
         updatePreview();
     }, [description]);
+
+    
     return (
         <div className='pl-4 my-4'>
             <h2 className='text-2xl md:text-3xl text-blue-600 '>Overview</h2>

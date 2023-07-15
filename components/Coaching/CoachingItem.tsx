@@ -17,7 +17,7 @@ const CoachingItem = ({ coachingName, state, city, description, address, faculty
                 <div className='md:w-[80%] pt-4 pl-2 w-full flex items-center md:block'>
                     {/* CollegeDetails */}
                     <div>
-                        <Link href={`/coaching/${id}`} >
+                        <Link href={`/coachings/${id}`} >
                             <h2 className='md:text-2xl my-3 text-xl font-medium'>{coachingName.toUpperCase()}</h2>
                         </Link>
                         <div className='flex flex-col gap-2 md:border-b-2 px-3 pb-3'>

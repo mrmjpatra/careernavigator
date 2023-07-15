@@ -29,3 +29,17 @@
 .swiper-pagination-bullets.swiper-pagination-horizontal{
   bottom: 2rem !important;
 }
+.swipperTab .swiper-wrapper{
+  align-items: center;
+  padding: 0 3rem !important;
+}
+
+.swipperTab .swiper-button-next::after,.swiper-button-prev::after{
+  font-size: 2rem !important;
+}
+
+.swipperTab .swiper-slide{
+  text-align: center;
+  padding: .7rem 0;
+  width: 10rem !important;
+}
