@@ -1,16 +1,21 @@
 import { v4 as uuid } from 'uuid';
-import {BsBook,BsDashSquare} from 'react-icons/bs';
-import {LuSchool} from 'react-icons/lu';
+import { BsBook, BsDashSquare } from 'react-icons/bs';
+import { LuSchool } from 'react-icons/lu';
 import { IconType } from 'react-icons';
-import {IoSchoolOutline} from 'react-icons/io5';
-import {PiSquaresFour} from 'react-icons/pi'
-import {FaScroll} from 'react-icons/fa';
+import { IoSchoolOutline } from 'react-icons/io5';
+import { PiSquaresFour } from 'react-icons/pi'
+import { FaScroll } from 'react-icons/fa';
 
 
 interface ContentItem {
     id: string;
     title: string;
-    link: string;
+    link: string | {
+        pathname: string;
+        query: {
+            activeTab: string;
+        };
+    };
 }
 
 interface SubCategoryItem {
@@ -28,7 +33,7 @@ export interface CategoryItem {
 export interface MenuItem {
     id: string;
     title: string;
-    icon:IconType
+    icon: IconType
     menu: CategoryItem[];
 }
 
@@ -37,7 +42,7 @@ export const navmenulist: MenuItem[] = [
     {
         id: uuid(),
         title: 'Colleges',
-        icon:LuSchool,
+        icon: LuSchool,
         menu: [
             //Enginnering
             {
@@ -2035,7 +2040,7 @@ export const navmenulist: MenuItem[] = [
     {
         id: uuid(),
         title: 'Exam',
-        icon:BsBook,
+        icon: BsBook,
         menu: [
             //Enginnering
             {
@@ -2044,39 +2049,64 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'JEE Mains',
-                        link: '',
+                        link: '/exam/jee-mains',
                         contents: [
                             {
                                 id: uuid(),
                                 title: 'Eligibility',
-                                link: ''
+                                link: {
+                                    pathname: '/exam/jee-mains',
+                                    query:{
+                                        activeTab: '3'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'Syllabus',
-                                link: ''
+                                link: {
+                                    pathname: '/exam/jee-mains',
+                                    query:{
+                                        activeTab: '7'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'Exam Pattern',
-                                link: ''
+                                link: {
+                                    pathname: '/exam/jee-mains',
+                                    query:{
+                                        activeTab: '6'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'How to Prepare',
-                                link: ''
+                                link: {
+                                    pathname: '/exam/jee-mains',
+                                    query:{
+                                        activeTab: '8'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'Previous Year Question Paper',
-                                link: ''
+                                link: {
+                                    pathname: '/exam/jee-mains',
+                                    query:{
+                                        activeTab: '10'
+                                    }
+                                }
                             },
                         ]
                     },
                     {
                         id: uuid(),
                         title: 'JEE Advance',
-                        link: '',
+                        link: '/exam/jee-advance',
                         contents: [
                             {
                                 id: uuid(),
@@ -2108,7 +2138,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'BITSAT',
-                        link: '',
+                        link: '/exam/bitsat',
                         contents: [
                             {
                                 id: uuid(),
@@ -2140,7 +2170,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'GATE',
-                        link: '',
+                        link: '/exam/gate',
                         contents: [
                             {
                                 id: uuid(),
@@ -2172,7 +2202,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'WBJEE',
-                        link: '',
+                        link: '/exam/wbjee',
                         contents: [
                             {
                                 id: uuid(),
@@ -2210,39 +2240,64 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'CAT',
-                        link: '',
+                        link: '/exam/cat',
                         contents: [
                             {
                                 id: uuid(),
                                 title: 'Eligibility',
-                                link: ''
+                                link: {
+                                    pathname: '/exam/cat',
+                                    query:{
+                                        activeTab: '3'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'Syllabus',
-                                link: ''
+                                link: {
+                                    pathname: '/exam/cat',
+                                    query:{
+                                        activeTab: '7'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'Exam Pattern',
-                                link: ''
+                                link: {
+                                    pathname: '/exam/cat',
+                                    query:{
+                                        activeTab: '6'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'How to Prepare',
-                                link: ''
+                                link: {
+                                    pathname: '/exam/cat',
+                                    query:{
+                                        activeTab: '8'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'Previous Year Question Paper',
-                                link: ''
+                                link: {
+                                    pathname: '/exam/cat',
+                                    query:{
+                                        activeTab: '10'
+                                    }
+                                }
                             },
                         ]
                     },
                     {
                         id: uuid(),
                         title: 'XAT',
-                        link: '',
+                        link: '/exam/xat',
                         contents: [
                             {
                                 id: uuid(),
@@ -2274,7 +2329,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'NMAT',
-                        link: '',
+                        link: '/exam/nmat',
                         contents: [
                             {
                                 id: uuid(),
@@ -2306,7 +2361,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'CMAT',
-                        link: '',
+                        link: '/exam/cmat',
                         contents: [
                             {
                                 id: uuid(),
@@ -2338,7 +2393,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'KIITEE Management',
-                        link: '',
+                        link: '/exam/kiitee',
                         contents: [
                             {
                                 id: uuid(),
@@ -2370,7 +2425,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'MAT',
-                        link: '',
+                        link: '/exam/mat',
                         contents: [
                             {
                                 id: uuid(),
@@ -2408,7 +2463,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'IBPS PO',
-                        link: '',
+                        link: '/exam/ibps-po',
                         contents: [
                             {
                                 id: uuid(),
@@ -2440,7 +2495,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'SBI PO',
-                        link: '',
+                        link: '/exam/sbi-po',
                         contents: [
                             {
                                 id: uuid(),
@@ -2472,7 +2527,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'DU JAT',
-                        link: '',
+                        link: '/exam/du-jat',
                         contents: [
                             {
                                 id: uuid(),
@@ -2504,7 +2559,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'CUSAT CAT',
-                        link: '',
+                        link: '/exam/cusat-cat',
                         contents: [
                             {
                                 id: uuid(),
@@ -2536,7 +2591,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'JMIEE',
-                        link: '',
+                        link: '/exam/jmiee',
                         contents: [
                             {
                                 id: uuid(),
@@ -2574,7 +2629,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'NEET UG',
-                        link: '',
+                        link: '/exam/neet',
                         contents: [
                             {
                                 id: uuid(),
@@ -2606,7 +2661,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'NEET PG',
-                        link: '',
+                        link: '/exam/neet-pg',
                         contents: [
                             {
                                 id: uuid(),
@@ -2638,7 +2693,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'JIPMER',
-                        link: '',
+                        link: '/exam/jipmer',
                         contents: [
                             {
                                 id: uuid(),
@@ -2670,7 +2725,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'AIIMS UG',
-                        link: '',
+                        link: '/exam/aiims',
                         contents: [
                             {
                                 id: uuid(),
@@ -2702,7 +2757,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'AIIMS PG',
-                        link: '',
+                        link: '/exam/aiims-pg',
                         contents: [
                             {
                                 id: uuid(),
@@ -2740,7 +2795,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'KIITEE',
-                        link: '',
+                        link: '/exam/kiitee',
                         contents: [
                             {
                                 id: uuid(),
@@ -2772,7 +2827,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'CUSAT CAT',
-                        link: '',
+                        link: '/exam/cusat-cat',
                         contents: [
                             {
                                 id: uuid(),
@@ -2804,7 +2859,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'CUCET',
-                        link: '',
+                        link: '/exam/cucet',
                         contents: [
                             {
                                 id: uuid(),
@@ -2836,7 +2891,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'GSAT',
-                        link: '',
+                        link: '/exam/gsat',
                         contents: [
                             {
                                 id: uuid(),
@@ -2868,7 +2923,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'JUET',
-                        link: '',
+                        link: '/exam/juet',
                         contents: [
                             {
                                 id: uuid(),
@@ -2906,7 +2961,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'UPSEE',
-                        link: '',
+                        link: '/exam/upsee',
                         contents: [
                             {
                                 id: uuid(),
@@ -2938,7 +2993,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'LPUNEST',
-                        link: '',
+                        link: '/exam/lpunest',
                         contents: [
                             {
                                 id: uuid(),
@@ -2970,7 +3025,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'JMIEE',
-                        link: '',
+                        link: '/exam/jmiee',
                         contents: [
                             {
                                 id: uuid(),
@@ -3002,7 +3057,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'IPU CET',
-                        link: '',
+                        link: '/exam/ipu-cet',
                         contents: [
                             {
                                 id: uuid(),
@@ -3034,7 +3089,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'SAAT',
-                        link: '',
+                        link: '/exam/saat',
                         contents: [
                             {
                                 id: uuid(),
@@ -3072,7 +3127,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'OJEE',
-                        link: '',
+                        link: '/exam/ojee',
                         contents: [
                             {
                                 id: uuid(),
@@ -3104,7 +3159,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'KIITEE',
-                        link: '',
+                        link: '/exam/kiitee',
                         contents: [
                             {
                                 id: uuid(),
@@ -3136,7 +3191,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'JNUEE',
-                        link: '',
+                        link: '/exam/jnuee',
                         contents: [
                             {
                                 id: uuid(),
@@ -3168,7 +3223,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'UPSEE',
-                        link: '',
+                        link: '/exam/upsee',
                         contents: [
                             {
                                 id: uuid(),
@@ -3200,7 +3255,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'VITMEE',
-                        link: '',
+                        link: '/exam/vitmee',
                         contents: [
                             {
                                 id: uuid(),
@@ -3238,7 +3293,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'TISSNET',
-                        link: '',
+                        link: '/exam/tissnet',
                         contents: [
                             {
                                 id: uuid(),
@@ -3270,7 +3325,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'CUCET',
-                        link: '',
+                        link: '/exam/cucet',
                         contents: [
                             {
                                 id: uuid(),
@@ -3302,7 +3357,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'JUET',
-                        link: '',
+                        link: '/exam/juet',
                         contents: [
                             {
                                 id: uuid(),
@@ -3334,7 +3389,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'MDU CEE',
-                        link: '',
+                        link: '/exam/mdu-cee',
                         contents: [
                             {
                                 id: uuid(),
@@ -3366,7 +3421,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'BHU UET',
-                        link: '',
+                        link: '/exam/bhu-uet',
                         contents: [
                             {
                                 id: uuid(),
@@ -3404,7 +3459,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'TS EAMCET',
-                        link: '',
+                        link: '/exam/ts-eamcet',
                         contents: [
                             {
                                 id: uuid(),
@@ -3436,7 +3491,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'ICAR AIEEA',
-                        link: '',
+                        link: '/exam/icar/aieea',
                         contents: [
                             {
                                 id: uuid(),
@@ -3468,7 +3523,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'BCECE',
-                        link: '',
+                        link: '/exam/bcece',
                         contents: [
                             {
                                 id: uuid(),
@@ -3500,7 +3555,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'SAAT',
-                        link: '',
+                        link: '/exam/saat',
                         contents: [
                             {
                                 id: uuid(),
@@ -3538,7 +3593,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'CLAT',
-                        link: '',
+                        link: '/exam/clat',
                         contents: [
                             {
                                 id: uuid(),
@@ -3570,7 +3625,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'LSAT',
-                        link: '',
+                        link: '/exam/lsat',
                         contents: [
                             {
                                 id: uuid(),
@@ -3602,7 +3657,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'AP LAWCET',
-                        link: '',
+                        link: '/exam/ap-lawcet',
                         contents: [
                             {
                                 id: uuid(),
@@ -3634,7 +3689,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'AILET',
-                        link: '',
+                        link: '/exam/ailet',
                         contents: [
                             {
                                 id: uuid(),
@@ -3666,7 +3721,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'SET',
-                        link: '',
+                        link: '/exam/set',
                         contents: [
                             {
                                 id: uuid(),
@@ -3704,7 +3759,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'VSAT',
-                        link: '',
+                        link: '/exam/vsat',
                         contents: [
                             {
                                 id: uuid(),
@@ -3736,7 +3791,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'BUAT',
-                        link: '',
+                        link: '/exam/buat',
                         contents: [
                             {
                                 id: uuid(),
@@ -3768,7 +3823,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'BCECE',
-                        link: '',
+                        link: '/exam/bcece',
                         contents: [
                             {
                                 id: uuid(),
@@ -3800,7 +3855,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'HPCET',
-                        link: '',
+                        link: '/exam/hpcet',
                         contents: [
                             {
                                 id: uuid(),
@@ -3838,7 +3893,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'UGC NET',
-                        link: '',
+                        link: '/exam/ugc-net',
                         contents: [
                             {
                                 id: uuid(),
@@ -3870,7 +3925,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'DUET',
-                        link: '',
+                        link: '/exam/duet',
                         contents: [
                             {
                                 id: uuid(),
@@ -3902,7 +3957,7 @@ export const navmenulist: MenuItem[] = [
                     {
                         id: uuid(),
                         title: 'APSET',
-                        link: '',
+                        link: '/exam/apset',
                         contents: [
                             {
                                 id: uuid(),
@@ -3938,25 +3993,25 @@ export const navmenulist: MenuItem[] = [
     {
         id: uuid(),
         title: 'Carrers',
-        icon:IoSchoolOutline,
+        icon: IoSchoolOutline,
         menu: []
     },
     {
         id: uuid(),
         title: 'CBSE',
-        icon:BsDashSquare,
+        icon: BsDashSquare,
         menu: []
     },
     {
         id: uuid(),
         title: 'State Board',
-        icon:FaScroll,
+        icon: FaScroll,
         menu: []
     },
     {
         id: uuid(),
         title: 'More',
-        icon:PiSquaresFour,
+        icon: PiSquaresFour,
         menu: []
     },
 ]

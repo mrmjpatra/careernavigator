@@ -64,3 +64,24 @@ export type CollegeDetails = {
     photo: string
   }[];
 }
+
+
+export type SchoolFormDetailsType = {
+  id: string
+  schoolName: string,
+  description: string,
+  state: string,
+  city: string,
+  ownership: string,
+  board: string,
+  facultyStrength: string,
+  studentStrength: string,
+  address: {
+      fullAddrs: string,
+      phoneNumber: string,
+      email: string,
+      website?: string
+  },
+  schoolPhoto: string,
+  bannerPhotos: string[]
+}

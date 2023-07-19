@@ -1,16 +1,14 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SwipperTab from "./SwipperTab";
 import ReusableComp from "./ReusableComp";
 
-const MenuTab = ({ examId }: { examId: string }) => {
+const MenuTab = ({ examId, tab }: { examId: string, tab: number }) => {
   const [activeTab, setActiveTab] = useState<number>(1);
-  const scroll = (direction: string) => {
-    const scrollContainer = document.querySelector(".overflow-x-scroll");
-    if (scrollContainer) {
-      scrollContainer.scrollLeft += direction === "left" ? -100 : 100;
-    }
-  };
+  console.log(tab)
+  useEffect(() => {
+    setActiveTab(tab);
+  }, [tab, examId]);
   return (
     <div>
       <SwipperTab setActiveTab={setActiveTab} activeTab={activeTab} />

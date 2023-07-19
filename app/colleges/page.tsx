@@ -7,10 +7,11 @@ import UseCollegesFormData, { CollegeDetails } from '@/utils/collegesFormData';
 import CollegeList from '@/components/colleges/CollegeList';
 import FilteredList from '@/components/colleges/FilteredList';
 import FilteredListName from '@/components/colleges/FilteredListName';
-import Skeleton from 'react-loading-skeleton';
 import { LuSettings2 } from 'react-icons/lu';
-import Modal from '@/components/colleges/Modal';
 import { IoClose } from 'react-icons/io5';
+import { useSearchParams } from 'next/navigation';
+import ApplyModal from '@/components/ApplyModal';
+import ApplyForm from '@/components/ApplyForm';
 
 export type CollegesFormData = {
   selectedStream: string;
@@ -31,10 +32,18 @@ const fetchCollegeDetails = async () => {
 }
 
 const Colleges = () => {
-
+  //if the user navigate using Link with query params
+  const searchParams = useSearchParams();
+  const stream = searchParams.get('stream');
+    //Apply form Modal state
+  const [showApplyModal, setShowApplyModal] = useState(false);
+  const [collegeName, setCollegeName] = useState('');
+  //custom hook for getting all the filtered arrays
   const { uniqueStatesArray, sortedStreamList, sortedDegreeList, sortedCityList, sortedSpecializationList, sortedCourse, sortedOwnerShip, sortedStudyMode } = UseCollegesFormData()
+
+  //filter selected state values
   const [collegesFormData, setCollegesFormData] = useState<CollegesFormData>({
-    selectedStream: '',
+    selectedStream: stream ?? '',
     selectedDegree: '',
     selectedState: '',
     selectedCity: '',
@@ -43,10 +52,15 @@ const Colleges = () => {
     selectedStudyMode: '',
     selectedOwnership: '',
   })
+
+  //if the user select any filter 
   const [filteredColleges, setFilteredColleges] = useState<CollegeDetails[]>([]);
   const [isFilterSelected, setIsFilterSelected] = useState(false);
+  //For Mobile responsive
   const [showModal, setShowModal] = useState(false);
 
+
+  //Fetching all the colleges from apis
   const { isLoading, error, data: allCollegeDetails } = useQuery({
     queryKey: ['collegeData'],
     queryFn: () => fetchCollegeDetails()
@@ -77,17 +91,31 @@ const Colleges = () => {
     }
   }, [allCollegeDetails, collegesFormData])
 
+
+  //for every filter value change reload the component 
   useEffect(() => {
     filterColleges();
   }, [filterColleges, collegesFormData]);
 
+  //set filter value in the object
   const handleFilterChange = (selected: string, value: string) => {
     setCollegesFormData(prev => ({ ...prev, [selected]: value }))
   };
+  //set the apply form modal value using the below funciton
+  const toggleModal = (collegeName: string) => {
+    setShowApplyModal(!showApplyModal);
+    setCollegeName(collegeName);
 
+  };
+
+  //return the view
   return (
     <div className="xl:max-[1100px] mx-auto h-full xl:w-[90%] py-4 md:[1000px] ">
-
+      {
+        showApplyModal && <ApplyModal onClose={()=>setShowApplyModal(false)}>
+          <ApplyForm collegeName={collegeName} />
+        </ApplyModal>
+      }
       <div className="md:flex md:gap-3 md:justify-between">
         {/* filter state */}
         <div className='flex justify-end pr-4 items-center cursor-pointer md:hidden' onClick={() => setShowModal(prev => !prev)} >
@@ -193,8 +221,8 @@ const Colleges = () => {
               {/* filterListCont */}
               <div className='py-5 mt-5 border'>
                 {
-                  isFilterSelected ? <CollegeList isLoading={isLoading} selected={collegesFormData.selectedStream.toUpperCase()} filteredColleges={filteredColleges} /> :
-                    <CollegeList selected={collegesFormData.selectedStream.toUpperCase()} isLoading={isLoading} filteredColleges={allCollegeDetails ? allCollegeDetails : []} />
+                  isFilterSelected ? <CollegeList toggleModal={toggleModal} isLoading={isLoading} selected={collegesFormData.selectedStream.toUpperCase()} filteredColleges={filteredColleges} /> :
+                    <CollegeList toggleModal={toggleModal} selected={collegesFormData.selectedStream.toUpperCase()} isLoading={isLoading} filteredColleges={allCollegeDetails ? allCollegeDetails : []} />
                 }
               </div>
             </div>

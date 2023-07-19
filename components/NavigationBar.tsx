@@ -91,7 +91,7 @@ const NavigationBar = () => {
 
 export default NavigationBar;
 
-
+// Header Menu
 const MenuItemComponent: React.FC<MenuItem> = ({ title, menu }) => {
     const [isHovered, setIsHovered] = useState(false);
     const len = menu.length;
@@ -131,13 +131,17 @@ const Dropdown: React.FC<CategoryItem> = ({ category, scategory }) => {
             <div className={`${isHovered ? 'scale-100' : 'scale-0'}  absolute z-10 left-[90%] top-0  px-5 py-4 bg-slate-50 t text-black grid grid-cols-3 w-[768px] h-[520px] transition-all duration-200 ease-in-out`}>
                 {scategory.map((subcategory) => (
                     <div key={subcategory.id} className="ml-2">
-                        <h4 className="m-0 font-bold">{subcategory.title}</h4>
+                        <Link href={subcategory.link??'/'} className="m-0 font-bold">{subcategory.title}</Link>
                         <ul className="m-0 pl-2">
-                            {subcategory.contents.map((content) => (
-                                <li key={content.id} className="list-none mb-1">
-                                    <Link href={content.link}>{content.title}</Link>
-                                </li>
-                            ))}
+                            {subcategory.contents.map((content) =>{
+                                return(
+                                    (
+                                        <li key={content.id} className="list-none mb-1">
+                                            <Link href={content.link}>{content.title}</Link>
+                                        </li>
+                                    )
+                                )
+                            })}
                         </ul>
                     </div>
                 ))}

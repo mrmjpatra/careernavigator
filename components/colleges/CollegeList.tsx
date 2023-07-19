@@ -9,7 +9,9 @@ import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 
 
-const CollegeList = ({ filteredColleges, isLoading, selected }: { filteredColleges: CollegeDetails[], isLoading: boolean, selected: string }) => {
+
+const CollegeList = ({ filteredColleges, isLoading, selected,toggleModal }: { filteredColleges: CollegeDetails[], isLoading: boolean, selected: string ,toggleModal:(collegeName:string)=>void}) => {
+
     const [sortingValue, setSortingValue] = useState('')
     const [sortingCollegesList, setSortingCollegesList] = useState<CollegeDetails[]>([]);
 
@@ -28,10 +30,11 @@ const CollegeList = ({ filteredColleges, isLoading, selected }: { filteredColleg
         filteringCollges();
     }, [filteredColleges, filteringCollges]);
 
-    
+
     return (
         <>
             <div>
+
                 <h2>&nbsp;
                     {/* filterListTitle */}
                     <span>Top {selected} Colleges in India 2023</span>
@@ -72,6 +75,9 @@ const CollegeList = ({ filteredColleges, isLoading, selected }: { filteredColleg
                                 <figure className='md:w-[40%] w-full h-full overflow-hidden flex bg-black'>
                                     <Image src={college.details?.collegePhoto ?? Collegephoto} width={250} height={200} alt='' className='h-44 w-full' />
                                 </figure>
+
+
+
                                 {/* Details */}
                                 <div className='md:w-[80%] pt-4 pl-2'>
                                     {/* CollegeDetails */}
@@ -102,13 +108,15 @@ const CollegeList = ({ filteredColleges, isLoading, selected }: { filteredColleg
                                 </div>
                                 {/* listaction */}
                                 <div className='flex md:flex-col justify-center px-4 md:w-[30%] mt-3 md:mt-0 gap-3 '>
-                                    <button className='bg-blue-600 rounded text-white py-2 px-4 text-center shadow-md shadow-blue-400'>Apply Now</button>
-                                    <button className='border shadow shadow-black/50 rounded py-2 px-4 text-center flex items-center gap-2'>
+                                   
+                                    <button onClick={() => toggleModal(college.collegeName)} className='bg-blue-600 rounded text-white py-2 px-4 text-center shadow-md shadow-blue-400'>Apply Now</button>
+
+                                    <Link href={'/contact'} className='border shadow shadow-black/50 rounded py-2 px-4 text-center flex items-center gap-2'>
                                         <IoCall />
                                         <span>
                                             Contact
                                         </span>
-                                    </button>
+                                    </Link>
                                 </div>
                             </div>
                         </section>)

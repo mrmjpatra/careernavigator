@@ -10,6 +10,7 @@ import { GiBlackBook } from 'react-icons/gi'
 import { AiOutlineMedicineBox } from 'react-icons/ai'
 import { v4 as uuid } from 'uuid'
 import { createElement } from 'react';
+import Link from 'next/link';
 
 const TopCategories = () => {
     return (
@@ -23,10 +24,12 @@ const TopCategories = () => {
                             <li key={list.id} className='rounded shadow-lg bg-indigo-50 shadow-indigo-600/20 cursor-pointer group'>
                                 <div className='px-3 py-5 flex items-center gap-3 relative'>
                                     <span className='text-xl md:text-3xl transition-all ease-out duration-200 -translate-y-0 group-hover:-translate-y-3 bg-indigo-600 rounded-3xl p-3 text-white'> {createElement(list.icon)}</span>
-                                    <div className='flex flex-col w-full'>
-                                        <span className='text-2xl '>{list.title}</span>
-                                        <span>Explore</span>
-                                    </div>
+                                    <Link href={list.href}>
+                                        <div className='flex flex-col w-full'>
+                                            <span className='text-2xl '>{list.title}</span>
+                                            <span>Explore</span>
+                                        </div>
+                                    </Link>
                                 </div>
                             </li>)
                     }
@@ -42,67 +45,145 @@ export default TopCategories;
 type TopCollgeListType = {
     id: string,
     icon: IconType,
-    title: string
+    title: string,
+    href: {
+        pathname: string;
+        query: {
+            stream: string;
+        };
+    };
 }
 const TopCollegeList: TopCollgeListType[] = [
     {
         id: uuid(),
         icon: FiSettings,
-        title: 'Enginnering'
+        title: 'Enginnering',
+        href: {
+            pathname: '/colleges',
+            query: {
+                stream: 'engineering'
+            }
+        }
     },
     {
         id: uuid(),
         icon: BsBook,
-        title: 'MBA'
+        title: 'MBA',
+        href: {
+            pathname: '/colleges',
+            query: {
+                stream: 'mba'
+            }
+        }
     },
     {
         id: uuid(),
         icon: BsBook,
-        title: 'Commerce'
+        title: 'Commerce',
+        href: {
+            pathname: '/colleges',
+            query: {
+                stream: 'commerce'
+            }
+        }
     },
     {
         id: uuid(),
         icon: BiPlusMedical,
-        title: 'Medical'
+        title: 'Medical',
+        href: {
+            pathname: '/colleges',
+            query: {
+                stream: 'medical'
+            }
+        }
     },
     {
         id: uuid(),
         icon: IoFlaskOutline,
-        title: 'Science'
+        title: 'Science',
+        href: {
+            pathname: '/colleges',
+            query: {
+                stream: 'science'
+            }
+        }
     },
     {
         id: uuid(),
         icon: FaHotel,
-        title: 'Hotel Mgmt'
+        title: 'Hotel Mgmt',
+        href: {
+            pathname: '/colleges',
+            query: {
+                stream: 'hotel-mgmt'
+            }
+        }
     },
     {
         id: uuid(),
         icon: MdComputer,
-        title: 'IT'
+        title: 'IT',
+        href: {
+            pathname: '/colleges',
+            query: {
+                stream: 'it'
+            }
+        }
     },
     {
         id: uuid(),
         icon: GiBlackBook,
-        title: 'Arts'
+        title: 'Arts',
+        href: {
+            pathname: '/colleges',
+            query: {
+                stream: 'arts'
+            }
+        }
     },
     {
         id: uuid(),
         icon: BiInjection,
-        title: 'Nursing'
+        title: 'Nursing',
+        href: {
+            pathname: '/colleges',
+            query: {
+                stream: 'nursing'
+            }
+        }
     },
     {
         id: uuid(),
         icon: ImHammer2,
-        title: 'Law'
+        title: 'Law',
+        href: {
+            pathname: '/colleges',
+            query: {
+                stream: 'law'
+            }
+        }
     },
     {
         id: uuid(),
         icon: AiOutlineMedicineBox,
-        title: 'Pharmacy'
+        title: 'Pharmacy',
+        href: {
+            pathname: '/colleges',
+            query: {
+                stream: 'pharmacy'
+            }
+        }
     },
     {
         id: uuid(),
         icon: IoSchoolOutline,
-        title: 'Education'
+        title: 'Education',
+        href: {
+            pathname: '/colleges',
+            query: {
+                stream: 'education'
+            }
+        }
     },
 ]

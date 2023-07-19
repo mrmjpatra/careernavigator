@@ -7,6 +7,7 @@ import { FC, ReactNode } from "react";
 import Providers from "@/utils/provider";
 import { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { Toaster } from "react-hot-toast";
 
 const roboto = Roboto({
   weight: ["400", "500", "700", "900"],
@@ -46,6 +47,7 @@ const RootLayout: FC<RootLayoutProps> = ({
       >
         <ReduxProvider>
           <Providers>
+          <Toaster/>
             <SkeletonTheme baseColor="#cecece" highlightColor="#444">
               <NavigationBar />
               {children}

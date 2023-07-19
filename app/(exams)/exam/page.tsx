@@ -22,10 +22,10 @@ const ExamsHomePage = () => {
 
   return (
     <div>
-        <h1 className='text-2xl font-bold text-blue-600 text-center'>Exams List</h1>
-        {
-          examNameList?.map(exam=><Link href={`/exam/${exam.examName}`} key={exam.id}> <h2 >{exam.examName.toLocaleUpperCase()}</h2></Link>)
-        }
+      <h1 className='text-2xl font-bold text-blue-600 text-center'>Exams List</h1>
+      {
+        examNameList?.map(exam => <Link href={`/exam/${exam.examName}`} key={exam.id}> <h2 >{exam.examName.toLocaleUpperCase()}</h2></Link>)
+      }
     </div>
   )
 }

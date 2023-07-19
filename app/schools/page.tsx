@@ -1,7 +1,7 @@
 'use client'
 import SchoolCategoryComp from '@/components/School/SchoolCategoryComp';
 import SchoolDisplayComp from '@/components/School/SchoolDisplayComp';
-import UseCollegesFormData from '@/utils/collegesFormData';
+import UseCollegesFormData, { SchoolFormDetailsType } from '@/utils/collegesFormData';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useSearchParams } from 'next/navigation';
@@ -9,25 +9,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { IoClose } from 'react-icons/io5';
 import { LuSettings2 } from 'react-icons/lu';
 
-export type SchoolFormDetailsType = {
-    id: string
-    schoolName: string,
-    description: string,
-    state: string,
-    city: string,
-    ownership: string,
-    board: string,
-    facultyStrength: string,
-    studentStrength: string,
-    address: {
-        fullAddrs: string,
-        phoneNumber: string,
-        email: string,
-        website?: string
-    },
-    schoolPhoto: string,
-    bannerPhotos: string[]
-}
+
 const fetchSchoolDetails = async () => {
     const { data } = await axios.get(`${process.env.HOST}/api/school`);
     const details: SchoolFormDetailsType[] = data.schoolList;
@@ -36,10 +18,7 @@ const fetchSchoolDetails = async () => {
 
 const SchoolHomePage = () => {
     const searchParams = useSearchParams()
-
     const search = searchParams.get('data')
-    console.log(search)
-
     const [showModal, setShowModal] = useState(false);
     const [isFilterSelected, setIsFilterSelected] = useState(false);
     const [filteredSchools, setFilteredSchools] = useState<SchoolFormDetailsType[]>([]);
@@ -47,7 +26,7 @@ const SchoolHomePage = () => {
         selectedState: '',
         selectedCity: '',
         selectedOwnership: '',
-        selectedBoard: '',
+        selectedBoard: search??'',
     })
     const { uniqueStatesArray, sortedCityList, sortedOwnerShip, sortedBoardList } = UseCollegesFormData();
 
@@ -55,25 +34,26 @@ const SchoolHomePage = () => {
         queryKey: ['schoolData'],
         queryFn: () => fetchSchoolDetails()
     });
-    const filterSchools = useCallback(() => {
-        if (allSchoolDetails && Object.values(listOfCategoryList).some((element) => element !== '')) {
-            setIsFilterSelected(true);
-            const filterdData = allSchoolDetails.filter(school => (school.state === listOfCategoryList.selectedState || school.city === listOfCategoryList.selectedCity ||
-                school.ownership === listOfCategoryList.selectedOwnership ||
-                school.board === listOfCategoryList.selectedBoard));
-            setFilteredSchools(filterdData);
-        }
-    }, [allSchoolDetails, listOfCategoryList]);
+
+
 
     const handleFilterChange = (selected: string, value: string) => {
         setListOfCategoryList(prev => ({ ...prev, [selected]: value }))
     };
+
     useEffect(() => {
-        if (search !== null) {
-            setListOfCategoryList(prev => ({ ...prev, selectedBoard: search }))
-        }
+       
+        const filterSchools = () => {
+            if (Object.values(listOfCategoryList).some((element) => element !== '')) {
+                setIsFilterSelected(true);
+                const filterdData = allSchoolDetails?.filter(school => (school.state === listOfCategoryList.selectedState || school.city === listOfCategoryList.selectedCity ||
+                    school.ownership === listOfCategoryList.selectedOwnership ||
+                    school.board === listOfCategoryList.selectedBoard));
+                setFilteredSchools(filterdData??[]);
+            }
+        };
         filterSchools();
-    }, [listOfCategoryList, filterSchools, search]);
+    }, [listOfCategoryList,allSchoolDetails]);
     return (
         <div className="xl:max-[1100px] mx-auto h-full xl:w-[90%] py-4 md:[1000px] ">
             <div className="md:flex md:gap-3 md:justify-between">

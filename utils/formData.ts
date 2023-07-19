@@ -8,8 +8,8 @@ export type Stream = {
 export const StreamList: Stream[] = [
     {
         id: uuid(),
-        value: 'mgmt',
-        name: 'Management'
+        value: 'mba',
+        name: 'MBA'
     },
     {
         id: uuid(),

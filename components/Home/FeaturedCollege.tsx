@@ -1,18 +1,11 @@
 'use client'
 import { Swiper, SwiperSlide } from "swiper/react";
-import styles from '@/styles/common.module.scss'
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Autoplay, EffectFade, Navigation, Pagination } from "swiper";
-import Image from "next/image";
-import c1 from '@/public/assets/c2.jpg'
-import c2 from '@/public/assets/c3.jpg'
-import c3 from '@/public/assets/c4.jpg'
-import c4 from '@/public/assets/c5.jpg'
-import c5 from '@/public/assets/c6.jpg'
 import { IoArrowBack } from 'react-icons/io5'
 import { useRef } from "react";
 import { Swiper as SwiperType } from 'swiper';
