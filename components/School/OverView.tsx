@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react'
-import SchoolSwipper from './SchoolSwipper'
-import { SchoolFormDetailsType } from '@/app/schools/page'
 import { FaLocationDot, FaPeopleGroup } from 'react-icons/fa6';
 import { PiStudentFill } from 'react-icons/pi';
 import { LiaShareAltSolid } from 'react-icons/lia';
@@ -8,6 +6,8 @@ import { IoCallSharp } from 'react-icons/io5';
 import { MdEmail } from 'react-icons/md';
 import { BsBrowserChrome } from 'react-icons/bs';
 import { convertWord } from '../CollegeDetails/CollegeDetails';
+import { SchoolFormDetailsType } from '@/utils/collegesFormData';
+import SchoolSwipper from './SchoolSwipper';
 
 
 const SchoolOverView = ({ schoolName, description, state, city, facultyStrength, studentStrength, address, board, ownership, bannerPhotos, schoolPhoto, id }: SchoolFormDetailsType) => {
