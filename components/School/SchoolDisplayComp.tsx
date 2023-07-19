@@ -1,12 +1,8 @@
-import Image from 'next/image';
 import React, { useCallback, useEffect, useState } from 'react'
-import { GrLocation } from 'react-icons/gr';
-import { IoCall } from 'react-icons/io5';
-import { MdOutlinePersonOutline } from 'react-icons/md';
 import Skeleton from 'react-loading-skeleton';
 import Link from 'next/link';
-import { SchoolFormDetailsType } from '@/app/schools/page';
 import SchoolItem from './SchoolItem';
+import { SchoolFormDetailsType } from '@/utils/collegesFormData';
 
 type SchoolDisplayType = {
   schoolList: SchoolFormDetailsType[],

@@ -1,14 +1,13 @@
-import { SchoolFormDetailsType } from '@/app/schools/page'
-import React, { useEffect } from 'react'
+import React from 'react'
 import Collegephoto from '@/public/assets/joshDefaltBanner1.jpg'
 import Link from 'next/link'
-import { GrLocation } from 'react-icons/gr'
-import { MdOutlinePersonOutline, MdSchool } from 'react-icons/md'
 import { IoCall } from 'react-icons/io5'
 import Image from 'next/image'
 import { convertWord } from '../CollegeDetails/CollegeDetails'
 import { FaLocationDot } from 'react-icons/fa6'
 import { BsPersonFill } from 'react-icons/bs'
+import { SchoolFormDetailsType } from '@/utils/collegesFormData'
+import { MdSchool } from 'react-icons/md'
 
 const SchoolItem = ({ id, schoolName, state, city, board, ownership, schoolPhoto }: SchoolFormDetailsType) => {
     return (

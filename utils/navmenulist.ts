@@ -34,6 +34,12 @@ export interface MenuItem {
     id: string;
     title: string;
     icon: IconType
+    link: string | {
+        pathname: string;
+        query: {
+            data: string;
+        };
+    };
     menu: CategoryItem[];
 }
 
@@ -42,6 +48,7 @@ export const navmenulist: MenuItem[] = [
     {
         id: uuid(),
         title: 'Colleges',
+        link: '/',
         icon: LuSchool,
         menu: [
             //Enginnering
@@ -2040,6 +2047,7 @@ export const navmenulist: MenuItem[] = [
     {
         id: uuid(),
         title: 'Exam',
+        link: '/',
         icon: BsBook,
         menu: [
             //Enginnering
@@ -2056,7 +2064,7 @@ export const navmenulist: MenuItem[] = [
                                 title: 'Eligibility',
                                 link: {
                                     pathname: '/exam/jee-mains',
-                                    query:{
+                                    query: {
                                         activeTab: '3'
                                     }
                                 }
@@ -2066,7 +2074,7 @@ export const navmenulist: MenuItem[] = [
                                 title: 'Syllabus',
                                 link: {
                                     pathname: '/exam/jee-mains',
-                                    query:{
+                                    query: {
                                         activeTab: '7'
                                     }
                                 }
@@ -2076,7 +2084,7 @@ export const navmenulist: MenuItem[] = [
                                 title: 'Exam Pattern',
                                 link: {
                                     pathname: '/exam/jee-mains',
-                                    query:{
+                                    query: {
                                         activeTab: '6'
                                     }
                                 }
@@ -2086,7 +2094,7 @@ export const navmenulist: MenuItem[] = [
                                 title: 'How to Prepare',
                                 link: {
                                     pathname: '/exam/jee-mains',
-                                    query:{
+                                    query: {
                                         activeTab: '8'
                                     }
                                 }
@@ -2096,7 +2104,7 @@ export const navmenulist: MenuItem[] = [
                                 title: 'Previous Year Question Paper',
                                 link: {
                                     pathname: '/exam/jee-mains',
-                                    query:{
+                                    query: {
                                         activeTab: '10'
                                     }
                                 }
@@ -2247,7 +2255,7 @@ export const navmenulist: MenuItem[] = [
                                 title: 'Eligibility',
                                 link: {
                                     pathname: '/exam/cat',
-                                    query:{
+                                    query: {
                                         activeTab: '3'
                                     }
                                 }
@@ -2257,7 +2265,7 @@ export const navmenulist: MenuItem[] = [
                                 title: 'Syllabus',
                                 link: {
                                     pathname: '/exam/cat',
-                                    query:{
+                                    query: {
                                         activeTab: '7'
                                     }
                                 }
@@ -2267,7 +2275,7 @@ export const navmenulist: MenuItem[] = [
                                 title: 'Exam Pattern',
                                 link: {
                                     pathname: '/exam/cat',
-                                    query:{
+                                    query: {
                                         activeTab: '6'
                                     }
                                 }
@@ -2277,7 +2285,7 @@ export const navmenulist: MenuItem[] = [
                                 title: 'How to Prepare',
                                 link: {
                                     pathname: '/exam/cat',
-                                    query:{
+                                    query: {
                                         activeTab: '8'
                                     }
                                 }
@@ -2287,7 +2295,7 @@ export const navmenulist: MenuItem[] = [
                                 title: 'Previous Year Question Paper',
                                 link: {
                                     pathname: '/exam/cat',
-                                    query:{
+                                    query: {
                                         activeTab: '10'
                                     }
                                 }
@@ -3992,25 +4000,39 @@ export const navmenulist: MenuItem[] = [
     },
     {
         id: uuid(),
-        title: 'Carrers',
+        title: 'Articles',
+        link: '/articles',
         icon: IoSchoolOutline,
         menu: []
     },
     {
         id: uuid(),
         title: 'CBSE',
+        link: {
+            pathname: '/schools',
+            query: {
+                data: 'cbse'
+            }
+        },
         icon: BsDashSquare,
         menu: []
     },
     {
         id: uuid(),
-        title: 'State Board',
+        title: 'CHSE',
+        link: {
+            pathname: '/schools',
+            query: {
+                data: 'chse'
+            }
+        },
         icon: FaScroll,
         menu: []
     },
     {
         id: uuid(),
-        title: 'More',
+        title: 'Articles',
+        link: '/articles',
         icon: PiSquaresFour,
         menu: []
     },

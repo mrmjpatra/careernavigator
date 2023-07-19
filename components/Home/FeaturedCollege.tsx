@@ -7,12 +7,42 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Autoplay, EffectFade, Navigation, Pagination } from "swiper";
 import { IoArrowBack } from 'react-icons/io5'
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Swiper as SwiperType } from 'swiper';
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
+export type VideoUrlsType = {
+    id: string,
+    videoUrl: string,
+    createdAt: string,
+    updatedAt: string
+}
+
+const fetchData = async () => {
+    const { data } = await axios.get(`${process.env.HOST}/api/videos`);
+    const details: VideoUrlsType[] = data.message;
+    return details;
+}
 
 const FeaturedCollege = () => {
+    const [sortedVideoUrls, setSortedVideosUrls] = useState<VideoUrlsType[]>();
     const swiperRef = useRef<SwiperType>();
+    const { isLoading, error, data: videoUrls } = useQuery({
+        queryKey: ['videoUrls'],
+        queryFn: () => fetchData()
+    });
+    useEffect(() => {
+        if (!isLoading && !error && videoUrls) {
+            const sortedArray = videoUrls.sort((a, b) => new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf());
+            setSortedVideosUrls(sortedArray);
+            const iframe = document.querySelector('iframe');
+            if (iframe) {
+                // iframe.style.width = '100%';
+                // iframe.style.height = '300px';
+            }
+        }
+    }, [isLoading, error, videoUrls]);
     return (
         <div className="py-5">
             <h1 className="text-blue-800 text-3xl md:text-4xl text-center mb-6">Featured College</h1>
@@ -23,7 +53,7 @@ const FeaturedCollege = () => {
                     pagination={{
                         clickable: true,
                     }}
-                    
+
                     onBeforeInit={(swiper) => {
                         swiperRef.current = swiper;
                     }}
@@ -31,26 +61,13 @@ const FeaturedCollege = () => {
                     modules={[EffectFade, Navigation, Pagination, Autoplay]}
                     className="md:w-3/4 mx-auto w-[90%]"
                 >
-                    <SwiperSlide>
-                        <div className="flex justify-center md:py-5">
-                            <iframe  src="https://www.youtube.com/embed/Yiw354fkSOs" title="Pasoori Nu: SatyaPrem Ki Katha |Kartik, Kiara |Arijit, Rochak, Ali, Tulsi, Gurpreet |Sajid N, Sameer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen className="border-none rounded-lg shadow-md shadow-red-800 w-full h-[200px] sm:h-[350px] md:w-[836px] md:h-[441px]"></iframe>
-                        </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <div className="flex justify-center md:py-5">
-                            <iframe  src="https://www.youtube.com/embed/Yiw354fkSOs" title="Pasoori Nu: SatyaPrem Ki Katha |Kartik, Kiara |Arijit, Rochak, Ali, Tulsi, Gurpreet |Sajid N, Sameer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen className="border-none rounded-lg shadow-md shadow-red-800 md:w-[836px] md:h-[441px]"></iframe>
-                        </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <div className="flex justify-center md:py-5">
-                            <iframe  src="https://www.youtube.com/embed/Yiw354fkSOs" title="Pasoori Nu: SatyaPrem Ki Katha |Kartik, Kiara |Arijit, Rochak, Ali, Tulsi, Gurpreet |Sajid N, Sameer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen className="border-none rounded-lg shadow-md shadow-red-800 md:w-[836px] md:h-[441px]"></iframe>
-                        </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <div className="flex justify-center md:py-5">
-                            <iframe  src="https://www.youtube.com/embed/Yiw354fkSOs" title="Pasoori Nu: SatyaPrem Ki Katha |Kartik, Kiara |Arijit, Rochak, Ali, Tulsi, Gurpreet |Sajid N, Sameer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen className="border-none rounded-lg shadow-md shadow-red-800 md:w-[836px] md:h-[441px]"></iframe>
-                        </div>
-                    </SwiperSlide>
+                    {
+                        sortedVideoUrls?.map(video => <SwiperSlide key={video.id}>
+                            <div className="flex justify-center md:py-5">
+                                <iframe src={video.videoUrl} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen className="border-none rounded-lg shadow-md shadow-red-800 w-full h-[200px] sm:h-[350px] md:w-[836px] md:h-[441px]"></iframe>
+                            </div>
+                        </SwiperSlide>)
+                    }
                 </Swiper>
 
                 <div

@@ -1,5 +1,4 @@
 'use client'
-import { SchoolFormDetailsType } from '@/app/schools/page';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import Image from 'next/image';
@@ -9,6 +8,7 @@ import { MdOutlinePersonOutline } from 'react-icons/md';
 import Skeleton from 'react-loading-skeleton';
 import { convertWord } from '../CollegeDetails/CollegeDetails';
 import SchoolOverView from './OverView';
+import { SchoolFormDetailsType } from '@/utils/collegesFormData';
 
 
 const SchoolDetails = ({ id }: { id: string }) => {
