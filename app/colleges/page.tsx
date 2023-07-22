@@ -1,7 +1,6 @@
 'use client'
-
 import axios from 'axios';
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useQuery } from '@tanstack/react-query';
 import UseCollegesFormData from '@/utils/collegesFormData';
 import CollegeList from '@/components/colleges/CollegeList';
@@ -55,11 +54,10 @@ const Colleges = () => {
   })
 
   //if the user select any filter 
-  const [filteredColleges, setFilteredColleges] = useState<fetchCollegeDetailsWithCourses[]>([]);
+  // const [filteredColleges, setFilteredColleges] = useState<fetchCollegeDetailsWithCourses[]>([]);
   const [isFilterSelected, setIsFilterSelected] = useState(false);
   //For Mobile responsive
   const [showModal, setShowModal] = useState(false);
-
 
   //Fetching all the colleges from apis
   const { isLoading, error, data: allCollegeDetails } = useQuery({
@@ -67,47 +65,65 @@ const Colleges = () => {
     queryFn: () => fetchData()
   });
 
-  const filterColleges = useCallback(() => {
-    if (allCollegeDetails && Object.values(collegesFormData).some((element) => element !== '')) {
-      const filteredColleges = allCollegeDetails.filter((college) => {
-
-        const matchingCourse = college.courses.find((course) => {
-          const conditions = [
-            course.stream === collegesFormData.selectedStream,
-            course.degree === collegesFormData.selectedDegree,
-            course.specialization === collegesFormData.selectedSpecialization,
-            course.courseType === collegesFormData.selectedCourseType,
-            course.studyMode === collegesFormData.selectedStudyMode,
-            college.city === collegesFormData.selectedCity,
-            college.state === collegesFormData.selectedState,
-            college.ownership === collegesFormData.selectedOwnership
-          ];
-          return conditions.some((condition) => condition);
-        });
-        return matchingCourse !== undefined;
+  const filteredColleges = useMemo(() => {
+    return allCollegeDetails?.filter(college => {
+      const matchingCourse = college.courses.find((course) => {
+        const conditions = [
+          course.stream === collegesFormData.selectedStream,
+          course.degree === collegesFormData.selectedDegree,
+          course.specialization === collegesFormData.selectedSpecialization,
+          course.courseType === collegesFormData.selectedCourseType,
+          course.studyMode === collegesFormData.selectedStudyMode,
+          college.city === collegesFormData.selectedCity,
+          college.state === collegesFormData.selectedState,
+          college.ownership === collegesFormData.selectedOwnership
+        ];
+        return conditions.some((condition) => condition);
       });
+      return matchingCourse !== undefined;
+    })
+  }, [allCollegeDetails,collegesFormData]);
 
-      setFilteredColleges(filteredColleges);
-      setIsFilterSelected(true);
-    }
-  }, [allCollegeDetails, collegesFormData])
+  // const filterColleges = useCallback(() => {
+  //   if (allCollegeDetails && Object.values(collegesFormData).some((element) => element !== '')) {
+  //     const filteredColleges = allCollegeDetails.filter((college) => {
+  //       const matchingCourse = college.courses.find((course) => {
+  //         const conditions = [
+  //           course.stream === collegesFormData.selectedStream,
+  //           course.degree === collegesFormData.selectedDegree,
+  //           course.specialization === collegesFormData.selectedSpecialization,
+  //           course.courseType === collegesFormData.selectedCourseType,
+  //           course.studyMode === collegesFormData.selectedStudyMode,
+  //           college.city === collegesFormData.selectedCity,
+  //           college.state === collegesFormData.selectedState,
+  //           college.ownership === collegesFormData.selectedOwnership
+  //         ];
+  //         return conditions.some((condition) => condition);
+  //       });
+  //       return matchingCourse !== undefined;
+  //     });
+
+  //     setFilteredColleges(filteredColleges);
+  //     setIsFilterSelected(true);
+  //   }
+  // }, [allCollegeDetails, collegesFormData])
 
 
-  //for every filter value change reload the component 
-  useEffect(() => {
-    filterColleges();
-  }, [filterColleges, collegesFormData]);
+  // //for every filter value change reload the component 
+  // useEffect(() => {
+  //   filterColleges();
+  // }, [filterColleges, collegesFormData]);
 
   //set filter value in the object
-  const handleFilterChange = (selected: string, value: string) => {
+  const handleFilterChange = useCallback((selected: string, value: string) => {
+    setIsFilterSelected(true);
     setCollegesFormData(prev => ({ ...prev, [selected]: value }))
-  };
+  }, []);
   //set the apply form modal value using the below funciton
-  const toggleModal = (collegeName: string) => {
+  const toggleModal = useCallback((collegeName: string) => {
     setShowApplyModal(!showApplyModal);
     setCollegeName(collegeName);
-
-  };
+  }, [showApplyModal]);
 
   //return the view
   return (
@@ -220,8 +236,10 @@ const Colleges = () => {
             {/* filterListCont */}
             <div className='py-5 border'>
               {
-                isFilterSelected ? <CollegeList toggleModal={toggleModal} isLoading={isLoading} selected={collegesFormData.selectedStream.toUpperCase()} filteredColleges={filteredColleges} /> :
-                  <CollegeList toggleModal={toggleModal} selected={collegesFormData.selectedStream.toUpperCase()} isLoading={isLoading} filteredColleges={allCollegeDetails ? allCollegeDetails : []} />
+                isFilterSelected ? (
+                  filteredColleges &&
+                  <CollegeList toggleModal={toggleModal} isLoading={isLoading} selected={collegesFormData.selectedStream.toUpperCase()} filteredColleges={filteredColleges} />) :
+                  (<CollegeList toggleModal={toggleModal} selected={collegesFormData.selectedStream.toUpperCase()} isLoading={isLoading} filteredColleges={allCollegeDetails ? allCollegeDetails : []} />)
               }
             </div>
 

@@ -77,7 +77,7 @@ const CollegeList = ({ filteredColleges, isLoading, selected, toggleModal }: { f
                             <section key={college.id} className='p-0 bg-slate-100 mx-2 my-7 border relative rounded-md hover:shadow-md  hover:-translate-y-1 cursor-pointer transition-transform duration-300 ease-out'>
                                 <div className='flex w-full py-3 px-2 items-center flex-col sm:flex-row '>
                                     <figure className='md:w-[40%] w-full h-full overflow-hidden flex bg-black'>
-                                        <Image src={college.collegePhoto.downloadUrl ?? Collegephoto} width={250} height={200} alt='' className='h-44 w-full' />
+                                        <Image src={college.collegePhoto.downloadUrl ?? Collegephoto} width={250} height={200} alt='' quality={30} className='h-44 w-full' />
                                     </figure>
                                     {/* Details */}
                                     <div className='md:w-[80%] pt-4 pl-2'>

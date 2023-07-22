@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useEffect, useState } from 'react'
+import React, {  FC, useCallback, useMemo, useState } from 'react'
 import { FiSearch } from 'react-icons/fi';
 import { TiTick } from 'react-icons/ti';
 import Skeleton from 'react-loading-skeleton';
@@ -14,27 +14,27 @@ type FilterSectionProps = {
 };
 
 
-const FilteredList: FC<FilterSectionProps> = ({ title,
-    onFilterChange, selectedItem, selected, list, name, isLoading }) => {
-    const [searchQuery, setSearchQuery] = useState('')
-    const [filteredList, setFilteredList] = useState(list);
+const FilteredList: FC<FilterSectionProps> = ({ title, onFilterChange, selectedItem, selected, list, name, isLoading }) => {
 
-    const filterList = (list: any[], searchValue: string, searchProperty?: string): any[] => {
-        if (searchProperty) {
-            return list.filter((item) =>
-                item[searchProperty].toLowerCase().includes(searchValue.toLowerCase())
-            );
-        }
-        else {
-            return list.filter((item: string) =>
-                item.toLowerCase().includes(searchValue.toLowerCase())
-            );
-        }
-    };
-    useEffect(() => {
-        const sList = filterList(list, searchQuery, name)
-        setFilteredList(sList);
-    }, [list, searchQuery, name]);
+    const [searchQuery, setSearchQuery] = useState('')
+    console.log(searchQuery)    
+    const filterList = useCallback(
+        (list: any[], searchValue: string, searchProperty?: string): any[] => {
+            if (searchProperty) {
+                return list.filter((item) =>
+                    item[searchProperty].toLowerCase().includes(searchValue.toLowerCase())
+                );
+            } else {
+                return list.filter((item: string) =>
+                    item.toLowerCase().includes(searchValue.toLowerCase())
+                );
+            }
+        },
+        []
+    );
+    const filteredList = useMemo(() => {
+        return filterList(list, searchQuery, name);
+    }, [list, searchQuery, name,filterList])
 
     return (
         <div>
@@ -59,40 +59,40 @@ const FilteredList: FC<FilterSectionProps> = ({ title,
                     {/* FilterList */}
                     {
                         name ? (
-                        <ul>
-                            {filteredList?.map((item) => (
-                                <li key={item.id} className="flex items-center gap-3 mb-3 relative">
-                                    {
-                                        isLoading ? <Skeleton circle width={'1.5rem'} height={'1.5rem'} /> : <input
-                                            type="radio"
-                                            name={title.toLowerCase()}
-                                            value={item.value.toLowerCase()}
-                                            checked={item.value.toLowerCase() === selectedItem}
-                                            onChange={() => onFilterChange(selected, item.value.toLowerCase())}
-                                            className="hidden"
-                                            id={item.value.toLowerCase() + title}
-                                        />
-                                    }
+                            <ul>
+                                {filteredList?.map((item) => (
+                                    <li key={item.id} className="flex items-center gap-3 mb-3 relative">
+                                        {
+                                            isLoading ? <Skeleton circle width={'1.5rem'} height={'1.5rem'} /> : <input
+                                                type="radio"
+                                                name={title.toLowerCase()}
+                                                value={item.value.toLowerCase()}
+                                                checked={item.value.toLowerCase() === selectedItem}
+                                                onChange={() => onFilterChange(selected, item.value.toLowerCase())}
+                                                className="hidden"
+                                                id={item.value.toLowerCase() + title}
+                                            />
+                                        }
 
-                                    {
-                                        isLoading ? <Skeleton width={'10rem'} /> :
-                                            <label htmlFor={item.value.toLowerCase() + title} className="flex items-center gap-3 mb-3 cursor-pointer">
-                                                <span
-                                                    className={`w-5 h-5 inline-block border-2 rounded-full ${item.value.toLowerCase() === selectedItem ? 'bg-blue-500 border-blue-500' : 'border-gray-400'
-                                                        }`}
-                                                >
-                                                    {item.value.toLowerCase() === selectedItem && <span><TiTick color="white" /></span>}
-                                                </span>
-                                                {
-                                                    <span>{item.name}</span>
-                                                }
+                                        {
+                                            isLoading ? <Skeleton width={'10rem'} /> :
+                                                <label htmlFor={item.value.toLowerCase() + title} className="flex items-center gap-3 mb-3 cursor-pointer">
+                                                    <span
+                                                        className={`w-5 h-5 inline-block border-2 rounded-full ${item.value.toLowerCase() === selectedItem ? 'bg-blue-500 border-blue-500' : 'border-gray-400'
+                                                            }`}
+                                                    >
+                                                        {item.value.toLowerCase() === selectedItem && <span><TiTick color="white" /></span>}
+                                                    </span>
+                                                    {
+                                                        <span>{item.name}</span>
+                                                    }
 
-                                            </label>
-                                    }
+                                                </label>
+                                        }
 
-                                </li>
-                            ))}
-                        </ul>) :
+                                    </li>
+                                ))}
+                            </ul>) :
                             (
                                 <ul>
                                     {

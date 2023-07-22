@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useEffect, useState } from 'react'
+import React, { ChangeEvent, FC, useCallback, useEffect, useMemo, useState } from 'react'
 import { FiSearch } from 'react-icons/fi';
 import { TiTick } from 'react-icons/ti';
 import Skeleton from 'react-loading-skeleton';
@@ -16,26 +16,28 @@ type FilterSectionProps = {
 
 const FilteredListName: FC<FilterSectionProps> = ({ title,
   onFilterChange, selectedItem, selected, list, name, isLoading }) => {
-
   const [searchQuery, setSearchQuery] = useState('')
-  const [filteredList, setFilteredList] = useState(list);
 
-  const filterList = (list: any[], searchValue: string, searchProperty?: string): any[] => {
-    if (searchProperty) {
-      return list.filter((item) =>
-        item[searchProperty].toLowerCase().includes(searchValue.toLowerCase())
-      );
-    }
-    else {
-      return list.filter((item: string) =>
-        item.toLowerCase().includes(searchValue.toLowerCase())
-      );
-    }
-  };
-  useEffect(() => {
-    const sList = filterList(list, searchQuery, name)
-    setFilteredList(sList);
-  }, [list, searchQuery, name]);
+  const filterList = useCallback(
+    (list: any[], searchValue: string, searchProperty?: string): any[] => {
+      if (searchProperty) {
+        return list.filter((item) =>
+          item[searchProperty].toLowerCase().includes(searchValue.toLowerCase())
+        );
+      } else {
+        return list.filter((item: string) =>
+          item.toLowerCase().includes(searchValue.toLowerCase())
+        );
+      }
+    },
+    []
+  );
+
+  const filteredList = useMemo(() => {
+    return filterList(list, searchQuery, name);
+  }, [list, searchQuery, name, filterList])
+
+
 
   return (
     <div>
