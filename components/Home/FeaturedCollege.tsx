@@ -84,7 +84,7 @@ const FeaturedCollege = () => {
                         sortedVideoUrls?.map(video => <SwiperSlide key={video.id}>
                             {/* <div className="flex justify-center md:py-5"> */}
                             {
-                                !showPlayer && <h5>Loading......</h5>
+                                !showPlayer && <span>Loading......</span>
                             }
                             {showPlayer &&
                                 <ReactPlayer
