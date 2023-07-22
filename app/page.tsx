@@ -1,9 +1,9 @@
 import ExploreSchoolBoard from "@/components/Home/ExploreSchoolBoard";
-import FeaturedCollege from "@/components/Home/FeaturedCollege";
 import Header from "@/components/Home/Header";
-import HomeSwipper from "@/components/Home/HomeSwipper";
 import TopCategories from "@/components/Home/TopCategories";
-
+import dynamic from "next/dynamic";
+const HomeSwipper = dynamic(() => import('@/components/Home/HomeSwipper'));
+const FeaturedCollege = dynamic(() => import('@/components/Home/FeaturedCollege'));
 export default function Home() {
   return (
     <main className="bg-[#F2F6F9]">
