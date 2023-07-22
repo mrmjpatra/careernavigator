@@ -1,13 +1,15 @@
 import NavigationBar from "@/components/NavigationBar";
 import "./globals.css";
-import {  Roboto } from "next/font/google";
+import { Roboto } from "next/font/google";
 import ReduxProvider from "@/redux/Provider";
-import Footer from "@/components/Footer";
 import { FC, ReactNode } from "react";
 import Providers from "@/utils/provider";
-import { SkeletonTheme } from "react-loading-skeleton";
+import dynamic from "next/dynamic";
 import "react-loading-skeleton/dist/skeleton.css";
-import { Toaster } from "react-hot-toast";
+
+const Toaster=dynamic(() => import('react-hot-toast').then((mod) => mod.Toaster));
+const Footer = dynamic(() => import('@/components/Footer'));
+const SkeletonTheme = dynamic(() => import('react-loading-skeleton').then((mod) => mod.SkeletonTheme));
 
 const roboto = Roboto({
   weight: ["400", "500", "700", "900"],
