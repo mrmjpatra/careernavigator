@@ -273,11 +273,15 @@ const Footer = () => {
                         {/* Social Media Links */}
                         <div className='flex justify-end md:w-1/2'>
                             <div className='flex gap-3'>
-                                <Link href='' className='bg-[#212730] shadow-md shadow-slate-500 duration-200 transition-all ease-in hover:bg-blue-600 text-white p-2 rounded-full' ><TbBrandFacebook className='sm:text-xl' /></Link>
-                                <Link href='' className='bg-[#212730] shadow-md shadow-slate-500 duration-200 transition-all ease-in hover:bg-blue-600 text-white p-2 rounded-full' ><BsInstagram className='sm:text-xl' /></Link>
-                                <Link href='' className='bg-[#212730] shadow-md shadow-slate-500 duration-200 transition-all ease-in hover:bg-blue-600 text-white p-2 rounded-full' ><AiOutlineYoutube className='sm:text-xl' /></Link>
-                                <Link href='' className='bg-[#212730] shadow-md shadow-slate-500 duration-200 transition-all ease-in hover:bg-blue-600 text-white p-2 rounded-full' ><BiLogoLinkedin className='sm:text-xl' /></Link>
-                                <Link href='' className='bg-[#212730] shadow-md shadow-slate-500 duration-200 transition-all ease-in hover:bg-blue-600 text-white p-2 rounded-full' ><FiTwitter className='sm:text-xl' /></Link>
+                                <Link aria-label='Visit our facebook page' href='www.facebook.com/mrmj' className='bg-[#212730] shadow-md shadow-slate-500 duration-200 transition-all ease-in hover:bg-blue-600 text-white p-2 rounded-full' ><TbBrandFacebook className='sm:text-xl' /></Link>
+
+                                <Link aria-label='Visit our Instagram page'href='www.instagram.com/mrmjpatra' className='bg-[#212730] shadow-md shadow-slate-500 duration-200 transition-all ease-in hover:bg-blue-600 text-white p-2 rounded-full' ><BsInstagram className='sm:text-xl' /></Link>
+
+                                <Link aria-label='Visit our Youtube page' href='www.youtube.com/mrmjpatra' className='bg-[#212730] shadow-md shadow-slate-500 duration-200 transition-all ease-in hover:bg-blue-600 text-white p-2 rounded-full' ><AiOutlineYoutube className='sm:text-xl' /></Link>
+
+                                <Link aria-label='Visit our Linkedin page' href='www.linkedin.com/mrmjpatra' className='bg-[#212730] shadow-md shadow-slate-500 duration-200 transition-all ease-in hover:bg-blue-600 text-white p-2 rounded-full' ><BiLogoLinkedin className='sm:text-xl' /></Link>
+
+                                <Link aria-label='Visit our Twitter  page' href='www.twitter.com/mrmjpatra' className='bg-[#212730] shadow-md shadow-slate-500 duration-200 transition-all ease-in hover:bg-blue-600 text-white p-2 rounded-full' ><FiTwitter className='sm:text-xl' /></Link>
                             </div>
                         </div>
                     </div>

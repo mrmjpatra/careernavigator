@@ -41,25 +41,6 @@ const NoticeCarousel = () => {
     return (
         <div className="px-4">
             <h1 className="font-bold text-3xl mb-5 text-blue-800">Notices</h1>
-            {
-                isLoading && <>
-                    <Skeleton width={'8rem'} />
-                    <Skeleton />
-                    <hr className="bg-blue-600 h-2 w-1/2" />
-                    <Skeleton width={'8rem'} />
-                    <Skeleton />
-                    <hr className="bg-blue-600 h-2 w-1/2" />
-                    <Skeleton width={'8rem'} />
-                    <Skeleton />
-                    <hr className="bg-blue-600 h-2 w-1/2" />
-                    <Skeleton width={'8rem'} />
-                    <Skeleton />
-                    <hr className="bg-blue-600 h-2 w-1/2" />
-                    <Skeleton width={'8rem'} />
-                    <Skeleton />
-                    <hr className="bg-blue-600 h-2 w-1/2" />
-                </>
-            }
             <Swiper
                 scrollbar={{
                     hide: false,

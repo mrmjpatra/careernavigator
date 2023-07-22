@@ -53,7 +53,12 @@ const HomeSwipper = () => {
                 }
             </div>
             <div className="md:w-2/5">
-                <NoticeCarousel />
+                {
+                    isLoading ? <div className='flex justify-center items-center my-8'>
+                        <div className='border-8 border-blue-100 rounded-full w-24 h-24  border-t-8 border-t-blue-600  animate-spin ease-linear duration-200'></div>
+                    </div> :
+                        <NoticeCarousel />
+                }
             </div>
         </div>
     )

@@ -62,27 +62,52 @@ export const navmenulist: MenuItem[] = [
                             {
                                 id: uuid(),
                                 title: 'BTech',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        activeTab: 'btech'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'MTech',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        activeTab: 'mtech'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'B.Arch',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        activeTab: 'barch'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'BTech + MTech',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        activeTab: 'btech-mtech'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'Diploma',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        activeTab: 'diploma'
+                                    }
+                                }
                             },
                         ]
                     },
@@ -217,27 +242,52 @@ export const navmenulist: MenuItem[] = [
                             {
                                 id: uuid(),
                                 title: 'MBA',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        activeTab: 'mba'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'BBA',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        activeTab: 'bba'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'Diploma',
-                                link: ''
+                                link: {
+                                    pathname:'/colleges',
+                                    query:{
+                                        activeTab:'diploma'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'PGDMA',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        activeTab: 'pgdma'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'BBM',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        activeTab: 'bbm'
+                                    }
+                                }
                             },
                         ]
                     },
