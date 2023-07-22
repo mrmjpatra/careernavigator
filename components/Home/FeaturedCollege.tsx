@@ -7,11 +7,11 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Autoplay, EffectFade, Navigation, Pagination } from "swiper";
 import { IoArrowBack } from 'react-icons/io5'
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Swiper as SwiperType } from 'swiper';
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import ReactPlayer from 'react-player/youtube'
+const ReactPlayer = React.lazy(() => import('react-player/youtube'));
 
 
 export type VideoUrlsType = {
@@ -28,20 +28,42 @@ const fetchData = async () => {
 }
 
 const FeaturedCollege = () => {
+    const [showPlayer, setShowPlayer] = useState(false);
     const [sortedVideoUrls, setSortedVideosUrls] = useState<VideoUrlsType[]>();
+    const ref = useRef(null);
     const swiperRef = useRef<SwiperType>();
     const { isLoading, error, data: videoUrls } = useQuery({
         queryKey: ['videoUrls'],
         queryFn: () => fetchData()
     });
+
+    useEffect(() => {
+        const observer = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    setShowPlayer(true);
+                    observer.disconnect();
+                }
+            },
+            { threshold: 1.0 }
+        );
+        if (ref.current) {
+            observer.observe(ref.current);
+        }
+        return () => {
+            observer.disconnect();
+        };
+    }, []);
+
     useEffect(() => {
         if (!isLoading && !error && videoUrls) {
             const sortedArray = videoUrls.sort((a, b) => new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf());
             setSortedVideosUrls(sortedArray);
         }
     }, [isLoading, error, videoUrls]);
+
+
     return (
-        <div className="py-5">
+        <div className="py-5" ref={ref}>
             <h1 className="text-blue-800 text-3xl md:text-4xl text-center mb-6">Featured College</h1>
             <div className="relative">
                 <Swiper
@@ -61,12 +83,18 @@ const FeaturedCollege = () => {
                     {
                         sortedVideoUrls?.map(video => <SwiperSlide key={video.id}>
                             {/* <div className="flex justify-center md:py-5"> */}
+                            {
+                                !showPlayer && <h5>Loading......</h5>
+                            }
+                            {showPlayer &&
                                 <ReactPlayer
                                     url={video.videoUrl}
                                     width={'100%'}
                                     height={'500px'}
                                     className="border-none rounded-lg shadow-md shadow-red-800 w-full h-[200px] sm:h-[350px] md:w-[836px] md:h-[441px]"
+
                                 />
+                            }
                             {/* </div> */}
                         </SwiperSlide>)
                     }

@@ -16,7 +16,7 @@ const Header = () => {
                 <Image src={PersonHoldingBook} width={0}
                     height={0}
                     sizes="100vw" 
-                    alt='Person holding Book' draggable={false} loading='lazy' 
+                    alt='Person holding Book' draggable={false}  
                     className='w-1/2 h-auto' />
             </div>
         </div>
