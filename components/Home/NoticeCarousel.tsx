@@ -83,7 +83,7 @@ const NoticeCarousel = () => {
                             <SwiperSlide key={notice.id.toString() ?? ''}>
                                 <Link href={notice.link}>
                                     <div className="border-b border-blue-600/50 w-4/5 py-2">
-                                        <h3 className="text-red-800 font-medium">{notice.title} </h3>
+                                        <h2 className="text-red-800 font-medium">{notice.title} </h2>
                                         <p className="text-slate-800 font-thin leading-4">{notice.link}</p>
                                     </div>
                                 </Link>
