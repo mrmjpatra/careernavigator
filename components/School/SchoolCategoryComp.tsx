@@ -1,7 +1,7 @@
+import { convertWord } from '@/utils/functions';
 import React, { useEffect, useState } from 'react'
 import { FiSearch } from 'react-icons/fi';
 import { TiTick } from 'react-icons/ti';
-import { convertWord } from '../CollegeDetails/CollegeDetails';
 import Skeleton from 'react-loading-skeleton';
 
 type SchoolCategoryType = {
@@ -30,21 +30,21 @@ const SchoolCategoryComp = ({ title, list, onFilterChange, selected, checked, is
 
   return (
     <section className="border-b border-black/10 mb-3 px-4 pb-5">
-      <div className="py-3 uppercase font-medium">{isLoading ? <Skeleton width={'6rem'} /> : title}</div>
+      <div className="py-3 uppercase font-bold text-xl text-blue-500">{isLoading ? <Skeleton width={'6rem'} /> : title}</div>
       <div className="max-h-[165px] overflow-y-auto pr-1">
         <div className="mb-3 sticky top-0 z-10 bg-white">
           {
             isLoading ? <Skeleton height={'2.5rem'} /> : <input
               type="text"
               placeholder="Search....."
-              className="w-full pt-2 pr-3 pb-2 pl-9 rounded border border-black"
+              className="w-full pt-2 pr-3 pb-2 pl-9 rounded border-2 border-indigo-500 "
               value={searchQuery}
               id={title}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           }
 
-          <FiSearch className="absolute top-3 left-3" />
+          <FiSearch className="absolute top-3 left-3"  color='#0041b9'/>
         </div>
         <ul>
           {

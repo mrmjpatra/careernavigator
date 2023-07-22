@@ -3,7 +3,7 @@
 import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query';
-import UseCollegesFormData, { CollegeDetails } from '@/utils/collegesFormData';
+import UseCollegesFormData from '@/utils/collegesFormData';
 import CollegeList from '@/components/colleges/CollegeList';
 import FilteredList from '@/components/colleges/FilteredList';
 import FilteredListName from '@/components/colleges/FilteredListName';
@@ -12,6 +12,7 @@ import { IoClose } from 'react-icons/io5';
 import { useSearchParams } from 'next/navigation';
 import ApplyModal from '@/components/ApplyModal';
 import ApplyForm from '@/components/ApplyForm';
+import { fetchCollegeDetailsWithCourses } from '.';
 
 export type CollegesFormData = {
   selectedStream: string;
@@ -25,9 +26,9 @@ export type CollegesFormData = {
 }
 
 
-const fetchCollegeDetails = async () => {
-  const { data } = await axios.get(`${process.env.HOST}/api/college/colleges`);
-  const details: CollegeDetails[] = data.collegeDetails;
+const fetchData = async () => {
+  const { data } = await axios.get(`${process.env.HOST}/api/college/colleges/courses`);
+  const details: fetchCollegeDetailsWithCourses[] = data.message;
   return details;
 }
 
@@ -35,7 +36,7 @@ const Colleges = () => {
   //if the user navigate using Link with query params
   const searchParams = useSearchParams();
   const stream = searchParams.get('stream');
-    //Apply form Modal state
+  //Apply form Modal state
   const [showApplyModal, setShowApplyModal] = useState(false);
   const [collegeName, setCollegeName] = useState('');
   //custom hook for getting all the filtered arrays
@@ -54,7 +55,7 @@ const Colleges = () => {
   })
 
   //if the user select any filter 
-  const [filteredColleges, setFilteredColleges] = useState<CollegeDetails[]>([]);
+  const [filteredColleges, setFilteredColleges] = useState<fetchCollegeDetailsWithCourses[]>([]);
   const [isFilterSelected, setIsFilterSelected] = useState(false);
   //For Mobile responsive
   const [showModal, setShowModal] = useState(false);
@@ -63,7 +64,7 @@ const Colleges = () => {
   //Fetching all the colleges from apis
   const { isLoading, error, data: allCollegeDetails } = useQuery({
     queryKey: ['collegeData'],
-    queryFn: () => fetchCollegeDetails()
+    queryFn: () => fetchData()
   });
 
   const filterColleges = useCallback(() => {
@@ -110,19 +111,19 @@ const Colleges = () => {
 
   //return the view
   return (
-    <div className="xl:max-[1100px] mx-auto h-full xl:w-[90%] py-4 md:[1000px] ">
+    <div className="xl:max-[1100px] mx-auto h-full xl:w-[96%] py-4 md:[1000px] ">
       {
-        showApplyModal && <ApplyModal onClose={()=>setShowApplyModal(false)}>
-          <ApplyForm collegeName={collegeName} />
+        showApplyModal && <ApplyModal onClose={() => setShowApplyModal(false)}>
+          <ApplyForm instituteName={collegeName} />
         </ApplyModal>
       }
-      <div className="md:flex md:gap-3 md:justify-between">
+      <div className="md:flex md:gap-10">
         {/* filter state */}
         <div className='flex justify-end pr-4 items-center cursor-pointer md:hidden' onClick={() => setShowModal(prev => !prev)} >
           <LuSettings2 color='#0081fa' />
           <span>Filters</span>
         </div>
-        <div className={`${showModal ? 'fixed bottom-0 top-[1%] left-[10%] shadow-lg shadow-blue-500 overflow-y-scroll z-20 w-4/5' : 'md:w-[280px] md:border hidden md:block'}`}>
+        <div className={`${showModal ? 'fixed bottom-0 top-[1%] left-[10%] shadow-lg shadow-blue-500 overflow-y-scroll z-20 w-4/5' : 'md:w-[25rem] h-[50rem] bg-blue-500/5  overflow-y-scroll md:border-2 hidden md:block shadow-lg shadow-blue-500 rounded-md'} `}>
           <div className={`${showModal ? 'bg-white rounded-lg w-full ' : 'shadow-md shadow-white/10 pt-2'}`}>
             <div className={`${showModal ? 'flex justify-end bg-blue-600 py-3' : 'hidden'}`}>
               <span className='bg-red-500 p-1 m-1 rounded-full hover:bg-red-400 transition-all duration-200 ease-in cursor-pointer' onClick={() => setShowModal(false)}>
@@ -212,20 +213,18 @@ const Colleges = () => {
           </div>
         </div>
         {/* Content */}
-        <div className='md:w-[72%]'>
+        <div className='md:w-[76%]'>
           <div>
-            {/* selcted column */}
-            <div></div>
             {/* list of colleges */}
-            <div>
-              {/* filterListCont */}
-              <div className='py-5 mt-5 border'>
-                {
-                  isFilterSelected ? <CollegeList toggleModal={toggleModal} isLoading={isLoading} selected={collegesFormData.selectedStream.toUpperCase()} filteredColleges={filteredColleges} /> :
-                    <CollegeList toggleModal={toggleModal} selected={collegesFormData.selectedStream.toUpperCase()} isLoading={isLoading} filteredColleges={allCollegeDetails ? allCollegeDetails : []} />
-                }
-              </div>
+
+            {/* filterListCont */}
+            <div className='py-5 border'>
+              {
+                isFilterSelected ? <CollegeList toggleModal={toggleModal} isLoading={isLoading} selected={collegesFormData.selectedStream.toUpperCase()} filteredColleges={filteredColleges} /> :
+                  <CollegeList toggleModal={toggleModal} selected={collegesFormData.selectedStream.toUpperCase()} isLoading={isLoading} filteredColleges={allCollegeDetails ? allCollegeDetails : []} />
+              }
             </div>
+
           </div>
         </div>
       </div>

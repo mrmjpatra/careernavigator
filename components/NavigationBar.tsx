@@ -2,7 +2,6 @@
 import { CategoryItem, MenuItem, navmenulist } from "@/utils/navmenulist"
 import Image from "next/image"
 import collegedekhologo from '@/public/assets/collegedekhologo.svg'
-import styles from '@/styles/navigationbar.module.scss'
 import { createElement, useEffect, useRef, useState } from "react"
 import { HiOutlineBars3BottomRight } from 'react-icons/hi2'
 import { FaXmark } from 'react-icons/fa6';
@@ -92,14 +91,14 @@ const NavigationBar = () => {
 export default NavigationBar;
 
 // Header Menu
-const MenuItemComponent: React.FC<MenuItem> = ({ title, menu }) => {
+const MenuItemComponent: React.FC<MenuItem> = ({ title, menu,link }) => {
     const [isHovered, setIsHovered] = useState(false);
     const len = menu.length;
     return (
         <>
             <div className="p-0 w-full relative group " onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}>
-                <h2 className="font-bold p-3 cursor-pointer ">{title}</h2>
+                <Link href={link} className="font-bold p-3 cursor-pointer block">{title}</Link>
                 <div className="relative w-[100%]">
                     {
                         len !== 0 &&

@@ -1,12 +1,12 @@
 'use client'
 import UseCollegesFormData from '@/utils/collegesFormData';
+import { convertWord } from '@/utils/functions';
 import axios from 'axios';
 import React, { FormEvent, useState } from 'react'
 import toast from 'react-hot-toast';
-import { convertWord } from './CollegeDetails/CollegeDetails';
 import { Discuss } from 'react-loader-spinner';
 
-const ApplyForm = ({ collegeName }: { collegeName: string }) => {
+const ApplyForm = ({ instituteName }: { instituteName: string }) => {
     const [loading, setLoading] = useState(false);
     const [contactFormData, setContactFormData] = useState({
         name: '',
@@ -33,7 +33,7 @@ const ApplyForm = ({ collegeName }: { collegeName: string }) => {
                 email: contactFormData.email,
                 phoneNumber: contactFormData.phoneNumber,
                 stream: contactFormData.stream,
-                collegeName: collegeName,
+                instituteName: instituteName,
             }
             const { data } = await axios.post(`/api/apply`, values);
             if (data.success) {
@@ -49,7 +49,7 @@ const ApplyForm = ({ collegeName }: { collegeName: string }) => {
     }
     return (
         <div className='my-3'>
-            <h1 className='md:text-4xl text-2xl font-bold text-blue-500 text-center'>Apply in {convertWord(collegeName.toLowerCase())}</h1>
+            <h1 className='md:text-4xl text-2xl font-bold text-blue-500 text-center'>Apply in {convertWord(instituteName.toLowerCase())}</h1>
             <div className='mx-auto md:w-3/4 w-[90%]'>
                 <div className='flex md:flex-row flex-col-reverse gap-2 rounded-md border-2 border-slate-600 my-4  shadow-lg shadow-slate-600' style={{ fontFamily: 'Poppins' }}>
                     <div className='bg-blue-800 text-white py-8 px-4 md:w-2/5'>
@@ -63,7 +63,7 @@ const ApplyForm = ({ collegeName }: { collegeName: string }) => {
                         </ul>
                     </div>
                     <div className='py-6 px-2 md:pr-4 md:w-3/5'>
-                        <h1 className='font-bold md:text-2xl text-xl mb-3 leading-10'>Apply {convertWord(collegeName.toLowerCase())} by filling the below form !</h1>
+                        <h1 className='font-bold md:text-2xl text-xl mb-3 leading-10'>Apply {convertWord(instituteName.toLowerCase())} by filling the below form !</h1>
                         <form onSubmit={handleSubmit} className='flex flex-col gap-6 mt-3 md:w-11/12'>
                             <input type="text" name="name" id="name" placeholder='Name'
                                 onChange={(e) => setContactFormData(prev => ({ ...prev, name: e.target.value }))}

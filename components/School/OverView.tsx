@@ -5,23 +5,14 @@ import { LiaShareAltSolid } from 'react-icons/lia';
 import { IoCallSharp } from 'react-icons/io5';
 import { MdEmail } from 'react-icons/md';
 import { BsBrowserChrome } from 'react-icons/bs';
-import { convertWord } from '../CollegeDetails/CollegeDetails';
-import { SchoolFormDetailsType } from '@/utils/collegesFormData';
-import SchoolSwipper from './SchoolSwipper';
 
 
-const SchoolOverView = ({ schoolName, description, state, city, facultyStrength, studentStrength, address, board, ownership, bannerPhotos, schoolPhoto, id }: SchoolFormDetailsType) => {
+import SchoolSwipper from './BannerSwipper';
+import { SchoolFormDetailsType } from '@/app/schools';
+import { convertWord } from '@/utils/functions';
 
-    useEffect(() => {
-        const updatePreview = () => {
-            const previewContainer = document.getElementById('preview');
-            if (previewContainer) {
-                previewContainer.innerHTML = JSON.parse(description);
-            }
-        };
-        // Update the preview whenever the content state changes
-        updatePreview();
-    }, [description]);
+
+const SchoolOverView = ({ description, facultyStrength, studentStrength, address, board, bannerPhotos }: SchoolFormDetailsType) => {
 
     
     return (
@@ -33,7 +24,7 @@ const SchoolOverView = ({ schoolName, description, state, city, facultyStrength,
 
             <h2 className='text-2xl md:text-3xl text-blue-600 '>Description</h2>
             <hr className='w-1/2 bg-blue-600 h-1' />
-            <div id='preview' className='my-4 pl-4' style={{ fontFamily: 'Inter' }}></div>
+            <div id='preview' className='my-4 pl-4' style={{ fontFamily: 'Inter' }} dangerouslySetInnerHTML={{__html:JSON.parse(description)}} ></div>
             <div className='space-y-4 mt-5 md:grid  md:grid-cols-2 md:w-3/4 md:mx-auto mb-4'>
                 <div className='flex items-center gap-2'>
                     <h3 className='flex gap-2 items-center text-2xl' style={{ fontFamily: 'Hind' }}>

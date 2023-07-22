@@ -11,6 +11,8 @@ import { useEffect, useRef, useState } from "react";
 import { Swiper as SwiperType } from 'swiper';
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import ReactPlayer from 'react-player/youtube'
+
 
 export type VideoUrlsType = {
     id: string,
@@ -36,11 +38,6 @@ const FeaturedCollege = () => {
         if (!isLoading && !error && videoUrls) {
             const sortedArray = videoUrls.sort((a, b) => new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf());
             setSortedVideosUrls(sortedArray);
-            const iframe = document.querySelector('iframe');
-            if (iframe) {
-                // iframe.style.width = '100%';
-                // iframe.style.height = '300px';
-            }
         }
     }, [isLoading, error, videoUrls]);
     return (
@@ -63,11 +60,17 @@ const FeaturedCollege = () => {
                 >
                     {
                         sortedVideoUrls?.map(video => <SwiperSlide key={video.id}>
-                            <div className="flex justify-center md:py-5">
-                                <iframe src={video.videoUrl} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen className="border-none rounded-lg shadow-md shadow-red-800 w-full h-[200px] sm:h-[350px] md:w-[836px] md:h-[441px]"></iframe>
-                            </div>
+                            {/* <div className="flex justify-center md:py-5"> */}
+                                <ReactPlayer
+                                    url={video.videoUrl}
+                                    width={'100%'}
+                                    height={'500px'}
+                                    className="border-none rounded-lg shadow-md shadow-red-800 w-full h-[200px] sm:h-[350px] md:w-[836px] md:h-[441px]"
+                                />
+                            {/* </div> */}
                         </SwiperSlide>)
                     }
+
                 </Swiper>
 
                 <div

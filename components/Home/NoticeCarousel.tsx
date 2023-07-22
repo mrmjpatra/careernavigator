@@ -11,6 +11,7 @@ import { Pagination, Autoplay, Scrollbar } from "swiper";
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import Skeleton from "react-loading-skeleton";
 
 export type NoticeType = {
     id: String,
@@ -40,6 +41,25 @@ const NoticeCarousel = () => {
     return (
         <div className="px-4">
             <h1 className="font-bold text-3xl mb-5 text-blue-800">Notices</h1>
+            {
+                isLoading && <>
+                    <Skeleton width={'8rem'} />
+                    <Skeleton />
+                    <hr className="bg-blue-600 h-2 w-1/2" />
+                    <Skeleton width={'8rem'} />
+                    <Skeleton />
+                    <hr className="bg-blue-600 h-2 w-1/2" />
+                    <Skeleton width={'8rem'} />
+                    <Skeleton />
+                    <hr className="bg-blue-600 h-2 w-1/2" />
+                    <Skeleton width={'8rem'} />
+                    <Skeleton />
+                    <hr className="bg-blue-600 h-2 w-1/2" />
+                    <Skeleton width={'8rem'} />
+                    <Skeleton />
+                    <hr className="bg-blue-600 h-2 w-1/2" />
+                </>
+            }
             <Swiper
                 scrollbar={{
                     hide: false,
@@ -60,10 +80,10 @@ const NoticeCarousel = () => {
                     sortedNotices &&
                     sortedNotices.map(notice => {
                         return (
-                            <SwiperSlide key={notice.id.toString()??''}>
+                            <SwiperSlide key={notice.id.toString() ?? ''}>
                                 <Link href={notice.link}>
                                     <div className="border-b border-blue-600/50 w-4/5 py-2">
-                                        <h3 className="text-red-800 font-medium">{notice.title}</h3>
+                                        <h3 className="text-red-800 font-medium">{notice.title} </h3>
                                         <p className="text-slate-800 font-thin leading-4">{notice.link}</p>
                                     </div>
                                 </Link>

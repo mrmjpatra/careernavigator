@@ -23,7 +23,22 @@ const hind = Hind({
 
 export const metadata = {
   title: "Career Navigator",
-  description: "Choose best college with us",
+  description: "Choose Best College with us",
+  openGraph: {
+    title: 'Carrer Navigator',
+    description: 'Choose Best College with us',
+    url: 'https://nextjs.org',
+    siteName: 'Carrer Navigator',
+    images: [
+      {
+        url: 'https://nextjs.org/og.png',
+        width: 800,
+        height: 600,
+      },
+    ],
+    locale: 'en-US',
+    type: 'website',
+  },
 };
 
 interface RootLayoutProps {
@@ -47,7 +62,7 @@ const RootLayout: FC<RootLayoutProps> = ({
       >
         <ReduxProvider>
           <Providers>
-          <Toaster/>
+            <Toaster />
             <SkeletonTheme baseColor="#cecece" highlightColor="#444">
               <NavigationBar />
               {children}

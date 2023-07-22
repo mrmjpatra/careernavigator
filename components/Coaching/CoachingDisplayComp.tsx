@@ -1,14 +1,17 @@
-import { CoachingFetchDataType } from '@/app/coachings/page'
 import React, { useCallback, useEffect, useState } from 'react'
 import Skeleton from 'react-loading-skeleton'
 import CoachingItem from './CoachingItem'
+import { CoachingFetchDataType } from '@/app/coachings'
+import { convertWord } from '@/utils/functions'
 
 type CoachingDisplayType = {
     coachingList: CoachingFetchDataType[],
     isLoading: boolean
+    toggleModal: (value: string) => void
+    selectedCity: string
 }
 
-const CoachingDisplayComp = ({ coachingList, isLoading }: CoachingDisplayType) => {
+const CoachingDisplayComp = ({ coachingList, isLoading, toggleModal, selectedCity }: CoachingDisplayType) => {
     const [sortingValue, setSortingValue] = useState('')
     const [sortedCoachingList, setSortedCoachingList] = useState<CoachingFetchDataType[]>([]);
     const filteringCollges = useCallback(() => {
@@ -27,9 +30,12 @@ const CoachingDisplayComp = ({ coachingList, isLoading }: CoachingDisplayType) =
     }, [coachingList, filteringCollges]);
     return (
         <div>
-            <h2>&nbsp;
-                {/* filterListTitle */}
-                <span>Top {"selected"} Coachings in India 2023</span>
+            &nbsp;
+            <h2 className="text-2xl font-medium text-blue-600 pl-2">
+                {
+                    selectedCity !== '' ? <span>Top Coachings in {convertWord(selectedCity)}</span>:<span>Coachings List</span>
+                }
+
             </h2>
             {/* filtersort */}
             <div className='text-right mt-1 font-medium'>
@@ -58,7 +64,7 @@ const CoachingDisplayComp = ({ coachingList, isLoading }: CoachingDisplayType) =
                 </div>
             }
             {
-                sortedCoachingList.map(coaching => <CoachingItem key={coaching.id} {...coaching} />)
+                sortedCoachingList.map(coaching => <CoachingItem toggleModal={toggleModal} key={coaching.id} data={{ ...coaching }} />)
             }
         </div>
     )

@@ -1,14 +1,18 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import Skeleton from 'react-loading-skeleton';
-import Link from 'next/link';
 import SchoolItem from './SchoolItem';
-import { SchoolFormDetailsType } from '@/utils/collegesFormData';
+import { SchoolFormDetailsType } from '@/app/schools';
+import { convertWord } from '@/utils/functions';
+
+
 
 type SchoolDisplayType = {
   schoolList: SchoolFormDetailsType[],
   isLoading: boolean
+  toggleModal: (collegeName: string) => void
+  selectedCity: string
 }
-const SchoolDisplayComp = ({ schoolList, isLoading }: SchoolDisplayType) => {
+const SchoolDisplayComp = ({ schoolList, isLoading, toggleModal, selectedCity }: SchoolDisplayType) => {
   const [sortingValue, setSortingValue] = useState('')
   const [sortingSchoolList, setSortingSchoolList] = useState<SchoolFormDetailsType[]>([]);
 
@@ -30,10 +34,9 @@ const SchoolDisplayComp = ({ schoolList, isLoading }: SchoolDisplayType) => {
 
   return (
     <div>
-      <h2>&nbsp;
-        {/* filterListTitle */}
-        <span>Top {"selected"} Colleges in India 2023</span>
-      </h2>
+      &nbsp;
+      {/* filterListTitle */}
+      <h2 className="text-2xl pl-2 font-medium text-blue-600">Top {convertWord(selectedCity)} Schools in India 2023</h2>
       {/* filtersort */}
       <div className='text-right mt-1 font-medium'>
         <select name="sorting" id="sorting" className='py-2 px-3 mr-10 border rounded 
@@ -61,7 +64,7 @@ const SchoolDisplayComp = ({ schoolList, isLoading }: SchoolDisplayType) => {
         </div>
       }
       {
-        sortingSchoolList.map(school => <SchoolItem key={school.id} {...school} />)
+        sortingSchoolList.map(school => <SchoolItem key={school.id} data={{ ...school }} toggleModal={toggleModal} />)
       }
     </div>
   )

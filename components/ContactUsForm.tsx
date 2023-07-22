@@ -1,10 +1,10 @@
 'use client'
 import UseCollegesFormData from '@/utils/collegesFormData';
 import React, { FormEvent, useState } from 'react'
-import { convertWord } from './CollegeDetails/CollegeDetails';
 import axios from 'axios';
 import { Discuss } from 'react-loader-spinner';
 import toast from 'react-hot-toast';
+import { convertWord } from '@/utils/functions';
 
 const ContactUsForm = () => {
     const [loading, setLoading] = useState(false);

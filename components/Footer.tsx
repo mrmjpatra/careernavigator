@@ -20,7 +20,11 @@ const Footer = () => {
                         <h1 className='text-2xl'>Top Colleges</h1>
                         <ul className='pt-3'>
                             <li className='text-white/80'>
-                                <Link href='/' className='relative 
+                                <Link href={{
+                                    pathname: '/colleges', query: {
+                                        stream: 'mba'
+                                    }
+                                }} className='relative 
                                 hover:text-white font-hind
                                 before:absolute before:top-[50%] before:left-0 
                                 before:w-0 before:h-[3px]  before:-translate-y-[50%]  before:bg-blue-700 before:rounded-md  
@@ -30,41 +34,65 @@ const Footer = () => {
                                 </Link>
                             </li>
                             <li className='text-white/80 '>
-                                <Link href='/' className='relative hover:text-white
+                                <Link href={{
+                                    pathname: '/colleges', query: {
+                                        stream: 'mba'
+                                    }
+                                }} className='relative hover:text-white
                                 before:absolute before:top-[50%] before:left-0 
                                 before:w-0 before:h-[3px]  before:-translate-y-[50%]  before:bg-blue-700 before:rounded-md  
                                 hover:before:w-3
                                 hover:pl-3 before:duration-300 before:ease-out before:transition-all transition-all duration-300 ease-out'>B.Tech</Link></li>
                             <li className='text-white/80 '>
-                                <Link href='/' className='relative hover:text-white
+                                <Link href={{
+                                    pathname: '/colleges', query: {
+                                        stream: 'mba'
+                                    }
+                                }} className='relative hover:text-white
                                 before:absolute before:top-[50%] before:left-0 
                                 before:w-0 before:h-[3px]  before:-translate-y-[50%]  before:bg-blue-700 before:rounded-md  
                                 hover:before:w-3
                                 hover:pl-3 before:duration-300 before:ease-out before:transition-all transition-all duration-300 ease-out'>MCA</Link>
                             </li>
                             <li className='text-white/80 '>
-                                <Link href='/' className='relative hover:text-white
+                                <Link href={{
+                                    pathname: '/colleges', query: {
+                                        stream: 'bca'
+                                    }
+                                }} className='relative hover:text-white
                                 before:absolute before:top-[50%] before:left-0 
                                 before:w-0 before:h-[3px]  before:-translate-y-[50%]  before:bg-blue-700 before:rounded-md  
                                 hover:before:w-3
                                 hover:pl-3 before:duration-300 before:ease-out before:transition-all transition-all duration-300 ease-out'>BCA</Link>
                             </li>
                             <li className='text-white/80 '>
-                                <Link href='/' className='relative 
+                                <Link href={{
+                                    pathname: '/colleges', query: {
+                                        stream: 'mtech'
+                                    }
+                                }} className='relative 
                                 before:absolute before:top-[50%] before:left-0 
                                 before:w-0 before:h-[3px]  before:-translate-y-[50%]  before:bg-blue-700 before:rounded-md  
                                 hover:before:w-3
                                 hover:pl-3 before:duration-300 before:ease-out before:transition-all transition-all duration-300 ease-out'>M.Tech</Link>
                             </li>
                             <li className='text-white/80 '>
-                                <Link href='/' className='relative hover:text-white
+                                <Link href={{
+                                    pathname: '/colleges', query: {
+                                        stream: 'ma'
+                                    }
+                                }} className='relative hover:text-white
                                 before:absolute before:top-[50%] before:left-0 
                                 before:w-0 before:h-[3px]  before:-translate-y-[50%]  before:bg-blue-700 before:rounded-md  
                                 hover:before:w-3
                                 hover:pl-3 before:duration-300 before:ease-out before:transition-all transition-all duration-300 ease-out'>MA</Link>
                             </li>
                             <li className='text-white/80 '>
-                                <Link href='/' className='relative hover:text-white
+                                <Link href={{
+                                    pathname: '/colleges', query: {
+                                        stream: 'ba'
+                                    }
+                                }} className='relative hover:text-white
                                 before:absolute before:top-[50%] before:left-0 
                                 before:w-0 before:h-[3px]  before:-translate-y-[50%]  before:bg-blue-700 before:rounded-md  
                                 hover:before:w-3
@@ -77,7 +105,7 @@ const Footer = () => {
                         <h1 className='text-2xl'>Top Exam</h1>
                         <ul className='pt-3'>
                             <li className='text-white/80'>
-                                <Link href='/' className='relative 
+                                <Link href='/exam/jee' className='relative 
                                 hover:text-white font-hind
                                 before:absolute before:top-[50%] before:left-0 
                                 before:w-0 before:h-[3px]  before:-translate-y-[50%]  before:bg-blue-700 before:rounded-md  
@@ -85,7 +113,7 @@ const Footer = () => {
                                     hover:pl-3 before:duration-300 before:ease-out before:transition-all transition-all duration-300 ease-out'>JEE</Link>
                             </li>
                             <li className='text-white/80'>
-                                <Link href='/' className='relative 
+                                <Link href='/exam/neet' className='relative 
                                 hover:text-white font-hind
                                 before:absolute before:top-[50%] before:left-0 
                                 before:w-0 before:h-[3px]  before:-translate-y-[50%]  before:bg-blue-700 before:rounded-md  
@@ -93,7 +121,7 @@ const Footer = () => {
                                     hover:pl-3 before:duration-300 before:ease-out before:transition-all transition-all duration-300 ease-out'>NEET</Link>
                             </li>
                             <li className='text-white/80'>
-                                <Link href='/' className='relative 
+                                <Link href='/exam/cat' className='relative 
                                 hover:text-white font-hind
                                 before:absolute before:top-[50%] before:left-0 
                                 before:w-0 before:h-[3px]  before:-translate-y-[50%]  before:bg-blue-700 before:rounded-md  
@@ -101,7 +129,7 @@ const Footer = () => {
                                     hover:pl-3 before:duration-300 before:ease-out before:transition-all transition-all duration-300 ease-out'>CAT</Link>
                             </li>
                             <li className='text-white/80'>
-                                <Link href='/' className='relative 
+                                <Link href='/exam/gate' className='relative 
                                 hover:text-white font-hind
                                 before:absolute before:top-[50%] before:left-0 
                                 before:w-0 before:h-[3px]  before:-translate-y-[50%]  before:bg-blue-700 before:rounded-md  
@@ -109,7 +137,7 @@ const Footer = () => {
                                     hover:pl-3 before:duration-300 before:ease-out before:transition-all transition-all duration-300 ease-out'>GATE</Link>
                             </li>
                             <li className='text-white/80'>
-                                <Link href='/' className='relative 
+                                <Link href='/exam/clat' className='relative 
                                 hover:text-white font-hind
                                 before:absolute before:top-[50%] before:left-0 
                                 before:w-0 before:h-[3px]  before:-translate-y-[50%]  before:bg-blue-700 before:rounded-md  
@@ -117,7 +145,7 @@ const Footer = () => {
                                     hover:pl-3 before:duration-300 before:ease-out before:transition-all transition-all duration-300 ease-out'>CLAT</Link>
                             </li>
                             <li className='text-white/80'>
-                                <Link href='/' className='relative 
+                                <Link href='/exam/mat' className='relative 
                                 hover:text-white font-hind
                                 before:absolute before:top-[50%] before:left-0 
                                 before:w-0 before:h-[3px]  before:-translate-y-[50%]  before:bg-blue-700 before:rounded-md  
@@ -125,7 +153,7 @@ const Footer = () => {
                                     hover:pl-3 before:duration-300 before:ease-out before:transition-all transition-all duration-300 ease-out'>MAT</Link>
                             </li>
                             <li className='text-white/80'>
-                                <Link href='/' className='relative 
+                                <Link href='/exam/xat' className='relative 
                                 hover:text-white font-hind
                                 before:absolute before:top-[50%] before:left-0 
                                 before:w-0 before:h-[3px]  before:-translate-y-[50%]  before:bg-blue-700 before:rounded-md  
@@ -234,22 +262,22 @@ const Footer = () => {
                     <div className='flex md:flex-row flex-col'>
                         <ul className='flex md:flex-row flex-col gap-3 md:w-1/2 w-full md:items-center'>
                             <li>
-                                <Link href={'/'}>About</Link></li>
+                                <Link href={'/about'}>About</Link></li>
                             <li>
-                                <Link href={'/'}>Contact Us</Link></li>
+                                <Link href={'/contact'}>Contact Us</Link></li>
                             <li>
-                                <Link href={'/'}>Carrer</Link></li>
+                                <Link href={'/articles'}>Articles</Link></li>
                             <li>
-                                <Link href={'/'}>Terms & Conditions</Link></li>
+                                <Link href={'/terms-conditions'}>Terms & Conditions</Link></li>
                         </ul>
                         {/* Social Media Links */}
                         <div className='flex justify-end md:w-1/2'>
                             <div className='flex gap-3'>
-                                <Link href='' className='bg-[#212730] shadow-md shadow-slate-500 duration-200 transition-all ease-in hover:bg-blue-600 text-white p-2 rounded-full' ><TbBrandFacebook className='sm:text-xl'/></Link>
-                                <Link href=''  className='bg-[#212730] shadow-md shadow-slate-500 duration-200 transition-all ease-in hover:bg-blue-600 text-white p-2 rounded-full' ><BsInstagram className='sm:text-xl' /></Link>
-                                <Link href=''  className='bg-[#212730] shadow-md shadow-slate-500 duration-200 transition-all ease-in hover:bg-blue-600 text-white p-2 rounded-full' ><AiOutlineYoutube  className='sm:text-xl' /></Link>
-                                <Link href=''  className='bg-[#212730] shadow-md shadow-slate-500 duration-200 transition-all ease-in hover:bg-blue-600 text-white p-2 rounded-full' ><BiLogoLinkedin  className='sm:text-xl' /></Link>
-                                <Link href=''  className='bg-[#212730] shadow-md shadow-slate-500 duration-200 transition-all ease-in hover:bg-blue-600 text-white p-2 rounded-full' ><FiTwitter  className='sm:text-xl'/></Link>
+                                <Link href='' className='bg-[#212730] shadow-md shadow-slate-500 duration-200 transition-all ease-in hover:bg-blue-600 text-white p-2 rounded-full' ><TbBrandFacebook className='sm:text-xl' /></Link>
+                                <Link href='' className='bg-[#212730] shadow-md shadow-slate-500 duration-200 transition-all ease-in hover:bg-blue-600 text-white p-2 rounded-full' ><BsInstagram className='sm:text-xl' /></Link>
+                                <Link href='' className='bg-[#212730] shadow-md shadow-slate-500 duration-200 transition-all ease-in hover:bg-blue-600 text-white p-2 rounded-full' ><AiOutlineYoutube className='sm:text-xl' /></Link>
+                                <Link href='' className='bg-[#212730] shadow-md shadow-slate-500 duration-200 transition-all ease-in hover:bg-blue-600 text-white p-2 rounded-full' ><BiLogoLinkedin className='sm:text-xl' /></Link>
+                                <Link href='' className='bg-[#212730] shadow-md shadow-slate-500 duration-200 transition-all ease-in hover:bg-blue-600 text-white p-2 rounded-full' ><FiTwitter className='sm:text-xl' /></Link>
                             </div>
                         </div>
                     </div>
@@ -259,7 +287,7 @@ const Footer = () => {
                 <div className='flex py-2 md:flex-row flex-col md:justify-between items-center'>
                     {/* logo */}
                     <Image src={collegedekhologo} width={100} alt="logo" style={{ backgroundColor: 'red' }} />
-                     <span>&copy;2023 College Navigator Pvt. Ltd. All Rights Reserved</span>
+                    <span>&copy;2023 College Navigator Pvt. Ltd. All Rights Reserved</span>
                 </div>
             </div>
         </div>

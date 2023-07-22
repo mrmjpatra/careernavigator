@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import  { useCallback } from 'react'
 import { Degree, DegreeList, Specialization, SpecializationList, State, StateList, Stream, StreamList } from './formData';
 import useSorting from '@/hooks/useSorting';
 
@@ -27,61 +27,6 @@ const UseCollegesFormData = () => {
 
 export default UseCollegesFormData;
 
-export type CollegeDetails = {
-  id: string,
-  collegeName: string,
-  description: string,
-  state: string,
-  city: string,
-  ownership: string,
-  details: {
-    id: string;
-    collegePhoto: string;
-    campusSize: string;
-    facultyStrength: string;
-    studentStrength: string;
-    address: {
-      fullAddrs: string;
-      phoneNumber: string;
-      email: string;
-      website: string | null;
-    };
-  } | null,
-  courses: {
-    id: string;
-    courseName: string;
-    courseDetails: string;
-    stream: string;
-    degree: string;
-    specialization: string;
-    courseType: string;
-    studyMode: string;
-  }[];
-  reviews: {
-    id: string,
-    name: string,
-    content: string,
-    photo: string
-  }[];
-}
 
 
-export type SchoolFormDetailsType = {
-  id: string
-  schoolName: string,
-  description: string,
-  state: string,
-  city: string,
-  ownership: string,
-  board: string,
-  facultyStrength: string,
-  studentStrength: string,
-  address: {
-      fullAddrs: string,
-      phoneNumber: string,
-      email: string,
-      website?: string
-  },
-  schoolPhoto: string,
-  bannerPhotos: string[]
-}
+

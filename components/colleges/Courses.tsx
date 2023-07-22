@@ -1,5 +1,6 @@
+import { convertWord } from '@/utils/functions';
 import React from 'react'
-import { convertWord } from '../CollegeDetails/CollegeDetails';
+
 
 type CourseType = {
   courses: {
@@ -12,10 +13,10 @@ type CourseType = {
     courseType: string;
     studyMode: string;
   }[] | undefined,
-  name:string | undefined
+  name: string | undefined
 }
 
-const Courses = ({ courses,name }: CourseType) => {
+const Courses = ({ courses, name }: CourseType) => {
   return (
     <div className='bg-gray-300'>
       <div className='px-4 py-3'>
@@ -26,7 +27,7 @@ const Courses = ({ courses,name }: CourseType) => {
             courses?.map(list =>
               <div key={list.id} className='bg-white shadow-md rounded p-4 border'>
                 <h1 className='text-2xl'>{convertWord(list.courseName)}({convertWord(list.specialization)})</h1>
-                <p className='indent-4 my-2'>{convertWord(list.courseDetails.toLowerCase())} </p>
+                <div className='indent-4 my-2' dangerouslySetInnerHTML={{ __html: JSON.parse(list.courseDetails) }}  ></div>
                 <div className='grid md:grid-cols-3 w-3/4 mx-auto mt-4 gap-4'>
                   <div className='flex gap-2 items-center'>
                     <h4 className='text-xl'>Study Mode</h4>
@@ -38,7 +39,7 @@ const Courses = ({ courses,name }: CourseType) => {
                   </div>
                   <div className='flex gap-2 items-center'>
                     <h4 className='text-xl'>Degree</h4>
-                    <span className='font-bold'>{convertWord(list.degree)} </span>
+                    <span className='font-bold'>{(list.degree.toUpperCase())} </span>
                   </div>
                   <div className='flex gap-2 items-center col-span-2'>
                     <h4 className='text-xl'>Specialization</h4>

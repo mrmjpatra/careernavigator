@@ -6,19 +6,23 @@ import React, { useState } from 'react'
 import { FaLocationDot } from 'react-icons/fa6';
 import { MdOutlinePersonOutline } from 'react-icons/md';
 import Skeleton from 'react-loading-skeleton';
-import { convertWord } from '../CollegeDetails/CollegeDetails';
 import SchoolOverView from './OverView';
-import { SchoolFormDetailsType } from '@/utils/collegesFormData';
+import Review from '../colleges/Review';
+import { fetchIndividualSchoolData } from '@/app/schools';
+import { convertWord } from '@/utils/functions';
 
+
+const fetch = async (id: string) => {
+    const { data } = await axios.get(`${process.env.HOST}/api/school/${id}`);
+    const details: fetchIndividualSchoolData = data.message;
+    return details;
+}
 
 const SchoolDetails = ({ id }: { id: string }) => {
+    const [activeTab, setActiveTab] = useState(1);
     const { isLoading, error, data: SelectedSchoolData } = useQuery({
         queryKey: ['SelectedSchoolData'],
-        queryFn: async () => {
-            const { data } = await axios.get(`${process.env.HOST}/api/school/${id}`);
-            const details: SchoolFormDetailsType = data.data;
-            return details;
-        }
+        queryFn: () => fetch(id)
     });
     return (
         <div>
@@ -26,8 +30,8 @@ const SchoolDetails = ({ id }: { id: string }) => {
             <div className="relative">
                 <div className="relative h-72  overflow-hidden">
                     {
-                        SelectedSchoolData?.schoolPhoto ? <Image src={SelectedSchoolData?.schoolPhoto} alt="college banner"
-                            fill /> : <Skeleton height={'20rem'}  />
+                        SelectedSchoolData?.schoolPhoto ? <Image src={SelectedSchoolData?.schoolPhoto.downloadUrl} alt="college banner"
+                            fill /> : <Skeleton height={'20rem'} />
                     }
                 </div>
                 <div className="bg-black/50 absolute top-0 left-0 h-full w-full">
@@ -46,13 +50,18 @@ const SchoolDetails = ({ id }: { id: string }) => {
                     </div>
                 </div>
             </div>
-            {/* Middle */}
             <div>
+                <ul className="flex md:x-14 mb-3">
+                    <li className={`${activeTab === 1 ? 'border-b-2 border-blue-700 rounded shadow-md shadow-blue' : 'border-b-0 rounded-none shadow-none'} text-xl font-bold transition-all duration-300 ease-out block py-3 px-6  cursor-pointer mr-3 bg-white`} onClick={() => setActiveTab(1)} >Overview</li>
+                    <li className={`${activeTab === 2 ? 'border-b-2 border-blue-700 rounded shadow-md shadow-blue' : 'border-b-0 rounded-none shadow-none'} text-xl font-bold transition-all duration-200 ease-in  block py-3 px-6  cursor-pointer mr-3 bg-white`} onClick={() => setActiveTab(2)}>Reviews</li>
+                </ul>
+                <div className="mt-3 rounded-sm">
+                    {
+                        activeTab === 1 && SelectedSchoolData && <SchoolOverView {...SelectedSchoolData} />
+                    }
 
-                {
-                    SelectedSchoolData && <SchoolOverView {...SelectedSchoolData} />
-                }
-
+                    {activeTab === 2 && <Review reviews={SelectedSchoolData?.SchoolReviews} />}
+                </div>
             </div>
         </div>
     )

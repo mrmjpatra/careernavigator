@@ -48,7 +48,7 @@ export const navmenulist: MenuItem[] = [
     {
         id: uuid(),
         title: 'Colleges',
-        link: '/',
+        link: '/colleges',
         icon: LuSchool,
         menu: [
             //Enginnering
@@ -2047,7 +2047,7 @@ export const navmenulist: MenuItem[] = [
     {
         id: uuid(),
         title: 'Exam',
-        link: '/',
+        link: '/exam',
         icon: BsBook,
         menu: [
             //Enginnering
@@ -4031,8 +4031,8 @@ export const navmenulist: MenuItem[] = [
     },
     {
         id: uuid(),
-        title: 'Articles',
-        link: '/articles',
+        title: 'Contact',
+        link: '/contact',
         icon: PiSquaresFour,
         menu: []
     },
