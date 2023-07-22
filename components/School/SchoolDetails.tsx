@@ -10,6 +10,8 @@ import SchoolOverView from './OverView';
 import Review from '../colleges/Review';
 import { fetchIndividualSchoolData } from '@/app/schools';
 import { convertWord } from '@/utils/functions';
+import { Poppins } from 'next/font/google';
+const poppins=Poppins({subsets:['latin'],weight:['400','600']})
 
 
 const fetch = async (id: string) => {
@@ -36,7 +38,7 @@ const SchoolDetails = ({ id }: { id: string }) => {
                 </div>
                 <div className="bg-black/50 absolute top-0 left-0 h-full w-full">
                     <div className="absolute md:top-1/4 md:left-[10%] top-[20%] left-[5%]">
-                        <h1 className="text-white text-4xl" style={{ fontFamily: 'Poppins' }} >{convertWord(SelectedSchoolData?.schoolName)}</h1>
+                        <h1 className={`text-white text-4xl ${poppins.className}`} >{convertWord(SelectedSchoolData?.schoolName)}</h1>
                         <div className="flex my-5 gap-2 items-center">
                             <span className="text-white flex bg-blue-600 rounded-full p-1 md:p-3">
                                 <MdOutlinePersonOutline size={'1.5rem'} color="white" className=" text-white" />

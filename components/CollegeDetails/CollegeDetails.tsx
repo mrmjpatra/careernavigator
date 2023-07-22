@@ -12,6 +12,9 @@ import { FaLocationDot } from "react-icons/fa6";
 import Skeleton from "react-loading-skeleton";
 import { fetchAllCollegeDataType } from "@/app/colleges";
 import { convertWord } from "@/utils/functions";
+import { Poppins } from "next/font/google";
+const poppins=Poppins({subsets:['latin'],weight:['400','600']})
+
 
 const fetchData = async (id: string) => {
   const { data } = await axios.get(`${process.env.HOST}/api/college/alldetails/${id}`);
@@ -33,12 +36,12 @@ const CollegeDetailedPage = ({ id }: { id: string }) => {
           <div className="relative h-72  overflow-hidden">
             {
               collegeDetails?.collegePhoto.downloadUrl ? <Image src={collegeDetails?.collegePhoto?.downloadUrl} alt="college banner"
-                fill /> : <Skeleton height={'20rem'} style={{ width: '100%' }} />
+                width={'100'} height={'100'} className="w-full h-full"  /> : <Skeleton height={'20rem'} style={{ width: '100%' }} />
             }
           </div>
           <div className="bg-black/50 absolute top-0 left-0 h-full w-full">
             <div className="absolute md:top-1/4 md:left-[10%] top-[20%] left-[5%]">
-              <h1 className="text-white text-4xl" style={{ fontFamily: 'Poppins' }} >{convertWord(collegeDetails?.collegeName)}</h1>
+              <h1 className={`text-white text-4xl ${poppins.className}`} >{convertWord(collegeDetails?.collegeName)}</h1>
               <div className="flex my-5 gap-2 items-center">
                 <span className="text-white flex bg-blue-600 rounded-full p-1 md:p-3">
                   <MdOutlinePersonOutline size={'1.5rem'} color="white" className=" text-white" />

@@ -77,20 +77,20 @@ const CollegeList = ({ filteredColleges, isLoading, selected, toggleModal }: { f
                             <section key={college.id} className='p-0 bg-slate-100 mx-2 my-7 border relative rounded-md hover:shadow-md  hover:-translate-y-1 cursor-pointer transition-transform duration-300 ease-out'>
                                 <div className='flex w-full py-3 px-2 items-center flex-col sm:flex-row '>
                                     <figure className='md:w-[40%] w-full h-full overflow-hidden flex bg-black'>
-                                        <Image src={college.collegePhoto.downloadUrl ?? Collegephoto} width={250} height={200} alt='' quality={30} className='h-44 w-full' />
+                                        <Image src={college.collegePhoto.downloadUrl ?? Collegephoto} width={100} height={100} alt='college photo' quality={10} className='h-44 w-full' />
                                     </figure>
                                     {/* Details */}
                                     <div className='md:w-[80%] pt-4 pl-2'>
                                         {/* CollegeDetails */}
                                         <div className='flex flex-col gap-2 border-b-2 px-3 pb-3'>
                                             <Link href={`/colleges/${college.id}`}>
-                                                <h2 className="font-bold text-blue-500 text-xl">{college.collegeName.toUpperCase()}</h2>
+                                                <h2 className="font-bold text-blue-950 text-xl">{college.collegeName.toUpperCase()}</h2>
                                             </Link>
                                             <div className='flex items-center gap-2'>
                                                 <span className="bg-blue-600 text-white rounded-full p-2">
                                                     <FaLocationDot size={'1.2rem'} color="#fff" />
                                                 </span>
-                                                <span className="font-medium text-sky-600">
+                                                <span className="font-medium">
                                                     {convertWord(college.city.toLowerCase())}({convertWord(college.state.toLowerCase())})
                                                 </span>
                                             </div>
@@ -101,13 +101,13 @@ const CollegeList = ({ filteredColleges, isLoading, selected, toggleModal }: { f
                                                 <span className="bg-blue-600 text-white rounded-full p-2">
                                                     <BsFillPersonFill size={'1.2rem'} />
                                                 </span>
-                                                <span className='font-medium text-orange-600'>
+                                                <span className='font-medium '>
                                                     {college.ownership.toUpperCase()}
                                                 </span>
                                             </div>
                                             <div className='justify-between py-3 hidden md:flex'>
                                                 <span dangerouslySetInnerHTML={{ __html: desc }}></span>
-                                                <span className="text-red-500 font-medium text-xl">{college.courses.length} + Courses</span>
+                                                <span className=" font-medium text-xl">{college.courses.length} + Courses</span>
                                             </div>
                                         </div>
                                     </div>

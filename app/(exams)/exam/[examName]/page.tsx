@@ -5,6 +5,9 @@ import axios from "axios";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { BsEmojiFrownFill } from "react-icons/bs";
+import {Poppins} from 'next/font/google';
+
+const poppins=Poppins({subsets:['latin'],weight:['400','600']})
 
 type fetchExamsNameType = {
   id: string,
@@ -42,7 +45,9 @@ const ExamPage = ({ params }: { params: { examName: string } }) => {
         }
       }
     }
-    loadExamId();
+   if (!examNameLoading && !examNameError) {
+      loadExamId();
+   }
   }, [examNameLoading, examNameError, examNameList, params.examName]);
 
   if (!examNameLoading && examId === '') {
@@ -59,7 +64,7 @@ const ExamPage = ({ params }: { params: { examName: string } }) => {
 
   return (
     <div className="px-4 py-5">
-      <h1 className="text-2xl font-bold text-blue-600 px-3 pb-5" style={{ fontFamily: 'Poppins' }}>{params.examName?.toUpperCase()} Details Exam </h1>
+      <h1 className={`text-2xl font-bold text-blue-600 px-3 pb-5 ${poppins.className}`}>{params.examName?.toUpperCase()} Details Exam </h1>
       {
         examId ? <MenuTab examId={examId} tab={Number(activeTab)!==0?Number(activeTab):1??1} /> : <div className="border-8 border-gray-400 border-t-8 
         border-t-blue-600  rounded-full w-14 h-14 animate-spin"></div>

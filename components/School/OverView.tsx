@@ -5,11 +5,13 @@ import { LiaShareAltSolid } from 'react-icons/lia';
 import { IoCallSharp } from 'react-icons/io5';
 import { MdEmail } from 'react-icons/md';
 import { BsBrowserChrome } from 'react-icons/bs';
-
-
 import SchoolSwipper from './BannerSwipper';
 import { SchoolFormDetailsType } from '@/app/schools';
 import { convertWord } from '@/utils/functions';
+import { Hind, Inter } from 'next/font/google';
+
+const inter=Inter({subsets:['latin'],weight:['400','600']})
+const hind=Hind({subsets:['latin'],weight:['400','600']})
 
 
 const SchoolOverView = ({ description, facultyStrength, studentStrength, address, board, bannerPhotos }: SchoolFormDetailsType) => {
@@ -24,17 +26,17 @@ const SchoolOverView = ({ description, facultyStrength, studentStrength, address
 
             <h2 className='text-2xl md:text-3xl text-blue-600 '>Description</h2>
             <hr className='w-1/2 bg-blue-600 h-1' />
-            <div id='preview' className='my-4 pl-4' style={{ fontFamily: 'Inter' }} dangerouslySetInnerHTML={{__html:JSON.parse(description)}} ></div>
+            <div id='preview' className={`my-4 pl-4 ${inter.className}`} dangerouslySetInnerHTML={{__html:JSON.parse(description)}} ></div>
             <div className='space-y-4 mt-5 md:grid  md:grid-cols-2 md:w-3/4 md:mx-auto mb-4'>
                 <div className='flex items-center gap-2'>
-                    <h3 className='flex gap-2 items-center text-2xl' style={{ fontFamily: 'Hind' }}>
+                    <h3 className={`flex gap-2 items-center text-2xl ${hind.className}`} >
                         <span className='bg-blue-600 text-white rounded-full p-2'>
                             <FaPeopleGroup /></span>
                         Faculty Strength</h3>
                     <span>{facultyStrength}</span>
                 </div>
                 <div className='flex items-center gap-2'>
-                    <h3 className='flex gap-2 items-center text-2xl' style={{ fontFamily: 'Hind' }}>
+                   <h3 className={`flex gap-2 items-center text-2xl ${hind.className}`} >
                         <span className='bg-blue-600 text-white rounded-full p-2'>
                             <PiStudentFill />
                         </span>  Student Strength</h3>
@@ -42,7 +44,7 @@ const SchoolOverView = ({ description, facultyStrength, studentStrength, address
                 </div>
                 <div className='flex items-center gap-2'>
 
-                    <h3 className='flex gap-2 items-center text-2xl' style={{ fontFamily: 'Hind' }}>
+                   <h3 className={`flex gap-2 items-center text-2xl ${hind.className}`} >
 
                         <span className='bg-blue-600 text-white rounded-full p-2'>
                             <LiaShareAltSolid />
@@ -51,7 +53,7 @@ const SchoolOverView = ({ description, facultyStrength, studentStrength, address
                     <span>{board.toUpperCase()}</span>
                 </div>
                 <div className='flex items-center gap-2 col-span-2'>
-                    <h3 className='flex gap-2 items-center text-2xl' style={{ fontFamily: 'Hind' }}>
+                   <h3 className={`flex gap-2 items-center text-2xl ${hind.className}`} >
                         <span className='bg-blue-600 text-white rounded-full p-2'>
                             <FaLocationDot />
                         </span>
@@ -59,7 +61,7 @@ const SchoolOverView = ({ description, facultyStrength, studentStrength, address
                     <span>{convertWord(address.fullAddrs)}</span>
                 </div>
                 <div className='flex items-center gap-2 col-span-2'>
-                    <h3 className='flex gap-2 items-center text-2xl' style={{ fontFamily: 'Hind' }}>
+                   <h3 className={`flex gap-2 items-center text-2xl ${hind.className}`} >
                         <span className='bg-blue-600 text-white rounded-full p-2'>
                             <IoCallSharp />
                         </span>
@@ -68,7 +70,7 @@ const SchoolOverView = ({ description, facultyStrength, studentStrength, address
                 </div>
                 <div className='flex items-center gap-2'>
 
-                    <h3 className='flex gap-2 items-center text-2xl' style={{ fontFamily: 'Hind' }}>
+                   <h3 className={`flex gap-2 items-center text-2xl ${hind.className}`} >
 
                         <span className='bg-blue-600 text-white rounded-full p-2'>
                             <MdEmail />
@@ -79,7 +81,7 @@ const SchoolOverView = ({ description, facultyStrength, studentStrength, address
                 {
                     address.website && <div className='flex items-center gap-2'>
 
-                        <h3 className='flex gap-2 items-center text-2xl' style={{ fontFamily: 'Hind' }}>
+                       <h3 className={`flex gap-2 items-center text-2xl ${hind.className}`} >
 
                             <span className='bg-blue-600 text-white rounded-full p-2'>
                                 <BsBrowserChrome />

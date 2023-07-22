@@ -6,8 +6,14 @@ import { MdEmail } from "react-icons/md";
 import { BsBrowserChrome } from "react-icons/bs";
 import { FetchIndividualCoachingData } from "@/app/coachings";
 import { convertWord } from "@/utils/functions";
+import { Hind, Inter } from "next/font/google";
 
-const CoachingOverView = ({description,bannerPhoto,facultyStrength,providing,address}:FetchIndividualCoachingData) => {
+const inter = Inter({ subsets: ['latin'], weight: ['500'] })
+const hind = Hind({ subsets: ['latin'], weight: ["400"] })
+
+
+
+const CoachingOverView = ({ description, bannerPhoto, facultyStrength, providing, address }: FetchIndividualCoachingData) => {
 
 
 
@@ -21,15 +27,13 @@ const CoachingOverView = ({description,bannerPhoto,facultyStrength,providing,add
       <h2 className="text-2xl md:text-3xl text-blue-600">Description</h2>
       <hr className="w-1/2 bg-blue-600 h-1" />
       <div
-        className="my-4 pl-4"
-        style={{ fontFamily: "Inter" }}
-        dangerouslySetInnerHTML={{__html:JSON.parse(description)}}
+        className={`my-4 pl-4 ${inter.className}`}
+        dangerouslySetInnerHTML={{ __html: JSON.parse(description) }}
       ></div>
       <div className="space-y-4 mt-5 md:grid  md:grid-cols-2 md:w-3/4 md:mx-auto mb-4">
         <div className="flex items-center gap-2">
           <h3
-            className="flex gap-2 items-center text-2xl"
-            style={{ fontFamily: "Hind" }}
+            className={`flex gap-2 items-center text-2xl ${hind.className}`}
           >
             <span className="bg-blue-600 text-white rounded-full p-2">
               <FaPeopleGroup />
@@ -40,8 +44,7 @@ const CoachingOverView = ({description,bannerPhoto,facultyStrength,providing,add
         </div>
         <div className="flex items-center gap-2 col-span-2">
           <h3
-            className="flex gap-2 items-center text-2xl"
-            style={{ fontFamily: "Hind" }}
+            className={`flex gap-2 items-center text-2xl ${hind.className}`}
           >
             <span className="bg-blue-600 text-white rounded-full p-2">
               <PiStudentFill />
@@ -58,8 +61,7 @@ const CoachingOverView = ({description,bannerPhoto,facultyStrength,providing,add
         </div>
         <div className="flex items-center gap-2 col-span-2">
           <h3
-            className="flex gap-2 items-center text-2xl"
-            style={{ fontFamily: "Hind" }}
+            className={`flex gap-2 items-center text-2xl ${hind.className}`}
           >
             <span className="bg-blue-600 text-white rounded-full p-2">
               <FaLocationDot />
@@ -70,8 +72,7 @@ const CoachingOverView = ({description,bannerPhoto,facultyStrength,providing,add
         </div>
         <div className="flex items-center gap-2 col-span-2">
           <h3
-            className="flex gap-2 items-center text-2xl"
-            style={{ fontFamily: "Hind" }}
+            className={`flex gap-2 items-center text-2xl ${hind.className}`}
           >
             <span className="bg-blue-600 text-white rounded-full p-2">
               <IoCallSharp />
@@ -82,8 +83,7 @@ const CoachingOverView = ({description,bannerPhoto,facultyStrength,providing,add
         </div>
         <div className="flex items-center gap-2">
           <h3
-            className="flex gap-2 items-center text-2xl"
-            style={{ fontFamily: "Hind" }}
+            className={`flex gap-2 items-center text-2xl ${hind.className}`}
           >
             <span className="bg-blue-600 text-white rounded-full p-2">
               <MdEmail />
@@ -95,8 +95,7 @@ const CoachingOverView = ({description,bannerPhoto,facultyStrength,providing,add
         {address.website && (
           <div className="flex items-center gap-2">
             <h3
-              className="flex gap-2 items-center text-2xl"
-              style={{ fontFamily: "Hind" }}
+              className={`flex gap-2 items-center text-2xl ${hind.className}`}
             >
               <span className="bg-blue-600 text-white rounded-full p-2">
                 <BsBrowserChrome />

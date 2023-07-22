@@ -10,6 +10,8 @@ import CoachingOverView from "./CoachingOverView";
 import { FetchIndividualCoachingData } from "@/app/coachings";
 import Review from "../colleges/Review";
 import { convertWord } from "@/utils/functions";
+import { Poppins } from "next/font/google";
+const poppins=Poppins({subsets:['latin'],weight:['400','600']})
 
 
 const fetch = async (id: string) => {
@@ -41,8 +43,7 @@ const CoachingDetails = ({ id }: { id: string }) => {
         <div className="bg-black/50 absolute top-0 left-0 h-full w-full">
           <div className="absolute md:top-1/4 md:left-[10%] top-[20%] left-[5%]">
             <h1
-              className="text-white text-4xl"
-              style={{ fontFamily: "Poppins" }}
+              className={`text-white text-4xl ${poppins.className}`}
             >
               {convertWord(SelectedCoachingData?.coachingName)}
             </h1>

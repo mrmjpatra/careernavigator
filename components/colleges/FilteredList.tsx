@@ -16,8 +16,7 @@ type FilterSectionProps = {
 
 const FilteredList: FC<FilterSectionProps> = ({ title, onFilterChange, selectedItem, selected, list, name, isLoading }) => {
 
-    const [searchQuery, setSearchQuery] = useState('')
-    console.log(searchQuery)    
+    const [searchQuery, setSearchQuery] = useState('')  
     const filterList = useCallback(
         (list: any[], searchValue: string, searchProperty?: string): any[] => {
             if (searchProperty) {

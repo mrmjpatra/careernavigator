@@ -1,6 +1,6 @@
 import NavigationBar from "@/components/NavigationBar";
 import "./globals.css";
-import { Hind, Roboto } from "next/font/google";
+import {  Roboto } from "next/font/google";
 import ReduxProvider from "@/redux/Provider";
 import Footer from "@/components/Footer";
 import { FC, ReactNode } from "react";
@@ -15,11 +15,7 @@ const roboto = Roboto({
   display: "swap",
 });
 
-const hind = Hind({
-  weight: ["400", "500"],
-  subsets: ["latin"],
-  variable: "--hind-font",
-});
+
 
 export const metadata = {
   title: "Career Navigator",
@@ -57,7 +53,7 @@ const RootLayout: FC<RootLayoutProps> = ({
   return (
     <html lang="en">
       <body
-        className={`${roboto.className} ${hind.className}`}
+        className={`${roboto.className}`}
         suppressHydrationWarning={true}
       >
         <ReduxProvider>

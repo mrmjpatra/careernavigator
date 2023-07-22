@@ -2,9 +2,12 @@
 import UseCollegesFormData from '@/utils/collegesFormData';
 import { convertWord } from '@/utils/functions';
 import axios from 'axios';
+import { Poppins } from 'next/font/google';
 import React, { FormEvent, useState } from 'react'
 import toast from 'react-hot-toast';
 import { Discuss } from 'react-loader-spinner';
+
+const poppins=Poppins({subsets:['latin'],weight:['400','600']})
 
 const ApplyForm = ({ instituteName }: { instituteName: string }) => {
     const [loading, setLoading] = useState(false);
@@ -51,7 +54,7 @@ const ApplyForm = ({ instituteName }: { instituteName: string }) => {
         <div className='my-3'>
             <h1 className='md:text-4xl text-2xl font-bold text-blue-500 text-center'>Apply in {convertWord(instituteName.toLowerCase())}</h1>
             <div className='mx-auto md:w-3/4 w-[90%]'>
-                <div className='flex md:flex-row flex-col-reverse gap-2 rounded-md border-2 border-slate-600 my-4  shadow-lg shadow-slate-600' style={{ fontFamily: 'Poppins' }}>
+                <div className={`flex md:flex-row flex-col-reverse gap-2 rounded-md border-2 border-slate-600 my-4  shadow-lg shadow-slate-600 ${poppins.className}`}>
                     <div className='bg-blue-800 text-white py-8 px-4 md:w-2/5'>
                         <h3 className='font-bold text-xl mb-3'>Why registerd with us</h3>
                         <ul className='list-disc list-inside pl-5 leading-8'>

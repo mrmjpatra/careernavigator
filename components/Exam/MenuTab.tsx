@@ -2,10 +2,11 @@
 import { useEffect, useState } from "react";
 import SwipperTab from "./SwipperTab";
 import ReusableComp from "./ReusableComp";
+import { Hind } from "next/font/google";
+const hind=Hind({subsets:['latin'],weight:['400','600']})
 
 const MenuTab = ({ examId, tab }: { examId: string, tab: number }) => {
   const [activeTab, setActiveTab] = useState<number>(1);
-  console.log(tab)
   useEffect(() => {
     setActiveTab(tab);
   }, [tab, examId]);
@@ -13,7 +14,7 @@ const MenuTab = ({ examId, tab }: { examId: string, tab: number }) => {
     <div>
       <SwipperTab setActiveTab={setActiveTab} activeTab={activeTab} />
 
-      <div className="px-4 py-5" style={{ fontFamily: "Hind" }}>
+      <div className={`px-4 py-5 ${hind.className}`}>
         {activeTab === 1 && <ReusableComp examId={examId} title="Overview" api="overview" property="overView" />}
 
         {activeTab === 2 && <ReusableComp examId={examId} title="Important Dates" api="important-date" property="importantDate" />}
