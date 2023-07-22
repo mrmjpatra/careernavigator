@@ -13,7 +13,7 @@ import Skeleton from "react-loading-skeleton";
 import { fetchAllCollegeDataType } from "@/app/colleges";
 import { convertWord } from "@/utils/functions";
 import { Poppins } from "next/font/google";
-const poppins=Poppins({subsets:['latin'],weight:['400','600']})
+const poppins = Poppins({ subsets: ['latin'], weight: ['400', '600'] })
 
 
 const fetchData = async (id: string) => {
@@ -36,7 +36,7 @@ const CollegeDetailedPage = ({ id }: { id: string }) => {
           <div className="relative h-72  overflow-hidden">
             {
               collegeDetails?.collegePhoto.downloadUrl ? <Image src={collegeDetails?.collegePhoto?.downloadUrl} alt="college banner"
-                width={'100'} height={'100'} className="w-full h-full"  /> : <Skeleton height={'20rem'} style={{ width: '100%' }} />
+                width={'200'} height={'100'} className="w-full h-full object-cover" /> : <Skeleton height={'20rem'} style={{ width: '100%' }} />
             }
           </div>
           <div className="bg-black/50 absolute top-0 left-0 h-full w-full">

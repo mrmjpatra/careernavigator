@@ -13,7 +13,11 @@ const Header = () => {
                 <Link href={'/colleges'} className='bg-blue-500/100 text-white px-10 py-2 md:px-36 md:py-3 rounded-md hover:bg-indigo-600 transition duration-200 ease-out text-lg w-full md:w-4/5'>Choose Carrer</Link>
             </div>
             <div className='md:w-1/2 flex justify-center'>
-                <Image src={PersonHoldingBook} width={400} alt='Person holding Book' draggable={false} loading='lazy'/>
+                <Image src={PersonHoldingBook} width={0}
+                    height={0}
+                    sizes="100vw" 
+                    alt='Person holding Book' draggable={false} loading='lazy' 
+                    className='w-1/2 h-auto' />
             </div>
         </div>
     )

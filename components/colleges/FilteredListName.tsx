@@ -17,7 +17,9 @@ type FilterSectionProps = {
 const FilteredListName: FC<FilterSectionProps> = ({ title,
   onFilterChange, selectedItem, selected, list, name, isLoading }) => {
   const [searchQuery, setSearchQuery] = useState('')
-
+  const [visibleItems, setVisibleItems] = useState(10); // Number of items to initially display
+  const itemsPerPage = 10; // Number of items to load when scrolling to the bottom
+  const scrollThreshold = 200; // Number of pixels from the bottom to trigger loading more items
   const filterList = useCallback(
     (list: any[], searchValue: string, searchProperty?: string): any[] => {
       if (searchProperty) {
@@ -37,6 +39,31 @@ const FilteredListName: FC<FilterSectionProps> = ({ title,
     return filterList(list, searchQuery, name);
   }, [list, searchQuery, name, filterList])
 
+
+  // Function to load more items when the user scrolls to the bottom
+  const handleScroll = () => {
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+
+    if (scrollTop + windowHeight >= documentHeight - scrollThreshold) {
+      setVisibleItems((prevVisibleItems) => prevVisibleItems + itemsPerPage);
+    }
+  };
+
+  // Add the scroll event listener when the component mounts
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    // Clean up the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  // Reset visible items when the search query or list changes
+  useEffect(() => {
+    setVisibleItems(10);
+  }, [searchQuery, list]);
 
 
   return (
@@ -61,7 +88,7 @@ const FilteredListName: FC<FilterSectionProps> = ({ title,
           {/* FilterList */}
           {
             name ? (<ul>
-              {filteredList?.map((list) => (
+              {filteredList.slice(0, visibleItems)?.map((list) => (
                 <li key={list.id} className='flex items-center gap-3 mb-3 relative'>
                   {
                     isLoading ? <Skeleton circle width={'1.5rem'} height={'1.5rem'} /> : <input
@@ -99,7 +126,7 @@ const FilteredListName: FC<FilterSectionProps> = ({ title,
               (
                 <ul>
                   {
-                    filteredList?.map((list: string) => (
+                    filteredList.slice(0, visibleItems)?.map((list: string) => (
                       <li key={list} className='flex items-center gap-3 mb-3 relative'>
                         {
                           isLoading ? <Skeleton circle width={'1.5rem'} height={'1.5rem'} /> : <input
