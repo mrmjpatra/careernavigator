@@ -9,7 +9,7 @@ import CollegeCard from "./CollegeCard";
 const CollegeList = ({ filteredColleges, isLoading, selected, toggleModal }: { filteredColleges: fetchCollegeDetailsWithCourses[], isLoading: boolean, selected: string, toggleModal: (collegeName: string) => void }) => {
 
     const [sortingValue, setSortingValue] = useState('')
-    const [sortingCollegesList, setSortingCollegesList] = useState<fetchCollegeDetailsWithCourses[]>([]);
+    const [sortingCollegesList, setSortingCollegesList] = useState<fetchCollegeDetailsWithCourses[]>(filteredColleges);
 
     const filteringCollges = useCallback(() => {
         let sortList: fetchCollegeDetailsWithCourses[] = [...filteredColleges]; // Create a copy of the array
@@ -21,11 +21,11 @@ const CollegeList = ({ filteredColleges, isLoading, selected, toggleModal }: { f
         setSortingCollegesList(sortList);
     }, [sortingValue, filteredColleges]);
 
-    useEffect(() => {
-        setSortingCollegesList(filteredColleges);
-        filteringCollges();
-    }, [filteredColleges, filteringCollges]);
 
+
+    useEffect(() => {
+        filteringCollges();
+    }, [filteredColleges, filteringCollges, sortingValue]);
 
     return (
         <>
@@ -50,19 +50,20 @@ const CollegeList = ({ filteredColleges, isLoading, selected, toggleModal }: { f
             <div>
                 {/* allcolleges and for each college one section */}
                 {
-                    isLoading && <div className='flex w-full items-center p-2'>
-                        <div className="w-[40%] h-full overflow-hidden flex"> <Skeleton width={'14rem'} height={'7rem'} /> </div>
+                    isLoading && 
+                    <div className='flex md:flex-row flex-col items-center p-2'>
+                        <div className="w-[40%]  h-full overflow-hidden flex"> <Skeleton width={'14rem'} height={'7rem'} /> </div>
                         <div className="w-[80%]">
                             <Skeleton width={'100%'} height={'6rem'} />
                             <Skeleton width={'100%'} height={'1rem'} />
                         </div>
-                        <div className='flex flex-col justify-center px-4 w-[30%] gap-3 '>
+                        <div className='flex  '>
                             <Skeleton width={'80%'} height={'2rem'} />
                             <Skeleton width={'80%'} height={'2rem'} />
                         </div>
                     </div>
                 }
-                <CollegeListComp list={filteredColleges} toggleModal={toggleModal} />
+                <CollegeListComp list={sortingCollegesList} toggleModal={toggleModal} />
             </div>
         </>
     )
@@ -76,7 +77,7 @@ type CollegeListCompProps = {
 }
 
 const CollegeListComp = ({ list, toggleModal }: CollegeListCompProps) => {
-    const [displayedColleges, setDisplayedColleges] = useState(list.slice(0, 1));
+    const [displayedColleges, setDisplayedColleges] = useState(list);
     const loadMoreRef = useRef(null);
     useEffect(() => {
         const observer = new IntersectionObserver((entries) => {
@@ -95,10 +96,15 @@ const CollegeListComp = ({ list, toggleModal }: CollegeListCompProps) => {
         return () => observer.disconnect();
     }, [list]);
 
+    useEffect(()=>{
+        const arrayList=list.slice(0,1);
+        setDisplayedColleges(arrayList);
+    },[list]);
+
     return (
         <>
             {
-                displayedColleges.map(list => <CollegeCard key={list.id} data={{ ...list }} toggleModal={toggleModal} />)
+                displayedColleges.map(list => <CollegeCard key={list.collegeName} data={{ ...list }} toggleModal={toggleModal} />)
             }
             <div ref={loadMoreRef}>Loading more...</div>
         </>

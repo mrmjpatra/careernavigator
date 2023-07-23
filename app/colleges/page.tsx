@@ -82,7 +82,7 @@ const Colleges = () => {
       });
       return matchingCourse !== undefined;
     })
-  }, [allCollegeDetails,collegesFormData]);
+  }, [allCollegeDetails, collegesFormData]);
 
   // const filterColleges = useCallback(() => {
   //   if (allCollegeDetails && Object.values(collegesFormData).some((element) => element !== '')) {
@@ -135,9 +135,11 @@ const Colleges = () => {
       }
       <div className="md:flex md:gap-10">
         {/* filter state */}
-        <div className='flex justify-end pr-4 items-center cursor-pointer md:hidden' onClick={() => setShowModal(prev => !prev)} >
-          <LuSettings2 color='#0081fa' />
-          <span>Filters</span>
+        <div className='flex justify-end pr-4 pb-5 items-center cursor-pointer md:hidden' onClick={() => setShowModal(prev => !prev)} >
+          <span className='bg-blue-700 text-white rounded-full p-2 hover:bg-blue-900 hover:shadow-md hover:shadow-blue-400 transition-all duration-200 ease-in'>
+            <LuSettings2 size={'1.5rem'} />
+          </span>
+          <span className='pl-2 font-bold'>Filters</span>
         </div>
         <div className={`${showModal ? 'fixed bottom-0 top-[1%] left-[10%] shadow-lg shadow-blue-500 overflow-y-scroll z-20 w-4/5' : 'md:w-[25rem] h-[50rem] bg-blue-500/5  overflow-y-scroll md:border-2 hidden md:block shadow-lg shadow-blue-500 rounded-md'} `}>
           <div className={`${showModal ? 'bg-white rounded-lg w-full ' : 'shadow-md shadow-white/10 pt-2'}`}>

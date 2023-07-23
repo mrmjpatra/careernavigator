@@ -39,11 +39,11 @@ const FeaturedCollege = () => {
 
     useEffect(() => {
         const observer = new IntersectionObserver((entries) => {
-                if (entries[0].isIntersecting) {
-                    setShowPlayer(true);
-                    observer.disconnect();
-                }
-            },
+            if (entries[0].isIntersecting) {
+                setShowPlayer(true);
+                observer.disconnect();
+            }
+        },
             { threshold: 1.0 }
         );
         if (ref.current) {
@@ -78,7 +78,7 @@ const FeaturedCollege = () => {
                     }}
                     loop={true}
                     modules={[EffectFade, Navigation, Pagination, Autoplay]}
-                    className="md:w-3/4 mx-auto w-[90%]"
+                    className="md:w-3/4 mx-auto w-[90%] px-4 md:h-fit h-64"
                 >
                     {
                         sortedVideoUrls?.map(video => <SwiperSlide key={video.id}>
@@ -87,13 +87,14 @@ const FeaturedCollege = () => {
                                 !showPlayer && <span>Loading......</span>
                             }
                             {showPlayer &&
-                                <ReactPlayer
-                                    url={video.videoUrl}
-                                    width={'100%'}
-                                    height={'500px'}
-                                    className="border-none rounded-lg shadow-md shadow-red-800 w-full h-[200px] sm:h-[350px] md:w-[836px] md:h-[441px]"
-
-                                />
+                                <div className="relative h-96">
+                                    <ReactPlayer
+                                        controls
+                                        url={video.videoUrl}
+                                        width='100%'
+                                        height='100%'
+                                    />
+                                </div>
                             }
                             {/* </div> */}
                         </SwiperSlide>)

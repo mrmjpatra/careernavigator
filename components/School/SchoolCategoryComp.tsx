@@ -16,6 +16,10 @@ type SchoolCategoryType = {
 const SchoolCategoryComp = ({ title, list, onFilterChange, selected, checked, isLoading }: SchoolCategoryType) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredList, setFilteredList] = useState<string[]>(list);
+  const [visibleItems, setVisibleItems] = useState(10); // Number of items to initially display
+  const itemsPerPage = 10; // Number of items to load when scrolling to the bottom
+  const scrollThreshold = 200; // Number of pixels from the bottom to trigger loading more items 
+
 
   const filterList = (list: any[], searchValue: string): any[] => {
     return list.filter((item: string) =>
@@ -26,6 +30,32 @@ const SchoolCategoryComp = ({ title, list, onFilterChange, selected, checked, is
   useEffect(() => {
     const sList = filterList(list, searchQuery)
     setFilteredList(sList);
+  }, [searchQuery, list]);
+
+
+  // Function to load more items when the user scrolls to the bottom
+  const handleScroll = () => {
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+
+    if (scrollTop + windowHeight >= documentHeight - scrollThreshold) {
+      setVisibleItems((prevVisibleItems) => prevVisibleItems + itemsPerPage);
+    }
+  };
+
+  // Add the scroll event listener when the component mounts
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    // Clean up the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  // Reset visible items when the search query or list changes
+  useEffect(() => {
+    setVisibleItems(10);
   }, [searchQuery, list]);
 
   return (
@@ -44,11 +74,11 @@ const SchoolCategoryComp = ({ title, list, onFilterChange, selected, checked, is
             />
           }
 
-          <FiSearch className="absolute top-3 left-3"  color='#0041b9'/>
+          <FiSearch className="absolute top-3 left-3" color='#0041b9' />
         </div>
         <ul>
           {
-            filteredList.map(item =>
+            filteredList.slice(0, visibleItems)?.map(item =>
               <li key={item} className="flex items-center gap-3 mb-3 relative">
                 {
                   isLoading ? <Skeleton circle width={'1.5rem'} height={'1.5rem'} /> : <input

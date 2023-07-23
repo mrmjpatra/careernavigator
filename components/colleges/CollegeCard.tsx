@@ -1,5 +1,5 @@
 import { fetchCollegeDetailsWithCourses } from '@/app/colleges'
-import { checkLength, convertWord } from '@/utils/functions'
+import { checkLength, convertWord, getFormattedString } from '@/utils/functions'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
@@ -16,17 +16,18 @@ const CollegeCard = ({ data, toggleModal }: CollegeCardProps) => {
     const { id, collegePhoto, collegeName, city, state, ownership, description, courses } = data;
     const d: string = (JSON.parse(description));
     const desc = checkLength(d, 150);
+
     return (
         <section key={id} className='p-0 bg-slate-100 mx-2 my-7 border relative rounded-md hover:shadow-md  hover:-translate-y-1 cursor-pointer transition-transform duration-300 ease-out'>
             <div className='flex w-full py-3 px-2 items-center flex-col sm:flex-row '>
                 <figure className='md:w-[40%] w-full h-full overflow-hidden flex bg-black'>
-                    <Image src={collegePhoto.downloadUrl} width={100} height={100} alt='college photo' className="object-cover w-full h-full " loading="eager" />
+                    <Image src={collegePhoto.downloadUrl} width={100} height={100} alt='college photo' className="object-cover w-full h-full rounded-md shadow-md shadow-white " loading="eager" />
                 </figure>
                 {/* Details */}
                 <div className='md:w-[80%] pt-4 pl-2'>
                     {/* CollegeDetails */}
                     <div className='flex flex-col gap-2 border-b-2 px-3 pb-3'>
-                        <Link href={`/colleges/${id}`}>
+                        <Link href={`/colleges/${getFormattedString(collegeName,'-')}`}>
                             <h2 className="font-bold text-blue-950 text-xl">{collegeName.toUpperCase()}</h2>
                         </Link>
                         <div className='flex items-center gap-2'>

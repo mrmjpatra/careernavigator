@@ -1,6 +1,3 @@
-'use client'
-import { useQuery } from '@tanstack/react-query'
-import axios from 'axios'
 import Link from 'next/link'
 import React from 'react'
 
@@ -9,23 +6,26 @@ type fetchExamsNameType = {
   examName: string
 }
 const fetchExamsName = async () => {
-  const { data } = await axios.get(`${process.env.HOST}/api/exam`);
+  const res = await fetch(`${process.env.HOST}/api/exam`, { next: { revalidate: 10 } });
+  const data = await res.json();
   const details: fetchExamsNameType[] = data.message;
   return details;
 }
 
-const ExamsHomePage = () => {
-  const { isLoading, error, data: examNameList } = useQuery({
-    queryKey: ['examNameList'],
-    queryFn: () => fetchExamsName()
-  });
+const ExamsHomePage = async () => {
+  const examNameList = await fetchExamsName();
 
   return (
-    <div>
-      <h1 className='text-2xl font-bold text-blue-600 text-center'>Exams List</h1>
-      {
-        examNameList?.map(exam => <Link href={`/exam/${exam.examName}`} key={exam.id}> <h2 >{exam.examName.toLocaleUpperCase()}</h2></Link>)
-      }
+    <div className='px-4 py-5'>
+      <h1 className='text-2xl md:text-3xl font-bold text-blue-900'>Exams List</h1>
+      <div className='flex flex-col mt-5 gap-3 pl-4'>
+        {
+          examNameList?.map(exam =>
+            <Link href={`/exam/${exam.examName}`} key={exam.id}>
+              <h2 className='text-red-700 hover:text-red-900 font-medium text-xl ' >{exam.examName.toLocaleUpperCase()}</h2>
+            </Link>)
+        }
+      </div>
     </div>
   )
 }

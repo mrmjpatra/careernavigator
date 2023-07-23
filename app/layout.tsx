@@ -6,10 +6,10 @@ import { FC, ReactNode } from "react";
 import Providers from "@/utils/provider";
 import dynamic from "next/dynamic";
 import "react-loading-skeleton/dist/skeleton.css";
-
-const Toaster=dynamic(() => import('react-hot-toast').then((mod) => mod.Toaster));
+import { Toaster } from "react-hot-toast";
+import { SkeletonTheme } from "react-loading-skeleton";
 const Footer = dynamic(() => import('@/components/Footer'));
-const SkeletonTheme = dynamic(() => import('react-loading-skeleton').then((mod) => mod.SkeletonTheme));
+
 
 const roboto = Roboto({
   weight: ["400", "500", "700", "900"],
@@ -24,7 +24,7 @@ export const metadata = {
   description: "Choose Best College with us",
   openGraph: {
     title: 'Carrer Navigator',
-    description: 'Choose Best College with us',
+    description: 'Choose your best Carrer. We guide you to choose best path with best College. Based on your rank and score, we can show you the best college.You gurantee you to get 100% seat on your wishlist collge.',
     url: 'https://nextjs.org',
     siteName: 'Carrer Navigator',
     images: [

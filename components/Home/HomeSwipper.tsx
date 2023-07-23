@@ -1,64 +1,54 @@
-'use client'
-import { Swiper, SwiperSlide } from "swiper/react";
-// Import Swiper styles
-import "swiper/css/pagination";
-import "swiper/css";
-import "swiper/css/scrollbar";
-import { Pagination, Autoplay, Scrollbar } from "swiper";
-import Image from "next/image";
 import NoticeCarousel from "./NoticeCarousel";
 import { ImageRef } from "@/utils/types";
-import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
+import BannerPhotos from "./BannerPhotos";
 
 
-type fetchBannerPhotosType = {
+export type fetchBannerPhotosType = {
     banner: ImageRef
     id: string,
     createdAt: string,
     updatedAt: string
 }
+export type NoticeType = {
+    id: String,
+    title: string,
+    link: string,
+    createdAt: string,
+    updatedAt: string
+}
 
-const fetch = async () => {
-    const { data } = await axios.get(`${process.env.HOST}/api/banners`);
-    const details: fetchBannerPhotosType[] = data.message;
+const fetchBanners = async (): Promise<fetchBannerPhotosType[]> => {
+    const res = await fetch(`${process.env.HOST}/api/banners`);
+    const data = await res.json();
+    return data.message;
+}
+
+
+const fetchNotices = async () => {
+    const res = await fetch(`${process.env.HOST}/api/notice`);
+    const data = await res.json();
+    const details: NoticeType[] = data.message;
     return details;
 }
-const HomeSwipper = () => {
-    const { isLoading, error, data: bannerPhotos } = useQuery({
-        queryKey: ['bannerPhotos'],
-        queryFn: () => fetch()
-    });
+
+const HomeSwipper = async () => {
+    const bannerPhotosData = fetchBanners();
+    const sortedNoticesData = fetchNotices();
+    const [bannerPhotos, notices] = await Promise.all([bannerPhotosData, sortedNoticesData]);
+    const sortedNotices = notices.sort((a, b) => new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf())
     return (
         <div className="flex flex-col md:flex-row px-4 py-4 gap-8">
             <div className="md:w-3/5">
-                {
-                    isLoading ? <div className='flex justify-center items-center my-8'>
-                        <div className='border-8 border-blue-100 rounded-full w-24 h-24  border-t-8 border-t-blue-600  animate-spin ease-linear duration-200'></div>
-                    </div> :
-                        <Swiper
-                            pagination={{
-                                clickable: true,
-                            }}
-                            autoplay={{
-                                delay: 2500,
-                                disableOnInteraction: false
-                            }} modules={[Pagination, Autoplay, Scrollbar]} className="h-96" slidesPerView={1} loop={true} >
-                            {
-                                bannerPhotos?.map(photo => <SwiperSlide key={photo.id}>
-                                    <Image src={photo.banner.downloadUrl} width={300} height={300} alt={photo.banner.fileName} className="block w-full h-full object-cover" />
-                                </SwiperSlide>)
-                            }
-                        </Swiper>
-                }
+                <BannerPhotos bannerPhotos={bannerPhotos} />
             </div>
             <div className="md:w-2/5">
-                {
-                    isLoading ? <div className='flex justify-center items-center my-8'>
-                        <div className='border-8 border-blue-100 rounded-full w-24 h-24  border-t-8 border-t-blue-600  animate-spin ease-linear duration-200'></div>
-                    </div> :
-                        <NoticeCarousel />
-                }
+                <div className="px-4">
+                    <h1 className="font-bold text-3xl mb-5 text-blue-800">Notices</h1>
+                    {
+                        !notices && <p>Loading..........</p>
+                    }
+                    <NoticeCarousel sortedNotices={sortedNotices} />
+                </div>
             </div>
         </div>
     )

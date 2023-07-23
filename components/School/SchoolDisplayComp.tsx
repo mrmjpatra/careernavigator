@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import Skeleton from 'react-loading-skeleton';
 import SchoolItem from './SchoolItem';
 import { SchoolFormDetailsType } from '@/app/schools';
@@ -63,11 +63,49 @@ const SchoolDisplayComp = ({ schoolList, isLoading, toggleModal, selectedCity }:
           </div>
         </div>
       }
-      {
-        sortingSchoolList.map(school => <SchoolItem key={school.id} data={{ ...school }} toggleModal={toggleModal} />)
-      }
+      <SchoolListComp list={sortingSchoolList} toggleModal={toggleModal} />
     </div>
   )
 }
 
-export default SchoolDisplayComp
+export default SchoolDisplayComp;
+
+
+type SchoolListCompProps = {
+  list: SchoolFormDetailsType[],
+  toggleModal: (schoolName: string) => void
+}
+const SchoolListComp = ({ list, toggleModal }: SchoolListCompProps) => {
+  const [displayedColleges, setDisplayedColleges] = useState(list);
+  const loadMoreRef = useRef(null);
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        setDisplayedColleges((prev) => [
+          ...prev,
+          ...list.slice(prev.length, prev.length + 2),
+        ]);
+      }
+    });
+
+    if (loadMoreRef.current) {
+      observer.observe(loadMoreRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [list]);
+
+  useEffect(() => {
+    const arrayList = list.slice(0, 1);
+    setDisplayedColleges(arrayList);
+  }, [list]);
+
+  return (
+    <>
+      {
+        displayedColleges.map(list => <SchoolItem key={list.id} data={{ ...list }} toggleModal={toggleModal} />)
+      }
+      <div ref={loadMoreRef}></div>
+    </>
+  )
+}

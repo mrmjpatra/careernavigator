@@ -1,11 +1,10 @@
 'use client'
 import CoachingDisplayComp from '@/components/Coaching/CoachingDisplayComp';
 import SchoolCategoryComp from '@/components/School/SchoolCategoryComp';
-import SchoolDisplayComp from '@/components/School/SchoolDisplayComp';
 import UseCollegesFormData from '@/utils/collegesFormData';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { IoClose } from 'react-icons/io5';
 import { LuSettings2 } from 'react-icons/lu';
 import { CoachingFetchDataType } from '.';
@@ -22,7 +21,7 @@ const fetchCoachingDetails = async () => {
 const CoachingHomePage = () => {
     const [showModal, setShowModal] = useState(false);
     const [isFilterSelected, setIsFilterSelected] = useState(false);
-    const [filteredSchools, setFilteredSchools] = useState<CoachingFetchDataType[]>([]);
+    // const [filteredCoachings, setFilteredSchools] = useState<CoachingFetchDataType[]>([]);
 
     //Apply form Modal state
     const [showApplyModal, setShowApplyModal] = useState(false);
@@ -41,23 +40,15 @@ const CoachingHomePage = () => {
     });
 
     const handleFilterChange = (selected: string, value: string) => {
+        setIsFilterSelected(true);
         setListOfCategoryList(prev => ({ ...prev, [selected]: value }))
     };
 
-    const filterSchools = useCallback(() => {
-        if (allCoachingDetails && Object.values(listOfCategoryList).some((element) => element !== '')) {
-            setIsFilterSelected(true);
-            const filterdData = allCoachingDetails.filter(coach => (coach.state === listOfCategoryList.selectedState || coach.city === listOfCategoryList.selectedCity));
-            setFilteredSchools(filterdData);
-
-        }
+    const filteredCoachings = useMemo(() => {
+        return allCoachingDetails?.filter(coach => {
+            return (coach.state === listOfCategoryList.selectedState || coach.city === listOfCategoryList.selectedCity)
+        })
     }, [allCoachingDetails, listOfCategoryList]);
-
-
-    useEffect(() => {
-        filterSchools();
-    }, [listOfCategoryList, filterSchools]);
-
 
     //set the apply form modal value using the below funciton
     const toggleModal = (coachingName: string) => {
@@ -65,9 +56,8 @@ const CoachingHomePage = () => {
         setCoachingName(coachingName);
     };
 
-
     return (
-        <div className="xl:max-[1100px] mx-auto h-full xl:w-[90%] py-4 md:[1000px] ">
+        <div className="xl:max-[1100px] mx-auto h-full xl:w-[96%] py-4 md:[1000px] ">
             {
                 showApplyModal && <ApplyModal onClose={() => setShowApplyModal(false)}>
                     <ApplyForm instituteName={coachingName} />
@@ -75,9 +65,11 @@ const CoachingHomePage = () => {
             }
             <div className="md:flex md:gap-3 md:justify-between">
                 {/* filter state */}
-                <div className='flex justify-end pr-4 items-center cursor-pointer md:hidden' onClick={() => setShowModal(prev => !prev)} >
-                    <LuSettings2 color='#0081fa' />
-                    <span>Filters</span>
+                <div className='flex justify-end pr-4 pb-5 items-center cursor-pointer md:hidden' onClick={() => setShowModal(prev => !prev)} >
+                <span className='bg-blue-700 text-white rounded-full p-2 hover:bg-blue-900 hover:shadow-md hover:shadow-blue-400 transition-all duration-200 ease-in'>
+                        <LuSettings2  size={'1.5rem'} />
+                    </span>
+                    <span className='pl-2 font-bold'>Filters</span>
                 </div>
                 <div className={`${showModal ? 'fixed bottom-0 top-[1%] left-[10%] shadow-lg shadow-blue-500 overflow-y-scroll z-20 w-4/5' : 'md:w-[25rem] h-[50rem] bg-blue-500/5  overflow-y-scroll md:border-2 hidden md:block shadow-lg shadow-blue-500 rounded-md'}`}>
                     <div className={`${showModal ? 'bg-white rounded-lg w-full ' : 'shadow-md shadow-white/10 pt-2'}`}>
@@ -122,7 +114,9 @@ const CoachingHomePage = () => {
                     <div className='py-5 border'>
                         {
                             isFilterSelected ?
-                                <CoachingDisplayComp selectedCity={listOfCategoryList.selectedCity} toggleModal={toggleModal} isLoading={isLoading} coachingList={filteredSchools} /> : <CoachingDisplayComp selectedCity={listOfCategoryList.selectedCity} toggleModal={toggleModal} isLoading={isLoading} coachingList={allCoachingDetails ? allCoachingDetails : []} />
+                                (
+                                    filteredCoachings &&
+                                    <CoachingDisplayComp selectedCity={listOfCategoryList.selectedCity} toggleModal={toggleModal} isLoading={isLoading} coachingList={filteredCoachings} />) : <CoachingDisplayComp selectedCity={listOfCategoryList.selectedCity} toggleModal={toggleModal} isLoading={isLoading} coachingList={allCoachingDetails ? allCoachingDetails : []} />
                         }
                     </div>
                 </div>

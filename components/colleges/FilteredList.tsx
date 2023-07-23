@@ -19,6 +19,7 @@ const FilteredList: FC<FilterSectionProps> = ({ title, onFilterChange, selectedI
     const [visibleItems, setVisibleItems] = useState(10); // Number of items to initially display
     const itemsPerPage = 10; // Number of items to load when scrolling to the bottom
     const scrollThreshold = 200; // Number of pixels from the bottom to trigger loading more items 
+    
     const filterList = useCallback(
         (list: any[], searchValue: string, searchProperty?: string): any[] => {
             if (searchProperty) {

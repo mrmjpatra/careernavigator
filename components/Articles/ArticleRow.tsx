@@ -1,7 +1,7 @@
 import { fetchArticlesType } from '@/app/articles'
 import Link from 'next/link'
 import React from 'react'
-import { checkLength, convertWord, getFormatedDate } from '@/utils/functions'
+import { checkLength, convertWord, getFormatedDate, getFormattedString } from '@/utils/functions'
 import Skeleton from 'react-loading-skeleton'
 
 const ArticleRow = ({ id, content, title, updatedAt }: fetchArticlesType) => {
@@ -9,7 +9,7 @@ const ArticleRow = ({ id, content, title, updatedAt }: fetchArticlesType) => {
 
     return (
         <div>
-            <Link href={`/articles/${id}`} className='text-2xl text-blue-500 font-bold hover:text-red-500 ' >
+            <Link href={`/articles/${getFormattedString(title,'-')}`} className='text-2xl text-blue-500 font-bold hover:text-red-500 ' >
                 <h2>{convertWord(title) || <Skeleton/> }</h2>
             </Link>
             <div dangerouslySetInnerHTML={{ __html: desc }} className='text-gray-800 pl-2'>

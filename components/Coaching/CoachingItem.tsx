@@ -5,7 +5,7 @@ import { FaLocationDot } from 'react-icons/fa6'
 import { CgList } from 'react-icons/cg'
 import { IoCall } from 'react-icons/io5'
 import { CoachingFetchDataType } from '@/app/coachings'
-import { convertWord } from '@/utils/functions'
+import { convertWord, getFormattedString } from '@/utils/functions'
 
 type CoachingItemProps = {
     data: CoachingFetchDataType
@@ -17,20 +17,20 @@ const CoachingItem = ({ data, toggleModal }: CoachingItemProps) => {
     return (
         <section className='p-0 bg-slate-100 mx-2 my-7 border relative rounded-md hover:shadow-md  hover:-translate-y-1 cursor-pointer transition-transform duration-300 ease-out'>
             <div className='flex w-full py-3 px-2 items-center flex-col sm:flex-row '>
-                <Image src={coachingPhoto.downloadUrl} width={400} height={100} alt='School Photo' style={{ width: '200px', height: '150px', objectFit: 'cover' }} className='rounded-md shadow-md shadow-white' />
+                <Image src={coachingPhoto.downloadUrl}  alt='School Photo' width={100} height={100}  className='rounded-md shadow-md shadow-white w-full pb-3 md:pb-0 h-full md:w-1/2 object-cover' loading="eager" />
                 {/* Details */}
                 <div className='md:w-[80%] pt-4 pl-2 w-full flex items-center md:block'>
                     {/* CollegeDetails */}
                     <div>
-                        <Link href={`/coachings/${id}`} >
-                            <h2 className='md:text-2xl text-blue-500 my-3 text-xl font-medium'>{coachingName.toUpperCase()}</h2>
+                        <Link href={`/coachings/${getFormattedString(coachingName,'-')}`} >
+                            <h2 className="font-bold text-blue-950 text-xl pb-4">{coachingName.toUpperCase()}</h2>
                         </Link>
                         <div className='flex flex-col gap-2 md:border-b-2 px-3 pb-3'>
                             <div className='flex items-center gap-2'>
                                 <span className='bg-blue-600 p-2 text-white rounded-full'>
                                     <FaLocationDot size={'1.2rem'} />
                                 </span>
-                                <span className="font-medium text-sky-600">{convertWord(state)}({convertWord(city)})</span>
+                                <span className="font-medium text-sky-900 ">{convertWord(state)}({convertWord(city)})</span>
                             </div>
                         </div>
                         {/* infoExtra */}
@@ -39,7 +39,7 @@ const CoachingItem = ({ data, toggleModal }: CoachingItemProps) => {
                                 <span className='bg-blue-600 p-2 text-white rounded-full'>
                                     <CgList size={'1.2rem'} />
                                 </span>
-                                <ul className="flex gap-1 font-medium text-orange-500">
+                                <ul className="flex gap-1 font-medium text-orange-900">
                                     {
                                         providing.map(p => <li key={p}>{convertWord(p)},</li>)
                                     }

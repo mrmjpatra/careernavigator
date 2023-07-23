@@ -7,7 +7,7 @@ import { FaLocationDot } from 'react-icons/fa6'
 import { BsPersonFill } from 'react-icons/bs'
 import { MdSchool } from 'react-icons/md'
 import { SchoolFormDetailsType } from '@/app/schools'
-import { convertWord } from '@/utils/functions'
+import { convertWord, getFormattedString } from '@/utils/functions'
 
 type SchoolItemProps = {
     data: SchoolFormDetailsType,
@@ -19,20 +19,20 @@ const SchoolItem = ({ data, toggleModal }: SchoolItemProps) => {
     return (
         <section className='p-0 bg-slate-100 mx-2 my-7 border relative rounded-md hover:shadow-md  hover:-translate-y-1 cursor-pointer transition-transform duration-300 ease-out'>
             <div className='flex w-full py-3 px-2 items-center flex-col sm:flex-row '>
-                <Image src={schoolPhoto.downloadUrl ? schoolPhoto.downloadUrl : Collegephoto} width={400} height={100} alt='School Photo' style={{ width: '200px', height: '150px', objectFit: 'cover' }} className='rounded-md shadow-md shadow-white' />
+                <Image src={schoolPhoto.downloadUrl ? schoolPhoto.downloadUrl : Collegephoto} width={100} height={100} alt='School Photo' className='rounded-md shadow-md shadow-white w-full pb-3 md:pb-0 h-full md:w-1/2 object-cover' loading='eager' />
                 {/* Details */}
-                <div className='md:w-[80%] pt-4 pl-2 w-full flex items-center md:block'>
+                <div className='md:w-[80%] pl-2 w-full flex items-center md:block'>
                     {/* CollegeDetails */}
                     <div>
-                        <Link href={`/schools/${id}`} >
-                            <h2 className='md:text-2xl text-blue-500 my-3 text-xl font-medium'>{schoolName.toUpperCase()}</h2>
+                        <Link href={`/schools/${getFormattedString(schoolName,'-')}`} >
+                            <h2 className="font-bold text-blue-950 text-xl pb-4">{schoolName.toUpperCase()}</h2>
                         </Link>
                         <div className='flex flex-col gap-2 md:border-b-2 px-3 pb-3'>
                             <div className='flex items-center gap-3'>
                                 <span className='bg-blue-600 p-2 text-white rounded-full'>
                                     <FaLocationDot size={'1.2rem'} />
                                 </span>
-                                <span className="font-medium text-sky-600">{convertWord(state)}({convertWord(city)})</span>
+                                <span className="font-medium text-sky-900 ">{convertWord(state)}({convertWord(city)})</span>
                             </div>
                         </div>
                         {/* infoExtra */}
@@ -41,7 +41,7 @@ const SchoolItem = ({ data, toggleModal }: SchoolItemProps) => {
                                 <span className='bg-blue-600 p-2 text-white rounded-full'>
                                     <BsPersonFill size={'1.2rem'} />
                                 </span>
-                                <span className='font-medium text-orange-600'>
+                                <span className='font-medium text-orange-900'>
                                     {ownership.toUpperCase()}
                                 </span>
                             </div>
@@ -49,7 +49,7 @@ const SchoolItem = ({ data, toggleModal }: SchoolItemProps) => {
                                 <span className='bg-blue-600 p-2 text-white rounded-full'>
                                     <MdSchool size={'1.2rem'} />
                                 </span>
-                                <span className='font-medium text-indigo-500' >{board.toUpperCase()}</span>
+                                <span className='font-medium text-indigo-900'>{board.toUpperCase()}</span>
                             </div>
                         </div>
                     </div>

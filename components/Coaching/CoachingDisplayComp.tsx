@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import Skeleton from 'react-loading-skeleton'
 import CoachingItem from './CoachingItem'
 import { CoachingFetchDataType } from '@/app/coachings'
@@ -33,7 +33,7 @@ const CoachingDisplayComp = ({ coachingList, isLoading, toggleModal, selectedCit
             &nbsp;
             <h2 className="text-2xl font-medium text-blue-600 pl-2">
                 {
-                    selectedCity !== '' ? <span>Top Coachings in {convertWord(selectedCity)}</span>:<span>Coachings List</span>
+                    selectedCity !== '' ? <span>Top Coachings in {convertWord(selectedCity)}</span> : <span>Top Coachings List</span>
                 }
 
             </h2>
@@ -63,11 +63,50 @@ const CoachingDisplayComp = ({ coachingList, isLoading, toggleModal, selectedCit
                     </div>
                 </div>
             }
-            {
-                sortedCoachingList.map(coaching => <CoachingItem toggleModal={toggleModal} key={coaching.id} data={{ ...coaching }} />)
-            }
+            <CoachingListComp list={sortedCoachingList} toggleModal={toggleModal} />
         </div>
     )
 }
 
-export default CoachingDisplayComp
+export default CoachingDisplayComp;
+
+
+
+type CoachingListCompProps = {
+    list: CoachingFetchDataType[],
+    toggleModal: (schoolName: string) => void
+}
+const CoachingListComp = ({ list, toggleModal }: CoachingListCompProps) => {
+    const [displayedColleges, setDisplayedColleges] = useState(list);
+    const loadMoreRef = useRef(null);
+    useEffect(() => {
+        const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                setDisplayedColleges((prev) => [
+                    ...prev,
+                    ...list.slice(prev.length, prev.length + 2),
+                ]);
+            }
+        });
+
+        if (loadMoreRef.current) {
+            observer.observe(loadMoreRef.current);
+        }
+
+        return () => observer.disconnect();
+    }, [list]);
+
+    useEffect(() => {
+        const arrayList = list.slice(0, 1);
+        setDisplayedColleges(arrayList);
+    }, [list]);
+
+    return (
+        <>
+            {
+                displayedColleges.map(list => <CoachingItem toggleModal={toggleModal} key={list.id} data={{ ...list }} />)
+            }
+            <div ref={loadMoreRef}></div>
+        </>
+    )
+}
