@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
-import collegedekhologo from '@/public/assets/collegedekhologo.svg'
+import carrernavigator from '@/public/assets/footerlogo.png'
 import { BiLogoLinkedin } from 'react-icons/bi'
 import { BsInstagram } from 'react-icons/bs'
 import { TbBrandFacebook } from 'react-icons/tb'
@@ -17,9 +17,9 @@ const Footer = () => {
                 <div className='grid  grid-cols-2 md:grid-cols-4 py-2'>
                     {/* Top COllege */}
                     <div>
-                        <h1 className='text-2xl'>Top Colleges</h1>
-                        <ul className='pt-3'>
-                            <li className='text-white/80'>
+                        <h1 className='text-2xl md:text-3xl font-bold'>Top Colleges</h1>
+                        <ul className='pt-3 space-y-4 text-xl font-medium pl-2'>
+                            <li className='text-white'>
                                 <Link href={{
                                     pathname: '/colleges', query: {
                                         stream: 'mba'
@@ -102,8 +102,8 @@ const Footer = () => {
                     </div>
                     {/* Top Exam */}
                     <div>
-                        <h1 className='text-2xl'>Top Exam</h1>
-                        <ul className='pt-3'>
+                        <h1 className='text-2xl md:text-3xl font-bold'>Top Exam</h1>
+                        <ul className='pt-3 space-y-4 text-xl font-medium pl-2'>
                             <li className='text-white/80'>
                                 <Link href='/exam/jee' className='relative 
                                 hover:text-white font-hind
@@ -165,8 +165,8 @@ const Footer = () => {
 
                     {/* Board Exams */}
                     <div className='col-span-2'>
-                        <h1 className='text-2xl'>Board Exams</h1>
-                        <ul className='grid grid-cols-2 grid-rows-5 pt-3'>
+                        <h1 className='text-2xl md:text-3xl font-bold'>Board Exams</h1>
+                        <ul className='grid grid-cols-2 grid-rows-5 pt-3 space-y-4 text-xl font-medium pl-2'>
                             <li className='text-white/80'>
                                 <Link href='/' className='relative 
                                 hover:text-white font-hind
@@ -290,7 +290,7 @@ const Footer = () => {
                 <hr />
                 <div className='flex py-2 md:flex-row flex-col md:justify-between items-center'>
                     {/* logo */}
-                    <Image src={collegedekhologo} width={100} alt="logo" style={{ backgroundColor: 'red' }} />
+                    <Image src={carrernavigator} width={100} alt="logo" />
                     <span>&copy;2023 College Navigator Pvt. Ltd. All Rights Reserved</span>
                 </div>
             </div>

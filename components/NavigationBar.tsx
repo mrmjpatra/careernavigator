@@ -1,7 +1,7 @@
 'use client'
 import { CategoryItem, MenuItem, navmenulist } from "@/utils/navmenulist"
 import Image from "next/image"
-import collegedekhologo from '@/public/assets/collegedekhologo.svg'
+import collegedekhologo from '@/public/assets/carrernavigator4.svg'
 import { createElement, useEffect, useRef, useState } from "react"
 import { HiOutlineBars3BottomRight } from 'react-icons/hi2'
 import { FaXmark } from 'react-icons/fa6';
@@ -28,10 +28,10 @@ const NavigationBar = () => {
 
     return (
         <nav className="bg-[#F2F6F9] py-2 navbar sticky top-0 z-20 " ref={menuRef}>
-            <div className="sm:w-[640px] md:w-[768px] lg:w-[1200px] max-w-[1300px] mx-auto flex  justify-between md:justify-start">
+            <div className="sm:w-[640px] md:w-[768px] lg:w-[1200px] max-w-[1300px] mx-auto flex  justify-between md:justify-start items-center gap-5">
                 {/* logo */}
-                <Link href={'/'} >
-                    <Image src={collegedekhologo} width={100} alt="logo" style={{ backgroundColor: 'red' }} />
+                <Link href={'/'}>
+                    <Image src={collegedekhologo} width={100} alt="logo" className="pl-4 w-96" />
                 </Link>
                 {/* menu */}
                 {/* Mobile View */}
@@ -55,8 +55,8 @@ const NavigationBar = () => {
                         />
                     </div>
                     <div className={`${open ? 'translate-x-[0px]' : 'translate-x-[340px]'}  fixed right-0 top-[8%] w-[340px] pb-3 z-10 rounded bg-white transition-all duration-500 ease-in-out`}>
-                        <div className="p-5 bg-sky-600 text-white">
-                            <h3>Hi Welcome to Carrer Navigator!</h3>
+                        <div className="p-5 bg-sky-600 text-black">
+                            <h3 className="text-white font-bold text-xl">Hi Welcome to Carrer Navigator!</h3>
                         </div>
                         <ul>
                             {
@@ -91,7 +91,7 @@ const NavigationBar = () => {
 export default NavigationBar;
 
 // Header Menu
-const MenuItemComponent: React.FC<MenuItem> = ({ title, menu,link }) => {
+const MenuItemComponent: React.FC<MenuItem> = ({ title, menu, link }) => {
     const [isHovered, setIsHovered] = useState(false);
     const len = menu.length;
     return (
@@ -130,10 +130,10 @@ const Dropdown: React.FC<CategoryItem> = ({ category, scategory }) => {
             <div className={`${isHovered ? 'scale-100' : 'scale-0'}  absolute z-10 left-[90%] top-0  px-5 py-4 bg-slate-50 t text-black grid grid-cols-3 w-[768px] h-[520px] transition-all duration-200 ease-in-out`}>
                 {scategory.map((subcategory) => (
                     <div key={subcategory.id} className="ml-2">
-                        <Link href={subcategory.link??'/'} className="m-0 font-bold">{subcategory.title}</Link>
+                        <Link href={subcategory.link ?? '/'} className="m-0 font-bold">{subcategory.title}</Link>
                         <ul className="m-0 pl-2">
-                            {subcategory.contents.map((content) =>{
-                                return(
+                            {subcategory.contents.map((content) => {
+                                return (
                                     (
                                         <li key={content.id} className="list-none mb-1">
                                             <Link href={content.link}>{content.title}</Link>
@@ -150,7 +150,7 @@ const Dropdown: React.FC<CategoryItem> = ({ category, scategory }) => {
 }
 
 // Mobile View
-const MenuItemComponentMobile: React.FC<MenuItem> = ({ title, menu, icon }) => {
+const MenuItemComponentMobile: React.FC<MenuItem> = ({ title, link, menu, icon }) => {
     const [isHovered, setIsHovered] = useState(false);
     const len = menu.length;
     return (
@@ -162,9 +162,10 @@ const MenuItemComponentMobile: React.FC<MenuItem> = ({ title, menu, icon }) => {
                         <div className="bg-blue-600 text-white rounded-xl p-2 text-2xl">
                             {createElement(icon)}
                         </div>
-                        {title}
+                        <Link href={link} className="text-xl hover:text-blue-900 transition-all duration-200 ease-in"> {title}</Link>
                         <div className="">
-                            <span className="text-2xl text-blue-600 absolute right-[10%] top-[15%]"> <IoChevronBackOutline className="rotate-180"/></span>
+                            <span className="text-2xl text-blue-600 absolute right-[10%] top-[15%]"> <IoChevronBackOutline className="rotate-180" size={'2rem'} />
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -205,7 +206,7 @@ const DropDownMobile: React.FC<CategoryItem> = ({ category, scategory }) => {
                 <div className="px-4 py-2">
                     {scategory.map((subcategory) => (
                         <div key={subcategory.id} className="ml-2">
-                            <h4 className="m-0 font-bold">{subcategory.title}</h4>
+                            <h4 className="m-0 font-bold text-blue-900">{subcategory.title}</h4>
                             <ul className="m-0 pl-2">
                                 {subcategory.contents.map((content) => (
                                     <li key={content.id} className="list-none mb-1">

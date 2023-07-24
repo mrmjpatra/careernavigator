@@ -14,7 +14,7 @@ const ArticleRow = ({ id, content, title, updatedAt }: fetchArticlesType) => {
             </Link>
             <div dangerouslySetInnerHTML={{ __html: desc }} className='text-gray-800 pl-2'>
             </div>
-            <h5 className='text-gray-700 pl-1'>Published Date: {getFormatedDate(updatedAt)}</h5>
+            <span className='text-gray-700 pl-1'>Published Date: {getFormatedDate(updatedAt)}</span>
             <hr className='h-1 text-gray-200' />
         </div>
     )

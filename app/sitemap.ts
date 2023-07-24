@@ -1,159 +1,68 @@
-import { MetadataRoute } from 'next'
+import { getFormattedString } from "@/utils/functions";
+import { getAllArticles, getAllCoachings, getAllColleges, getAllExams, getAllSchools } from "@/utils/helper-fetch";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap() {
+  const baseUrl = 'https://careernavigator.vercel.app';
+
+  // Get All Posts from CMS
+  const colleges = await getAllColleges();
+  const schools = await getAllSchools();
+  const coachings = await getAllCoachings();
+  const exams = await getAllExams();
+  const articles = await getAllArticles();
+
+  //collegeurl
+  const collegesUrl =
+    colleges?.map((college: any) => {
+      return {
+        url: `${baseUrl}/colleges/${getFormattedString(college.collegeName, '-')}`,
+        lastModified: new Date(),
+      };
+    }) ?? [];
+    //schools urls
+  const schoolsUrl =
+    schools?.map((school: any) => {
+      return {
+        url: `${baseUrl}/schools/${getFormattedString(school.schoolName, '-')}`,
+        lastModified: new Date(),
+      };
+    }) ?? [];
+    
+    //coaching url
+  const coachingsUrl =
+    coachings?.map((coaching: any) => {
+      return {
+        url: `${baseUrl}/coachings/${getFormattedString(coaching.coachingName, '-')}`,
+        lastModified: new Date(),
+      };
+    }) ?? [];
+    //exam url
+  const examsUrl =
+    exams?.map((exam: any) => {
+      return {
+        url: `${baseUrl}/exam/${exam.examLink}`,
+        lastModified: new Date(),
+      };
+    }) ?? [];
+    //article url
+  const articlesUrl =
+    articles?.map((article: any) => {
+      return {
+        url: `${baseUrl}/articles/${getFormattedString(article.title, '-')}`,
+        lastModified: new Date(),
+      };
+    }) ?? [];
+
+    console.log(exams);
   return [
     {
-      url: 'https://careernavigator.vercel.app/',
+      url: baseUrl,
       lastModified: new Date(),
     },
-    {
-      url: 'https://careernavigator.vercel.app/exam/jee-mains?activeTab=3',
-      lastModified: new Date(),
-    },
-    {
-      url: 'https://careernavigator.vercel.app/exam/jee-mains?activeTab=7',
-      lastModified: new Date(),
-    },
-    {
-      url: 'https://careernavigator.vercel.app/exam/jee-mains?activeTab=6',
-      lastModified: new Date(),
-    },
-    {
-      url: 'https://careernavigator.vercel.app/exam/jee-mains?activeTab=8',
-      lastModified: new Date(),
-    },
-    {
-      url: 'https://careernavigator.vercel.app/exam/jee-mains?activeTab=10',
-      lastModified: new Date(),
-    },
-    {
-      url: 'https://careernavigator.vercel.app/exam/cat?activeTab=3',
-      lastModified: new Date(),
-    },
-    {
-      url: 'https://careernavigator.vercel.app/exam/cat?activeTab=7',
-      lastModified: new Date(),
-    },
-    {
-      url: 'https://careernavigator.vercel.app/exam/cat?activeTab=6',
-      lastModified: new Date(),
-    },
-    {
-      url: 'https://careernavigator.vercel.app/exam/cat?activeTab=8',
-      lastModified: new Date(),
-    },
-    {
-      url: 'https://careernavigator.vercel.app/exam/cat?activeTab=10',
-      lastModified: new Date(),
-    },
-    // Continue adding other URLs...
-    {
-      url: 'https://careernavigator.vercel.app/about',
-      lastModified: new Date(),
-    },
-    {
-      url: 'https://careernavigator.vercel.app/blog',
-      lastModified: new Date(),
-    },
-    {
-      url: 'https://careernavigator.vercel.app/contact',
-      lastModified: new Date(),
-    },
-    {
-      url: 'https://careernavigator.vercel.app/colleges?stream=engineering',
-      lastModified: new Date(),
-    },
-    {
-      url: 'https://careernavigator.vercel.app/colleges?stream=mba',
-      lastModified: new Date(),
-    },
-    {
-      url: 'https://careernavigator.vercel.app/colleges?stream=commerce',
-      lastModified: new Date(),
-    },
-    {
-      url: 'https://careernavigator.vercel.app/colleges?stream=medical',
-      lastModified: new Date(),
-    },
-    {
-      url: 'https://careernavigator.vercel.app/colleges?stream=science',
-      lastModified: new Date(),
-    },
-    {
-      url: 'https://careernavigator.vercel.app/colleges?stream=hotel-mgmt',
-      lastModified: new Date(),
-    },
-    {
-      url: 'https://careernavigator.vercel.app/colleges?stream=commerce',
-      lastModified: new Date(),
-    },
-    {
-      url: 'https://careernavigator.vercel.app/colleges?stream=medical',
-      lastModified: new Date(),
-    },
-    {
-      url: 'https://careernavigator.vercel.app/colleges?stream=science',
-      lastModified: new Date(),
-    },
-    {
-      url: 'https://careernavigator.vercel.app/colleges?stream=hotel-mgmt',
-      lastModified: new Date(),
-    },
-    {
-      url: 'https://careernavigator.vercel.app/colleges?stream=it',
-      lastModified: new Date(),
-    },
-    {
-      url: 'https://careernavigator.vercel.app/colleges?stream=arts',
-      lastModified: new Date(),
-    },
-    {
-      url: 'https://careernavigator.vercel.app/colleges?stream=nursing',
-      lastModified: new Date(),
-    },
-    {
-      url: 'https://careernavigator.vercel.app/colleges?stream=law',
-      lastModified: new Date(),
-    },
-    {
-      url: 'https://careernavigator.vercel.app/colleges?stream=pharmacy',
-      lastModified: new Date(),
-    },
-    {
-      url: 'https://careernavigator.vercel.app/colleges?stream=education',
-      lastModified: new Date(),
-    },
-    {
-      url: 'https://careernavigator.vercel.app/schools',
-      lastModified: new Date(),
-    },
-    {
-      url: 'https://careernavigator.vercel.app/coachings',
-      lastModified: new Date(),
-    },
-    {
-      url: 'https://careernavigator.vercel.app/colleges?stream=bca',
-      lastModified: new Date(),
-    },
-    {
-      url: 'https://careernavigator.vercel.app/colleges?stream=mtech',
-      lastModified: new Date(),
-    },
-    {
-      url: 'https://careernavigator.vercel.app/colleges?stream=ma',
-      lastModified: new Date(),
-    },
-    {
-      url: 'https://careernavigator.vercel.app/colleges?stream=ba',
-      lastModified: new Date(),
-    },
-    {
-      url: 'https://careernavigator.vercel.app/exam/jee',
-      lastModified: new Date(),
-    },
-    {
-      url: 'https://careernavigator.vercel.app/about',
-      lastModified: new Date(),
-    },
-  ]
+    ...collegesUrl,
+    ...schoolsUrl,
+    ...coachingsUrl,
+    ...examsUrl,
+    ...articlesUrl
+  ];
 }

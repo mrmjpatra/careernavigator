@@ -4,6 +4,7 @@ import React from 'react'
 type fetchExamsNameType = {
   id: string,
   examName: string
+  examLink:string
 }
 const fetchExamsName = async () => {
   const res = await fetch(`${process.env.HOST}/api/exam`, { next: { revalidate: 10 } });
@@ -21,7 +22,7 @@ const ExamsHomePage = async () => {
       <div className='flex flex-col mt-5 gap-3 pl-4'>
         {
           examNameList?.map(exam =>
-            <Link href={`/exam/${exam.examName}`} key={exam.id}>
+            <Link href={`/exam/${exam.examLink}`} key={exam.id}>
               <h2 className='text-red-700 hover:text-red-900 font-medium text-xl ' >{exam.examName.toLocaleUpperCase()}</h2>
             </Link>)
         }
