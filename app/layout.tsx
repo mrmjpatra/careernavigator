@@ -30,10 +30,6 @@ export const metadata: Metadata = {
   colorScheme: 'light',
   alternates: {
     canonical: '/',
-    languages: {
-      'en-US': '/en-US',
-      'de-DE': '/de-DE',
-    },
   },
   openGraph: {
     title: 'Carrer Navigator',
@@ -65,7 +61,7 @@ export const metadata: Metadata = {
       },
     ],
   },
-  metadataBase: new URL(baseUrl),
+  metadataBase: new URL('https://acme.com'),
   twitter: {
     card: 'app',
     title: 'Carrer Navigator',
@@ -75,7 +71,19 @@ export const metadata: Metadata = {
     creatorId: '1467726470533754880',
     images: {
       url: `${baseUrl}/opengraph-image.png`,
-      alt: 'Next.js Logo',
+      alt: 'Carrer Navigator',
+    },
+    app: {
+      name: 'twitter_app',
+      id: {
+        iphone: 'twitter_app://iphone',
+        ipad: 'twitter_app://ipad',
+        googleplay: 'twitter_app://googleplay',
+      },
+      url: {
+        iphone: 'https://iphone_url',
+        ipad: 'https://ipad_url',
+      },
     },
   },
   viewport: {
