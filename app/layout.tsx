@@ -61,7 +61,6 @@ export const metadata: Metadata = {
       },
     ],
   },
-  metadataBase: new URL('https://acme.com'),
   twitter: {
     card: 'app',
     title: 'Carrer Navigator',
