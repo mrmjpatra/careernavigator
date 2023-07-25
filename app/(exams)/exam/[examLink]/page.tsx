@@ -42,20 +42,20 @@ type fetchExamList = {
   updatedAt: string
 }
 
-export async function generateStaticParams() {
-  try {
-    const res = await fetch(`${process.env.HOST}/api/exam/`);
-    const data = await res.json();
-    const examdata: fetchExamList[] = data.message;
-    return examdata.map(d => ({
-      examLink: d.examLink
-    }))
-  } catch (error) {
-    return {
-      examLink: '/exam'
-    }
-  }
-}
+// export async function generateStaticParams() {
+//   try {
+//     const res = await fetch(`${process.env.HOST}/api/exam/`);
+//     const data = await res.json();
+//     const examdata: fetchExamList[] = data.message;
+//     return examdata.map(d => ({
+//       examLink: d.examLink
+//     }))
+//   } catch (error) {
+//     return {
+//       examLink: '/exam'
+//     }
+//   }
+// }
 
 
 const ExamPage = async ({ params }: { params: { examLink: string } }) => {
