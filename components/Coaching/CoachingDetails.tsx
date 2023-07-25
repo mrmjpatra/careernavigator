@@ -11,7 +11,7 @@ import { FetchIndividualCoachingData } from "@/app/coachings";
 import Review from "../colleges/Review";
 import { convertWord } from "@/utils/functions";
 import { Poppins } from "next/font/google";
-const poppins=Poppins({subsets:['latin'],weight:['400','600']})
+const poppins = Poppins({ subsets: ['latin'], weight: ['400', '600'] })
 
 
 const fetch = async (id: string) => {
@@ -34,6 +34,7 @@ const CoachingDetails = ({ id }: { id: string }) => {
             <Image
               src={SelectedCoachingData?.coachingPhoto.downloadUrl}
               alt="college banner"
+              loading="eager"
               fill
             />
           ) : (

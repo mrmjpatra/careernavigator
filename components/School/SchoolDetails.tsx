@@ -24,7 +24,7 @@ const SchoolDetails = async ({ id }: { id: string }) => {
             <div className="relative">
                 <div className="relative h-72  overflow-hidden">
                     <Image src={schoolData?.schoolPhoto.downloadUrl} alt="college banner"
-                        fill />
+                        fill loading="eager" />
                 </div>
                 <div className="bg-black/50 absolute top-0 left-0 h-full w-full">
                     <div className="absolute md:top-1/4 md:left-[10%] top-[20%] left-[5%]">

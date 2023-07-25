@@ -55,7 +55,7 @@ const Review = ({ reviews }: ReviewsType) => {
                   <SwiperSlide key={list.id}>
                     <div className='flex flex-col justify-center items-center bg-white rounded-md shadow-md py-4'>
                       <Image src={list.photo.downloadUrl} alt='personreview' width={70} height={70}
-                        className='rounded-full shadow-lg shadow-blue-500 w-32 h-32' />
+                        className='rounded-full shadow-lg shadow-blue-500 w-32 h-32' loading="eager" />
                       <h2 className='text-2xl font-bold text-blue-600 mt-4'>{convertWord(list.name)}</h2>
                       <p className='font-medium text-gray-800 py-3'>{convertWord(list.content)}.</p>
                     </div>
