@@ -35,6 +35,8 @@ const Colleges = () => {
   //if the user navigate using Link with query params
   const searchParams = useSearchParams();
   const stream = searchParams.get('stream');
+  const degree = searchParams.get('degree');
+  const city = searchParams.get('city');
   //Apply form Modal state
   const [showApplyModal, setShowApplyModal] = useState(false);
   const [collegeName, setCollegeName] = useState('');
@@ -44,9 +46,9 @@ const Colleges = () => {
   //filter selected state values
   const [collegesFormData, setCollegesFormData] = useState<CollegesFormData>({
     selectedStream: stream ?? '',
-    selectedDegree: '',
+    selectedDegree: degree ?? '',
     selectedState: '',
-    selectedCity: '',
+    selectedCity: city ?? '',
     selectedSpecialization: '',
     selectedCourseType: '',
     selectedStudyMode: '',

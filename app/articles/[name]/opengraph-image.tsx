@@ -1,9 +1,8 @@
 import { checkLength, convertWord, getFormattedString } from '@/utils/functions'
 import { ImageResponse } from 'next/server'
-import logo from '@/public/assets/cnlogo.png'
 export const runtime = 'edge'
 
-export const alt = 'Schools'
+export const alt = 'Articles'
 export const size = {
   width: 1200,
   height: 630,
@@ -21,14 +20,16 @@ export default async function Image({ params }: { params: { name: string } }) {
     (
       <div tw="relative flex w-full h-full flex items-center justify-center">
         {/* Background */}
-        {/* <img src={logo} alt="logo" /> */}
         <div tw="absolute flex inset-0">
+          <img src={'https://careernavigator.vercel.app/assets/carrernavigator.svg'} alt="logo" tw='w-full h-full object-fill' />
           {/* Overlay */}
           <div tw="absolute flex inset-0 bg-black bg-opacity-50" />
         </div>
         <div tw="flex flex-col text-neutral-50">
           {/* Title */}
-          <div tw="text-7xl font-bold text-center">{convertWord(data.message.title)}</div>
+          <div tw="flex text-2xl font-bold justify-center">
+            <h1 className=' text-center'>{convertWord(data.message.title)}</h1>
+          </div>
           {/* Tags */}
           <div tw="flex mt-6 flex-wrap items-center text-4xl text-neutral-200">
             <div tw='pb-4'>{(description)}</div>

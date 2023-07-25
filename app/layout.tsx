@@ -28,9 +28,6 @@ export const metadata: Metadata = {
   publisher: 'Mrutyunjaya Patra',
   authors: [{ name: 'mrmjpatra' }, { name: 'mrmjpatra', url: baseUrl }],
   colorScheme: 'light',
-  alternates: {
-    canonical: '/',
-  },
   openGraph: {
     title: 'Carrer Navigator',
     description: 'Choose your best Carrer. We guide you to choose best path with best College. Based on your rank and score, we can show you the best college.You gurantee you to get 100% seat on your wishlist collge.',
@@ -88,7 +85,7 @@ export const metadata: Metadata = {
   viewport: {
     width: 'device-width',
     initialScale: 1,
-    maximumScale: 1,
+    maximumScale: 3,
   },
   appleWebApp: {
     title: 'Carrer Navigator',

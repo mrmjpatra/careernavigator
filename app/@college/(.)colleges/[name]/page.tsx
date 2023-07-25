@@ -3,14 +3,24 @@ import Modal from "@/components/Modal";
 import { getFormattedString } from "@/utils/functions";
 import axios from "axios";
 const getCollegeId = async (collegeName: string) => {
-  const { data } = await axios.get(`${process.env.HOST}/api/college/name/${getFormattedString(collegeName)}`);
-  return data.message.id;
+  try {
+    const { data } = await axios.get(`${process.env.HOST}/api/college/name/${getFormattedString(collegeName)}`);
+    return data.message.id;
+  } catch (error) {
+    return null
+  }
 }
-const CollegePageModal = async({ params }: {params: { name: string}}) => {
-  const id = await getCollegeId(params.name)
+const CollegePageModal = async ({ params }: { params: { name: string } }) => {
+  const id = await getCollegeId(params.name);
+  if (!id) {
+    return (
+      <>
+      </>
+    )
+  }
   return (
     <Modal>
-      <CollegeDetailedPage id={id}/>
+      <CollegeDetailedPage id={id} />
     </Modal>
   );
 };

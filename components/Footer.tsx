@@ -22,7 +22,7 @@ const Footer = () => {
                             <li className='text-white'>
                                 <Link href={{
                                     pathname: '/colleges', query: {
-                                        stream: 'mba'
+                                        degree: 'mba'
                                     }
                                 }} className='relative 
                                 hover:text-white font-hind
@@ -36,7 +36,7 @@ const Footer = () => {
                             <li className='text-white/80 '>
                                 <Link href={{
                                     pathname: '/colleges', query: {
-                                        stream: 'mba'
+                                        degree: 'btech'
                                     }
                                 }} className='relative hover:text-white
                                 before:absolute before:top-[50%] before:left-0 
@@ -46,7 +46,7 @@ const Footer = () => {
                             <li className='text-white/80 '>
                                 <Link href={{
                                     pathname: '/colleges', query: {
-                                        stream: 'mba'
+                                        degree: 'mca'
                                     }
                                 }} className='relative hover:text-white
                                 before:absolute before:top-[50%] before:left-0 
@@ -57,7 +57,7 @@ const Footer = () => {
                             <li className='text-white/80 '>
                                 <Link href={{
                                     pathname: '/colleges', query: {
-                                        stream: 'bca'
+                                        degree: 'bca'
                                     }
                                 }} className='relative hover:text-white
                                 before:absolute before:top-[50%] before:left-0 
@@ -68,7 +68,7 @@ const Footer = () => {
                             <li className='text-white/80 '>
                                 <Link href={{
                                     pathname: '/colleges', query: {
-                                        stream: 'mtech'
+                                        degree: 'mtech'
                                     }
                                 }} className='relative 
                                 before:absolute before:top-[50%] before:left-0 
@@ -79,7 +79,7 @@ const Footer = () => {
                             <li className='text-white/80 '>
                                 <Link href={{
                                     pathname: '/colleges', query: {
-                                        stream: 'ma'
+                                        degree: 'ma'
                                     }
                                 }} className='relative hover:text-white
                                 before:absolute before:top-[50%] before:left-0 
@@ -90,7 +90,7 @@ const Footer = () => {
                             <li className='text-white/80 '>
                                 <Link href={{
                                     pathname: '/colleges', query: {
-                                        stream: 'ba'
+                                        degree: 'ba'
                                     }
                                 }} className='relative hover:text-white
                                 before:absolute before:top-[50%] before:left-0 

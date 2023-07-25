@@ -5,12 +5,22 @@ import axios from 'axios';
 import React from 'react';
 
 const getSchoolId = async (schoolName: string) => {
-    const { data } = await axios.get(`${process.env.HOST}/api/school/name/${getFormattedString(schoolName)}`);
-    return data.message.id;
+    try {
+        const { data } = await axios.get(`${process.env.HOST}/api/school/name/${getFormattedString(schoolName)}`);
+        return data.message.id;
+    } catch (error) {
+        return null
+    }
 }
 
 const SchoolModalPage = async ({ params }: { params: { name: string } }) => {
-    const id = await getSchoolId(params.name)
+    const id = await getSchoolId(params.name);
+    if (!id) {
+        return(
+            <>
+            </>
+        )
+    }
     return (
         <Modal>
             <SchoolDetails id={id} />

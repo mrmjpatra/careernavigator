@@ -3,7 +3,7 @@ import { ImageResponse } from 'next/server'
 
 export const runtime = 'edge'
 
-export const alt = 'Schools'
+export const alt = 'Coachings'
 export const size = {
   width: 1200,
   height: 630,
