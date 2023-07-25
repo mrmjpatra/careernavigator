@@ -53,7 +53,8 @@ export default async function sitemap() {
       };
     }) ?? [];
 
-    console.log(exams);
+  
+
   return [
     {
       url: baseUrl,

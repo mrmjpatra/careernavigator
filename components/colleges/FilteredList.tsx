@@ -66,7 +66,8 @@ const FilteredList: FC<FilterSectionProps> = ({ title, onFilterChange, selectedI
     return (
         <div>
             <section className="border-b border-black/10 mb-3 px-4 pb-5">
-                <div className="py-3 uppercase font-bold text-xl text-blue-500">{isLoading ? <Skeleton width={'6rem'} /> : title} </div>
+                <div className="py-3 uppercase font-bold text-xl text-blue-500">
+                    {isLoading ? <Skeleton width={'6rem'} /> : title} </div>
                 <div className="max-h-[165px] overflow-y-auto pr-1">
                     {/* FilterSearch */}
                     <div className="mb-3 sticky top-0 z-10 bg-white">
@@ -92,23 +93,23 @@ const FilteredList: FC<FilterSectionProps> = ({ title, onFilterChange, selectedI
                                         {
                                             isLoading ? <Skeleton circle width={'1.5rem'} height={'1.5rem'} /> : <input
                                                 type="radio"
-                                                name={title.toLowerCase()}
-                                                value={item.value.toLowerCase()}
-                                                checked={item.value.toLowerCase() === selectedItem}
-                                                onChange={() => onFilterChange(selected, item.value.toLowerCase())}
+                                                name={title?.toLowerCase()}
+                                                value={item.value?.toLowerCase()}
+                                                checked={item.value?.toLowerCase() === selectedItem}
+                                                onChange={() => onFilterChange(selected, item.value?.toLowerCase())}
                                                 className="hidden"
-                                                id={item.value.toLowerCase() + title}
+                                                id={item.value?.toLowerCase() + title}
                                             />
                                         }
 
                                         {
                                             isLoading ? <Skeleton width={'10rem'} /> :
-                                                <label htmlFor={item.value.toLowerCase() + title} className="flex items-center gap-3 mb-3 cursor-pointer">
+                                                <label htmlFor={item.value?.toLowerCase() + title} className="flex items-center gap-3 mb-3 cursor-pointer">
                                                     <span
-                                                        className={`w-5 h-5 inline-block border-2 rounded-full ${item.value.toLowerCase() === selectedItem ? 'bg-blue-500 border-blue-500' : 'border-gray-400'
+                                                        className={`w-5 h-5 inline-block border-2 rounded-full ${item.value?.toLowerCase() === selectedItem ? 'bg-blue-500 border-blue-500' : 'border-gray-400'
                                                             }`}
                                                     >
-                                                        {item.value.toLowerCase() === selectedItem && <span><TiTick color="white" /></span>}
+                                                        {item.value?.toLowerCase() === selectedItem && <span><TiTick color="white" /></span>}
                                                     </span>
                                                     {
                                                         <span>{item.name}</span>
@@ -129,20 +130,20 @@ const FilteredList: FC<FilterSectionProps> = ({ title, onFilterChange, selectedI
                                                     isLoading ? <Skeleton circle width={'1.5rem'} height={'1.5rem'} /> : <input
                                                         type="radio"
                                                         name="stream"
-                                                        value={list.toLowerCase()}
-                                                        checked={list.toLowerCase() === selectedItem}
+                                                        value={list?.toLowerCase()}
+                                                        checked={list?.toLowerCase() === selectedItem}
                                                         onChange={() => onFilterChange(selected, list.toLowerCase())}
                                                         className="hidden"
-                                                        id={list.toLowerCase() + title}
+                                                        id={list?.toLowerCase() + title}
                                                     />
                                                 }
                                                 {
                                                     isLoading ? <Skeleton width={'10rem'} /> : <label
-                                                        htmlFor={list.toLowerCase() + title}
+                                                        htmlFor={list?.toLowerCase() + title}
                                                         className="flex items-center gap-3 mb-3 cursor-pointer"
                                                     >
                                                         <span
-                                                            className={`w-5 h-5 inline-block border-2 rounded-full ${list.toLowerCase() === selectedItem ? 'bg-blue-500 border-blue-500' : 'border-gray-400'
+                                                            className={`w-5 h-5 inline-block border-2 rounded-full ${list?.toLowerCase() === selectedItem ? 'bg-blue-500 border-blue-500' : 'border-gray-400'
                                                                 }`}
                                                         >
                                                             {list.toLowerCase() === selectedItem && (
@@ -150,7 +151,7 @@ const FilteredList: FC<FilterSectionProps> = ({ title, onFilterChange, selectedI
 
                                                             )}
                                                         </span>
-                                                        <span>{list.toUpperCase()}</span>
+                                                        <span>{list?.toUpperCase()}</span>
                                                     </label>
                                                 }
 

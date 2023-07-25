@@ -1,22 +1,35 @@
 'use client'
 import UseCollegesFormData from '@/utils/collegesFormData';
-import React, { FormEvent, useState } from 'react'
+import React, { FormEvent, useEffect, useState } from 'react'
 import axios from 'axios';
 import { Discuss } from 'react-loader-spinner';
 import toast from 'react-hot-toast';
-import { convertWord } from '@/utils/functions';
+import { convertWord, sortCategory } from '@/utils/functions';
 import { Poppins } from 'next/font/google';
-const poppins=Poppins({subsets:['latin'],weight:['400','600']})
+import { useQuery } from '@tanstack/react-query';
+import { fetchCategoryList, fetchStream } from '@/lib/helper-fetch';
+const poppins = Poppins({ subsets: ['latin'], weight: ['400', '600'] })
 
 const ContactUsForm = () => {
     const [loading, setLoading] = useState(false);
+    const [sortedStreamList, setSortedStreamList] = useState<fetchCategoryList[]>()
     const [contactFormData, setContactFormData] = useState({
         name: '',
         email: '',
         phoneNumber: '',
         stream: '',
     });
-    const { sortedStreamList } = UseCollegesFormData();
+    const { isLoading, error, data: streamList } = useQuery({
+        queryKey: ['allStreamList'],
+        queryFn: fetchStream
+    })
+    useEffect(() => {
+        if (!isLoading && !error && streamList) {
+            const sortedArray = sortCategory(streamList);
+            setSortedStreamList(sortedArray);
+        }
+    }, [isLoading, error, streamList]);
+
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
@@ -85,7 +98,7 @@ const ContactUsForm = () => {
                             >
                                 <option value="">Select</option>
                                 {
-                                    sortedStreamList.map(stream => <option key={stream.id} value={stream.value} >{convertWord(stream.name.toLowerCase())}</option>)
+                                    sortedStreamList && sortedStreamList.map(stream => <option key={stream.id} value={stream.link} >{convertWord(stream.name.toLowerCase())}</option>)
                                 }
                             </select>
                             {
@@ -108,7 +121,7 @@ const ContactUsForm = () => {
                         </p>
                     </div>
                 </div>
-            </div>            
+            </div>
         </div>
     )
 }

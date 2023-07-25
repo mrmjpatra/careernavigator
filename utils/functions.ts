@@ -1,3 +1,5 @@
+import { fetchCategoryList } from "@/lib/helper-fetch";
+
 enum Month { Jan, Feb, March, April, May, June, July, Aug, Sep, Oct, Nov, Dec }
 
 export const checkLength = (content: string, length: number): string => {
@@ -38,3 +40,7 @@ export const sortArray = <T extends { [K in keyof T]: string | Date }>(list: T[]
     });
     return sortedArray;
 };
+
+export const sortCategory = (list: fetchCategoryList[]) => {
+    return list.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+}

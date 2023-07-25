@@ -35,6 +35,15 @@ export async function generateMetadata({ params }: { params: { name: string } })
     return { title: name, description };
 }
 
+export async function generateStaticParams() {
+    const res = await fetch(`${process.env.HOST}/api/articles/`, { next: { revalidate: 60 } });
+    const data = await res.json();
+    const collegeData: any[] = data.message;
+    return collegeData.map(d => ({
+        name: getFormattedString(d.title, '-')
+    }))
+}
+
 const Article = async ({ params }: { params: { name: string } }) => {
     const id = await getArticleId(params.name)
     if (!id) {

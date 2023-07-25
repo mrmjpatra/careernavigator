@@ -7,22 +7,19 @@ import { BsFillEmojiFrownFill } from "react-icons/bs";
 const poppins = Poppins({ subsets: ['latin'], weight: ['400', '600'] })
 
 const getMetaData = async (examLink: string) => {
-  const { data } = await axios.get(`${process.env.HOST}/api/exam/name/${getFormattedString(examLink)}`);
-  const name = convertWord(data.message.examName);
-  const desc: string = data.message.overview ? data.message.overview.overView : 'Over View of' + name;
-  const description = desc.replace(/<[^>]+>/g, '');
-  return { name, description };
+  try {
+    const { data } = await axios.get(`${process.env.HOST}/api/exam/name/${getFormattedString(examLink)}`);
+    const name = convertWord(data.message.examName);
+    const desc: string = data.message.overview ? data.message.overview.overView : 'Over View of' + name;
+    const description = desc.replace(/<[^>]+>/g, '');
+    return { name, description };
+  } catch (error) {
+    return { name: 'Exams', description: "Exams" };
+  }
 }
 export async function generateMetadata({ params }: { params: { examLink: string } }) {
-  try {
-    const { name, description } = await getMetaData(params.examLink);
-    return { title: name, description };
-  } catch (error) {
-    return {
-      title: 'Exam',
-      description: 'Exams'
-    }
-  }
+  const { name, description } = await getMetaData(params.examLink);
+  return { title: name, description };
 }
 
 const getExamId = async (examLink: string) => {
@@ -42,20 +39,20 @@ type fetchExamList = {
   updatedAt: string
 }
 
-// export async function generateStaticParams() {
-//   try {
-//     const res = await fetch(`${process.env.HOST}/api/exam/`);
-//     const data = await res.json();
-//     const examdata: fetchExamList[] = data.message;
-//     return examdata.map(d => ({
-//       examLink: d.examLink
-//     }))
-//   } catch (error) {
-//     return {
-//       examLink: '/exam'
-//     }
-//   }
-// }
+export async function generateStaticParams() {
+  try {
+    const res = await fetch(`${process.env.HOST}/api/exam/`);
+    const data = await res.json();
+    const examdata: fetchExamList[] = data.message;
+    return examdata.map(d => ({
+      examLink: d.examLink
+    }))
+  } catch (error) {
+    return [{
+      examLink: '/exam'
+    }]
+  }
+}
 
 
 const ExamPage = async ({ params }: { params: { examLink: string } }) => {

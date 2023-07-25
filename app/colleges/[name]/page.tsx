@@ -34,6 +34,15 @@ export async function generateMetadata({ params }: { params: { name: string } })
   }
 }
 
+export async function generateStaticParams() {
+  const res = await fetch(`${process.env.HOST}/api/college/details`,{next:{revalidate:60}});
+  const data = await res.json();
+  const collegeData: any[] = data.message;
+  return collegeData.map(d => ({
+    name: getFormattedString(d.collegeName, '-')
+  }))
+}
+
 const CollegePage = async ({ params }: { params: { name: string } }) => {
   const id = await getCollegeId(params.name);
   if (!id) {

@@ -5,17 +5,13 @@ import { IconType } from 'react-icons';
 import { IoSchoolOutline } from 'react-icons/io5';
 import { PiSquaresFour } from 'react-icons/pi'
 import { FaScroll } from 'react-icons/fa';
+import { getFormattedString } from './functions';
 
 
 interface ContentItem {
     id: string;
     title: string;
-    link: string | {
-        pathname: string;
-        query: {
-            activeTab: string;
-        };
-    };
+    link: string | any;
 }
 
 interface SubCategoryItem {
@@ -53,7 +49,7 @@ export const navmenulist: MenuItem[] = [
         menu: [
             //Enginnering
             {
-                category: 'Enginnering',
+                category: 'Engineering',
                 scategory: [
                     {
                         id: uuid(),
@@ -65,7 +61,8 @@ export const navmenulist: MenuItem[] = [
                                 link: {
                                     pathname: '/colleges',
                                     query: {
-                                        activeTab: 'btech'
+                                        stream: 'engineering',
+                                        degree: 'btech'
                                     }
                                 }
                             },
@@ -75,7 +72,8 @@ export const navmenulist: MenuItem[] = [
                                 link: {
                                     pathname: '/colleges',
                                     query: {
-                                        activeTab: 'mtech'
+                                        stream: 'engineering',
+                                        degree: 'mtech'
                                     }
                                 }
                             },
@@ -85,7 +83,8 @@ export const navmenulist: MenuItem[] = [
                                 link: {
                                     pathname: '/colleges',
                                     query: {
-                                        activeTab: 'barch'
+                                        stream: 'engineering',
+                                        degree: 'barch'
                                     }
                                 }
                             },
@@ -95,7 +94,8 @@ export const navmenulist: MenuItem[] = [
                                 link: {
                                     pathname: '/colleges',
                                     query: {
-                                        activeTab: 'btech-mtech'
+                                        stream: 'engineering',
+                                        degree: 'btech-mtech'
                                     }
                                 }
                             },
@@ -105,7 +105,8 @@ export const navmenulist: MenuItem[] = [
                                 link: {
                                     pathname: '/colleges',
                                     query: {
-                                        activeTab: 'diploma'
+                                        stream: 'engineering',
+                                        degree: 'diploma'
                                     }
                                 }
                             },
@@ -118,47 +119,47 @@ export const navmenulist: MenuItem[] = [
                             {
                                 id: uuid(),
                                 title: 'Sanskriti University',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'ITS Engineering College',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'Sanjay Ghodawat University',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'Amity University, Punjab',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'Global Research Institute of Management & Technology',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'Vivekananda Global University',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'Jaipur National University',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'GNA University',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'Jaypee University, Anoopshahr',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                         ]
                     },
@@ -169,32 +170,32 @@ export const navmenulist: MenuItem[] = [
                             {
                                 id: uuid(),
                                 title: 'IIT Kharagpur',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'IIT Delhi',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'IIT Madras',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'IIT Kanpur',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'IIT Roorkee',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'IIT Bombay',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                         ]
                     },
@@ -205,27 +206,57 @@ export const navmenulist: MenuItem[] = [
                             {
                                 id: uuid(),
                                 title: 'Maharashtra',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        stream: 'engineering',
+                                        state: 'Maharashtra'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'Tamil Nadu',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        stream: 'engineering',
+                                        state: 'Tamil Nadu'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'Uttar Pradesh',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        stream: 'engineering',
+                                        state: 'Uttar Pradesh'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'Karnataka',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        stream: 'engineering',
+                                        state: 'Karnataka'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'Rajasthan',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        stream: 'engineering',
+                                        city: 'Rajasthan'
+                                    }
+                                }
                             },
                         ]
                     },
@@ -245,7 +276,8 @@ export const navmenulist: MenuItem[] = [
                                 link: {
                                     pathname: '/colleges',
                                     query: {
-                                        activeTab: 'mba'
+                                        stream: 'management',
+                                        degree: 'mba'
                                     }
                                 }
                             },
@@ -255,7 +287,8 @@ export const navmenulist: MenuItem[] = [
                                 link: {
                                     pathname: '/colleges',
                                     query: {
-                                        activeTab: 'bba'
+                                        stream: 'management',
+                                        degree: 'bba'
                                     }
                                 }
                             },
@@ -263,9 +296,10 @@ export const navmenulist: MenuItem[] = [
                                 id: uuid(),
                                 title: 'Diploma',
                                 link: {
-                                    pathname:'/colleges',
-                                    query:{
-                                        activeTab:'diploma'
+                                    pathname: '/colleges',
+                                    query: {
+                                        stream: 'management',
+                                        degree: 'diploma'
                                     }
                                 }
                             },
@@ -275,7 +309,8 @@ export const navmenulist: MenuItem[] = [
                                 link: {
                                     pathname: '/colleges',
                                     query: {
-                                        activeTab: 'pgdma'
+                                        stream: 'management',
+                                        degree: 'pgdma'
                                     }
                                 }
                             },
@@ -285,7 +320,8 @@ export const navmenulist: MenuItem[] = [
                                 link: {
                                     pathname: '/colleges',
                                     query: {
-                                        activeTab: 'bbm'
+                                        stream: 'management',
+                                        degree: 'bbm'
                                     }
                                 }
                             },
@@ -298,47 +334,47 @@ export const navmenulist: MenuItem[] = [
                             {
                                 id: uuid(),
                                 title: 'Sanskriti University',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'MIMA Institute of Management',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'Sanjay Ghodawat University',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'Jagannath University',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'Global Research Institute of Management & Technology',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'Vivekananda Global University',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'Jaipur National University',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'GNA University',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'Jaypee University, Anoopshahr',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                         ]
                     },
@@ -349,32 +385,32 @@ export const navmenulist: MenuItem[] = [
                             {
                                 id: uuid(),
                                 title: 'IIT Kharagpur',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'IIT Delhi',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'IIT Madras',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'IIT Kanpur',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'IIT Roorkee',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'IIT Bombay',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                         ]
                     },
@@ -385,27 +421,57 @@ export const navmenulist: MenuItem[] = [
                             {
                                 id: uuid(),
                                 title: 'Maharashtra',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        stream: 'management',
+                                        state: 'Maharashtra'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'Tamil Nadu',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        stream: 'management',
+                                        state: 'Tamil Nadu'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'Uttar Pradesh',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        stream: 'management',
+                                        state: 'Uttar Pradesh'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'Karnataka',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        stream: 'management',
+                                        state: 'Karnataka'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'Rajasthan',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        stream: 'management',
+                                        state: 'Rajasthan'
+                                    }
+                                }
                             },
                         ]
                     },
@@ -422,27 +488,57 @@ export const navmenulist: MenuItem[] = [
                             {
                                 id: uuid(),
                                 title: 'B.Com',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        stream: 'commerce-banking',
+                                        degree: 'bcom'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'M.Com',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        stream: 'commerce-banking',
+                                        degree: 'mcom'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'B.Com + M.Com',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        stream: 'commerce-banking',
+                                        degree: 'bcom-mcom'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'BBM',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        stream: 'commerce-banking',
+                                        degree: 'bbm'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'Certificate',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        stream: 'commerce-banking',
+                                        degree: 'certificate'
+                                    }
+                                }
                             },
                         ]
                     },
@@ -453,47 +549,47 @@ export const navmenulist: MenuItem[] = [
                             {
                                 id: uuid(),
                                 title: 'Sanskriti University',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'ITS Engineering College',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'Sanjay Ghodawat University',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'Amity University, Punjab',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'Global Research Institute of Management & Technology',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'Vivekananda Global University',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'Jaipur National University',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'GNA University',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'Jaypee University, Anoopshahr',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                         ]
                     },
@@ -504,32 +600,32 @@ export const navmenulist: MenuItem[] = [
                             {
                                 id: uuid(),
                                 title: 'IIT Kharagpur',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'IIT Delhi',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'IIT Madras',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'IIT Kanpur',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'IIT Roorkee',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'IIT Bombay',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                         ]
                     },
@@ -540,27 +636,57 @@ export const navmenulist: MenuItem[] = [
                             {
                                 id: uuid(),
                                 title: 'Maharashtra',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        stream: 'commerce-banking',
+                                        city: 'Maharashtra'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'Tamil Nadu',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        stream: 'commerce-banking',
+                                        city: 'Tamil Nadu'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'Uttar Pradesh',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        stream: 'commerce-banking',
+                                        city: 'Uttar Pradesh'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'Karnataka',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        stream: 'commerce-banking',
+                                        city: 'Karnataka'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'Rajasthan',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        stream: 'commerce-banking',
+                                        city: 'Rajasthan'
+                                    }
+                                }
                             },
                         ]
                     },
@@ -577,27 +703,57 @@ export const navmenulist: MenuItem[] = [
                             {
                                 id: uuid(),
                                 title: 'MBBS',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        stream: 'medical',
+                                        degree: 'mbbs'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'MD (Doctor of Medicine)',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        stream: 'medical',
+                                        degree: 'md'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'MS (Master of Surgery)',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        stream: 'medical',
+                                        degree: 'ms'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'BAMS',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        stream: 'medical',
+                                        degree: 'bams'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'BHMS',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        stream: 'medical',
+                                        degree: 'bhms'
+                                    }
+                                }
                             },
                         ]
                     },
@@ -608,47 +764,47 @@ export const navmenulist: MenuItem[] = [
                             {
                                 id: uuid(),
                                 title: 'Sanskriti University',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'ITS Engineering College',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'Sanjay Ghodawat University',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'Amity University, Punjab',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'Global Research Institute of Management & Technology',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'Vivekananda Global University',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'Jaipur National University',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'GNA University',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'Jaypee University, Anoopshahr',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                         ]
                     },
@@ -659,32 +815,32 @@ export const navmenulist: MenuItem[] = [
                             {
                                 id: uuid(),
                                 title: 'IIT Kharagpur',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'IIT Delhi',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'IIT Madras',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'IIT Kanpur',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'IIT Roorkee',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                             {
                                 id: uuid(),
                                 title: 'IIT Bombay',
-                                link: ''
+                                link: `/colleges/${getFormattedString('Sanskriti University'), '-'}`
                             },
                         ]
                     },
@@ -695,27 +851,57 @@ export const navmenulist: MenuItem[] = [
                             {
                                 id: uuid(),
                                 title: 'Maharashtra',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        stream: 'medical',
+                                        city: 'Tamil Nadu'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'Tamil Nadu',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        stream: 'medical',
+                                        city: 'Tamil Nadu'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'Uttar Pradesh',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        stream: 'medical',
+                                        city: 'Uttar Pradeshu'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'Karnataka',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        stream: 'medical',
+                                        city: 'Karnataka'
+                                    }
+                                }
                             },
                             {
                                 id: uuid(),
                                 title: 'Rajasthan',
-                                link: ''
+                                link: {
+                                    pathname: '/colleges',
+                                    query: {
+                                        stream: 'medical',
+                                        city: 'Rajasthan'
+                                    }
+                                }
                             },
                         ]
                     },

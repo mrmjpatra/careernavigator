@@ -1,23 +1,40 @@
 'use client'
+import { fetchCategoryList, fetchStream } from '@/lib/helper-fetch';
 import UseCollegesFormData from '@/utils/collegesFormData';
-import { convertWord } from '@/utils/functions';
+import { convertWord, sortCategory } from '@/utils/functions';
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { Poppins } from 'next/font/google';
-import React, { FormEvent, useState } from 'react'
+import React, { FormEvent, useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 import { Discuss } from 'react-loader-spinner';
 
-const poppins=Poppins({subsets:['latin'],weight:['400','600']})
+const poppins = Poppins({ subsets: ['latin'], weight: ['400', '600'] })
+const fetchStreamLis = async () => {
+
+}
+
 
 const ApplyForm = ({ instituteName }: { instituteName: string }) => {
     const [loading, setLoading] = useState(false);
+    const [sortedStreamList, setSortedStreamList] = useState<fetchCategoryList[]>()
+    const { isLoading, error, data: streamList } = useQuery({
+        queryKey: ['allStreamList'],
+        queryFn: fetchStream
+    })
+
     const [contactFormData, setContactFormData] = useState({
         name: '',
         email: '',
         phoneNumber: '',
         stream: '',
     });
-    const { sortedStreamList } = UseCollegesFormData();
+    useEffect(() => {
+        if (!isLoading && !error && streamList) {
+            const sortedArray = sortCategory(streamList);
+            setSortedStreamList(sortedArray);
+        }
+    }, [isLoading, error, streamList]);
 
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
@@ -86,7 +103,7 @@ const ApplyForm = ({ instituteName }: { instituteName: string }) => {
                             >
                                 <option value="">Select</option>
                                 {
-                                    sortedStreamList.map(stream => <option key={stream.id} value={stream.value} >{convertWord(stream.name.toLowerCase())}</option>)
+                                    sortedStreamList && sortedStreamList.map(stream => <option key={stream.id} value={stream.link} >{convertWord(stream.name.toLowerCase())}</option>)
                                 }
                             </select>
                             {
