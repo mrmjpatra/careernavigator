@@ -4244,12 +4244,7 @@ export const navmenulist: MenuItem[] = [
     {
         id: uuid(),
         title: 'CBSE',
-        link: {
-            pathname: '/schools',
-            query: {
-                data: 'cbse'
-            }
-        },
+        link: '/cbse',
         icon: BsDashSquare,
         menu: []
     },

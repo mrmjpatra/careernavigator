@@ -3,17 +3,18 @@ import { fetchCategoryList } from '@/lib/helper-fetch';
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { FiSearch } from 'react-icons/fi';
 import { TiTick } from 'react-icons/ti';
+import { useFilterContext } from './FilterContext';
 
 
 type fetchFilterCompProps = {
     title: string;
     list: fetchCategoryList[];
-    onFilterChange: (selected: string, value: string) => void;
     selectedItem: string;
     selected: string,
 }
 
-const FetchFilterComp = ({ title, list, onFilterChange, selected, selectedItem }: fetchFilterCompProps) => {
+const FetchFilterComp = ({ title, list, selected, selectedItem }: fetchFilterCompProps) => {
+    const {handleFilterChange}=useFilterContext()
     const [searchQuery, setSearchQuery] = useState('');
     const [visibleItems, setVisibleItems] = useState(10); // Number of items to initially display
     const itemsPerPage = 10; // Number of items to load when scrolling to the bottom
@@ -84,7 +85,7 @@ const FetchFilterComp = ({ title, list, onFilterChange, selected, selectedItem }
                                     name={title?.toLowerCase()}
                                     value={item.link?.toLowerCase()}
                                     checked={item.link?.toLowerCase() === selectedItem}
-                                    onChange={() => onFilterChange(selected, item.link?.toLowerCase())}
+                                    onChange={() => handleFilterChange(selected, item.link?.toLowerCase())}
                                     className="hidden"
                                     id={item.link?.toLowerCase() + title}
                                 />

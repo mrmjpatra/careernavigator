@@ -137,3 +137,5 @@ const RootLayout: FC<RootLayoutProps> = ({
   );
 };
 export default RootLayout;
+
+export const revalidate = 20

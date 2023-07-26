@@ -1,13 +1,20 @@
 import Skeleton from "react-loading-skeleton";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { fetchCollegeDetailsWithCourses } from "@/app/colleges";
-import { convertWord } from "@/utils/functions";
+import { convertWord, getFormattedString } from "@/utils/functions";
 import CollegeCard from "./CollegeCard";
+import { CollegesFormData } from "./CollegeHome";
+import SelectedFilterComp from "./SelectedFilterComp";
+import { useFilterContext } from "./FilterContext";
+type CollegeListProps = {
+    filteredColleges: fetchCollegeDetailsWithCourses[]
+    isLoading: boolean
+    toggleModal: (collegeName: string) => void
+}
 
 
-
-const CollegeList = ({ filteredColleges, isLoading, selected, toggleModal }: { filteredColleges: fetchCollegeDetailsWithCourses[], isLoading: boolean, selected: string, toggleModal: (collegeName: string) => void }) => {
-
+const CollegeList: FC<CollegeListProps> = ({ filteredColleges, isLoading, toggleModal }) => {
+    const {selectedFilters}=useFilterContext();
     const [sortingValue, setSortingValue] = useState('')
     const [sortingCollegesList, setSortingCollegesList] = useState<fetchCollegeDetailsWithCourses[]>(filteredColleges);
 
@@ -26,13 +33,15 @@ const CollegeList = ({ filteredColleges, isLoading, selected, toggleModal }: { f
     useEffect(() => {
         filteringCollges();
     }, [filteredColleges, filteringCollges, sortingValue]);
+    console.log(filteredColleges)
 
     return (
         <>
             <div>
                 <h2 className="text-2xl font-medium text-blue-600">
-                    &nbsp;Top {convertWord(selected.toLowerCase())} Colleges in India 2023
+                    &nbsp;Top  {convertWord(getFormattedString(selectedFilters?.selectedStream ?? ''))} Colleges in India 2023
                 </h2>
+                <SelectedFilterComp />
                 {/* filtersort */}
                 <div className='text-right mt-1 font-medium'>
                     <select name="sorting" id="sorting" className='py-2 px-3 mr-10 border rounded 
@@ -50,7 +59,7 @@ const CollegeList = ({ filteredColleges, isLoading, selected, toggleModal }: { f
             <div>
                 {/* allcolleges and for each college one section */}
                 {
-                    isLoading && 
+                    isLoading &&
                     <div className='flex md:flex-row flex-col items-center p-2'>
                         <div className="w-[40%]  h-full overflow-hidden flex"> <Skeleton width={'14rem'} height={'7rem'} /> </div>
                         <div className="w-[80%]">
@@ -96,10 +105,10 @@ const CollegeListComp = ({ list, toggleModal }: CollegeListCompProps) => {
         return () => observer.disconnect();
     }, [list]);
 
-    useEffect(()=>{
-        const arrayList=list.slice(0,1);
+    useEffect(() => {
+        const arrayList = list.slice(0, 1);
         setDisplayedColleges(arrayList);
-    },[list]);
+    }, [list]);
 
     return (
         <>

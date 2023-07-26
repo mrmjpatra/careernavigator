@@ -19,7 +19,7 @@ export default async function sitemap() {
         lastModified: new Date(),
       };
     }) ?? [];
-    //schools urls
+  //schools urls
   const schoolsUrl =
     schools?.map((school: any) => {
       return {
@@ -27,8 +27,8 @@ export default async function sitemap() {
         lastModified: new Date(),
       };
     }) ?? [];
-    
-    //coaching url
+
+  //coaching url
   const coachingsUrl =
     coachings?.map((coaching: any) => {
       return {
@@ -36,15 +36,17 @@ export default async function sitemap() {
         lastModified: new Date(),
       };
     }) ?? [];
-    //exam url
-  const examsUrl =
+  //exam url
+  const examsUrl:{ url: string; lastModified: Date }[] =
     exams?.map((exam: any) => {
       return {
         url: `${baseUrl}/exam/${exam.examLink}`,
         lastModified: new Date(),
       };
     }) ?? [];
-    //article url
+
+
+  //article url
   const articlesUrl =
     articles?.map((article: any) => {
       return {
@@ -53,7 +55,7 @@ export default async function sitemap() {
       };
     }) ?? [];
 
-  
+
 
   return [
     {
@@ -64,6 +66,18 @@ export default async function sitemap() {
     ...schoolsUrl,
     ...coachingsUrl,
     ...examsUrl,
-    ...articlesUrl
+    ...articlesUrl,
+    {
+      url: `${baseUrl}/contact`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/cbse`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/chse`,
+      lastModified: new Date(),
+    },
   ];
 }

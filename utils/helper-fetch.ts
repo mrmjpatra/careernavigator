@@ -2,7 +2,7 @@
 
 export const getAllColleges = async () => {
     try {
-        const res = await fetch(`${process.env.HOST}/api/college/all`);
+        const res = await fetch(`${process.env.HOST}/api/college/all`,{next:{revalidate:120}});
         const json = await res.json()
         return json.message
     } catch (error) {
@@ -13,7 +13,7 @@ export const getAllColleges = async () => {
 
 export const getAllSchools = async () => {
     try {
-        const res = await fetch(`${process.env.HOST}/api/school/all`);
+        const res = await fetch(`${process.env.HOST}/api/school/all`,{next:{revalidate:120}});
         const json = await res.json()
         return json.message
     } catch (error) {
@@ -24,7 +24,7 @@ export const getAllSchools = async () => {
 
 export const getAllCoachings = async () => {
     try {
-        const res = await fetch(`${process.env.HOST}/api/coaching/all`);
+        const res = await fetch(`${process.env.HOST}/api/coaching/all`,{next:{revalidate:120}});
         const json = await res.json()
         return json.message
     } catch (error) {
@@ -35,7 +35,7 @@ export const getAllCoachings = async () => {
 
 export const getAllExams = async () => {
     try {
-        const res = await fetch(`${process.env.HOST}/api/exam`);
+        const res = await fetch(`${process.env.HOST}/api/exam`,{next:{revalidate:120}});
         const json = await res.json()
         return json.message
     } catch (error) {
@@ -45,7 +45,7 @@ export const getAllExams = async () => {
 }
 export const getAllArticles = async () => {
     try {
-        const res = await fetch(`${process.env.HOST}/api/articles`);
+        const res = await fetch(`${process.env.HOST}/api/articles`,{next:{revalidate:120}});
         const json = await res.json()
         return json.message
     } catch (error) {

@@ -31,7 +31,7 @@ const NavigationBar = () => {
             <div className="sm:w-[640px] md:w-[768px] lg:w-[1200px] max-w-[1300px] mx-auto flex  justify-between md:justify-start items-center gap-5">
                 {/* logo */}
                 <Link href={'/'}>
-                    <Image src={cnlogo} width={100} alt="logo" className="pl-4 w-96" />
+                    <Image src={cnlogo} width={100} alt="logo" className="pl-4 w-96" priority={true} loading="eager" />
                 </Link>
                 {/* menu */}
                 {/* Mobile View */}

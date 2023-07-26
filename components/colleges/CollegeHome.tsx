@@ -1,11 +1,9 @@
 'use client'
-import axios from 'axios';
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useQuery } from '@tanstack/react-query';
 import UseCollegesFormData from '@/utils/collegesFormData';
 import CollegeList from '@/components/colleges/CollegeList';
 import FilteredList from '@/components/colleges/FilteredList';
-import FilteredListName from '@/components/colleges/FilteredListName';
 import { LuSettings2 } from 'react-icons/lu';
 import { IoClose } from 'react-icons/io5';
 import { useSearchParams } from 'next/navigation';
@@ -14,6 +12,8 @@ import ApplyForm from '@/components/ApplyForm';
 import { fetchCollegeDetailsWithCourses } from '@/app/colleges';
 import { fetchCategoryList, fetchCollegeDataWithCourse } from '@/lib/helper-fetch';
 import FetchFilterComp from './FetchFilterComp';
+import { useFilterContext } from './FilterContext';
+
 export type CollegesFormData = {
     selectedStream: string;
     selectedDegree: string;
@@ -31,7 +31,7 @@ type AddCourseProps = {
 }
 
 const CollegeHome = ({ sortedDegreeList, sortedStreamList, sortedSpecializationList }: AddCourseProps) => {
-
+    const { selectedFilters, handleFilterChange, updateState } = useFilterContext();
     const { isLoading, error, data: allCollegeDetails } = useQuery({
         queryKey: ['allCollegeDetails'],
         queryFn: () => fetchCollegeDataWithCourse()
@@ -42,93 +42,62 @@ const CollegeHome = ({ sortedDegreeList, sortedStreamList, sortedSpecializationL
     const stream = searchParams.get('stream');
     const degree = searchParams.get('degree');
     const state = searchParams.get('state');
-    const city = searchParams.get('city');
     //Apply form Modal state
     const [showApplyModal, setShowApplyModal] = useState(false);
     const [collegeName, setCollegeName] = useState('');
     //custom hook for getting all the filtered arrays
     const { uniqueStatesArray, sortedCourse, sortedOwnerShip, sortedStudyMode, sortedCityList } = UseCollegesFormData()
 
-    //filter selected state values
-    const [collegesFormData, setCollegesFormData] = useState<CollegesFormData>({
-        selectedStream: '',
-        selectedDegree: '',
-        selectedState: '',
-        selectedCity: '',
-        selectedSpecialization: '',
-        selectedCourseType: '',
-        selectedStudyMode: '',
-        selectedOwnership: '',
-    })
-
-    useEffect(() => {
-        setCollegesFormData(prev => ({ ...prev, selectedDegree: degree ?? '', selectedStream: stream ?? '', selectedState: state?.toLowerCase() ?? '' }))
-    }, [degree, stream, state])
-
     //if the user select any filter 
     const [filteredColleges, setFilteredColleges] = useState<fetchCollegeDetailsWithCourses[]>();
     const [isFilterSelected, setIsFilterSelected] = useState(false);
+
     //For Mobile responsive
     const [showModal, setShowModal] = useState(false);
 
     const filterCategory = useCallback(() => {
-        return allCollegeDetails?.filter(college => {
+        const filterColleges = allCollegeDetails?.filter(college => {
             const matchingCourse = college.courses.find((course) => {
                 const conditions = [
-                    course.stream === collegesFormData.selectedStream,
-                    course.degree === collegesFormData.selectedDegree,
-                    course.specialization === collegesFormData.selectedSpecialization,
-                    course.courseType === collegesFormData.selectedCourseType,
-                    course.studyMode === collegesFormData.selectedStudyMode,
-                    college.city === collegesFormData.selectedCity,
-                    college.state === collegesFormData.selectedState,
-                    college.ownership === collegesFormData.selectedOwnership
+                    course.stream === selectedFilters.selectedStream,
+                    course.degree === selectedFilters.selectedDegree,
+                    course.specialization === selectedFilters.selectedSpecialization,
+                    course.courseType === selectedFilters.selectedCourseType,
+                    course.studyMode === selectedFilters.selectedStudyMode,
+                    college.city === selectedFilters.selectedCity,
+                    college.state === selectedFilters.selectedState,
+                    college.ownership === selectedFilters.selectedOwnership
                 ];
                 return conditions.some((condition) => condition);
             });
             return matchingCourse !== undefined;
         })
-    },[collegesFormData,allCollegeDetails]);
-    useEffect(()=>{
-        setFilteredColleges(filterCategory())
-    },[collegesFormData,filterCategory])
-
-    // const filterColleges = useCallback(() => {
-    //   if (allCollegeDetails && Object.values(collegesFormData).some((element) => element !== '')) {
-    //     const filteredColleges = allCollegeDetails.filter((college) => {
-    //       const matchingCourse = college.courses.find((course) => {
-    //         const conditions = [
-    //           course.stream === collegesFormData.selectedStream,
-    //           course.degree === collegesFormData.selectedDegree,
-    //           course.specialization === collegesFormData.selectedSpecialization,
-    //           course.courseType === collegesFormData.selectedCourseType,
-    //           course.studyMode === collegesFormData.selectedStudyMode,
-    //           college.city === collegesFormData.selectedCity,
-    //           college.state === collegesFormData.selectedState,
-    //           college.ownership === collegesFormData.selectedOwnership
-    //         ];
-    //         return conditions.some((condition) => condition);
-    //       });
-    //       return matchingCourse !== undefined;
-    //     });
-
-    //     setFilteredColleges(filteredColleges);
-    //     setIsFilterSelected(true);
-    //   }
-    // }, [allCollegeDetails, collegesFormData])
-
-
-    // //for every filter value change reload the component 
-    // useEffect(() => {
-    //   filterColleges();
-    // }, [filterColleges, collegesFormData]);
-
-    //set filter value in the object
-    const handleFilterChange = (selected: string, value: string) => {
         setIsFilterSelected(true);
-        filterCategory();
-        setCollegesFormData(prev => ({ ...prev, [selected]: value }))
-    }
+        setFilteredColleges(filterColleges);
+    }, [selectedFilters, allCollegeDetails]);
+
+    useEffect(() => {
+        if (Object.values(selectedFilters).some((val) => val !== '')) {
+            filterCategory();
+        } else {
+            setFilteredColleges(allCollegeDetails)
+        }
+    }, [selectedFilters, filterCategory, allCollegeDetails]);
+
+    const [isInitialUpdate, setIsInitialUpdate] = useState(true);
+
+    useEffect(() => {
+        // Check if it's the initial update and there are query parameters
+        if (isInitialUpdate && (stream || degree || state)) {
+            setIsInitialUpdate(false);
+            handleFilterChange('selectedStream', stream || selectedFilters.selectedStream);
+            handleFilterChange('selectedDegree', degree || selectedFilters.selectedDegree);
+            handleFilterChange('selectedState', state || selectedFilters.selectedState);
+        }
+    }, [stream, degree, state, handleFilterChange, isInitialUpdate, selectedFilters]);
+
+
+
     //set the apply form modal value using the below funciton
     const toggleModal = (collegeName: string) => {
         setShowApplyModal(!showApplyModal);
@@ -161,76 +130,63 @@ const CollegeHome = ({ sortedDegreeList, sortedStreamList, sortedSpecializationL
                         {/* /Stream */}
                         <FetchFilterComp
                             list={sortedStreamList}
-                            onFilterChange={handleFilterChange}
                             title='Stream'
                             selected='selectedStream'
-                            selectedItem={collegesFormData.selectedStream}
+                            selectedItem={selectedFilters.selectedStream}
                         />
                         {/* Degree */}
                         <FetchFilterComp
                             list={sortedDegreeList}
-                            onFilterChange={handleFilterChange}
                             title='Degree'
                             selected='selectedDegree'
-                            selectedItem={collegesFormData.selectedDegree}
+                            selectedItem={selectedFilters.selectedDegree}
                         />
                         {/* State */}
                         <FilteredList
                             title="State"
                             list={uniqueStatesArray}
-                            selectedItem={collegesFormData.selectedState}
+                            selectedItem={selectedFilters.selectedState}
                             selected={'selectedState'}
-                            onFilterChange={handleFilterChange}
-                            isLoading={isLoading}
                         />
 
 
                         {/* City */}
-                        <FilteredListName
+                        <FilteredList
                             title='City'
                             list={sortedCityList}
-                            selectedItem={collegesFormData.selectedCity}
-                            selected='selectedCity'
-                            onFilterChange={handleFilterChange}
-                            isLoading={isLoading}
+                            selectedItem={selectedFilters.selectedCity}
+                            selected={'selectedCity'}
                         />
 
                         {/* Specialization */}
                         <FetchFilterComp
                             list={sortedSpecializationList}
-                            onFilterChange={handleFilterChange}
                             title='Specialization'
                             selected='selectedSpecialization'
-                            selectedItem={collegesFormData.selectedSpecialization}
+                            selectedItem={selectedFilters.selectedSpecialization}
                         />
 
                         {/* Course TYpe */}
                         <FilteredList
                             title="Course Type"
                             list={sortedCourse}
-                            selectedItem={collegesFormData.selectedCourseType}
+                            selectedItem={selectedFilters.selectedCourseType}
                             selected={'selectedCourseType'}
-                            onFilterChange={handleFilterChange}
-                            isLoading={isLoading}
                         />
 
                         {/* Study Mode */}
                         <FilteredList
                             title="Study Mode"
                             list={sortedStudyMode}
-                            selectedItem={collegesFormData.selectedStudyMode}
+                            selectedItem={selectedFilters.selectedStudyMode}
                             selected={'selectedStudyMode'}
-                            onFilterChange={handleFilterChange}
-                            isLoading={isLoading}
                         />
                         {/* Ownership */}
                         <FilteredList
                             title="Ownership"
                             list={sortedOwnerShip}
-                            selectedItem={collegesFormData.selectedOwnership}
+                            selectedItem={selectedFilters.selectedOwnership}
                             selected={'selectedOwnership'}
-                            onFilterChange={handleFilterChange}
-                            isLoading={isLoading}
                         />
                     </div>
                 </div>
@@ -238,17 +194,31 @@ const CollegeHome = ({ sortedDegreeList, sortedStreamList, sortedSpecializationL
                 <div className='md:w-[76%]'>
                     <div>
                         {/* list of colleges */}
-
-                        {/* filterListCont */}
                         <div className='py-5 border'>
+                            {/* {allCollegeDetails &&
+                                <CollegeList
+                                    toggleModal={toggleModal}
+                                    isLoading={isLoading}
+                                    filteredColleges={allCollegeDetails}
+                                />} */}
                             {
-                                isFilterSelected ? (
-                                    filteredColleges &&
-                                    <CollegeList toggleModal={toggleModal} isLoading={isLoading} selected={collegesFormData.selectedStream.toUpperCase()} filteredColleges={filteredColleges} />) :
-                                    (<CollegeList toggleModal={toggleModal} selected={collegesFormData.selectedStream.toUpperCase()} isLoading={isLoading} filteredColleges={allCollegeDetails ? allCollegeDetails : []} />)
+                                isFilterSelected ?
+                                    (
+                                        filteredColleges &&
+                                        <CollegeList toggleModal={toggleModal}
+                                            isLoading={isLoading}
+                                            filteredColleges={filteredColleges}
+                                        />
+                                    ) :
+                                    (
+                                        <CollegeList
+                                            toggleModal={toggleModal}
+                                            isLoading={isLoading}
+                                            filteredColleges={allCollegeDetails ?? []}
+                                        />
+                                    )
                             }
                         </div>
-
                     </div>
                 </div>
             </div>
