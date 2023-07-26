@@ -48,13 +48,6 @@ const CollegeHome = ({ sortedDegreeList, sortedStreamList, sortedSpecializationL
     const [collegeName, setCollegeName] = useState('');
     //custom hook for getting all the filtered arrays
     const { uniqueStatesArray, sortedCourse, sortedOwnerShip, sortedStudyMode, sortedCityList } = UseCollegesFormData()
-    const [isClient, setIsClient] = useState(false)
-
-    useEffect(() => {
-        setIsClient(true)
-    }, [])
-    console.log(stream)
-    console.log(degree)
 
     //filter selected state values
     const [collegesFormData, setCollegesFormData] = useState<CollegesFormData>({
@@ -69,23 +62,16 @@ const CollegeHome = ({ sortedDegreeList, sortedStreamList, sortedSpecializationL
     })
 
     useEffect(() => {
-        setCollegesFormData(prev=>({...prev,selectedDegree:degree??'',selectedStream:stream??'',selectedState:state?.toLowerCase()??''}))
+        setCollegesFormData(prev => ({ ...prev, selectedDegree: degree ?? '', selectedStream: stream ?? '', selectedState: state?.toLowerCase() ?? '' }))
     }, [degree, stream, state])
-    console.log(collegesFormData)
 
     //if the user select any filter 
-    // const [filteredColleges, setFilteredColleges] = useState<fetchCollegeDetailsWithCourses[]>([]);
+    const [filteredColleges, setFilteredColleges] = useState<fetchCollegeDetailsWithCourses[]>();
     const [isFilterSelected, setIsFilterSelected] = useState(false);
     //For Mobile responsive
     const [showModal, setShowModal] = useState(false);
 
-    //Fetching all the colleges from apis
-    // const { isLoading, error, data: allCollegeDetails } = useQuery({
-    //     queryKey: ['collegeData'],
-    //     queryFn: () => fetchData()
-    // });
-
-    const filteredColleges = useMemo(() => {
+    const filterCategory = useCallback(() => {
         return allCollegeDetails?.filter(college => {
             const matchingCourse = college.courses.find((course) => {
                 const conditions = [
@@ -102,7 +88,10 @@ const CollegeHome = ({ sortedDegreeList, sortedStreamList, sortedSpecializationL
             });
             return matchingCourse !== undefined;
         })
-    }, [allCollegeDetails, collegesFormData]);
+    },[collegesFormData,allCollegeDetails]);
+    useEffect(()=>{
+        setFilteredColleges(filterCategory())
+    },[collegesFormData,filterCategory])
 
     // const filterColleges = useCallback(() => {
     //   if (allCollegeDetails && Object.values(collegesFormData).some((element) => element !== '')) {
@@ -135,15 +124,16 @@ const CollegeHome = ({ sortedDegreeList, sortedStreamList, sortedSpecializationL
     // }, [filterColleges, collegesFormData]);
 
     //set filter value in the object
-    const handleFilterChange = useCallback((selected: string, value: string) => {
+    const handleFilterChange = (selected: string, value: string) => {
         setIsFilterSelected(true);
+        filterCategory();
         setCollegesFormData(prev => ({ ...prev, [selected]: value }))
-    }, []);
+    }
     //set the apply form modal value using the below funciton
-    const toggleModal = useCallback((collegeName: string) => {
+    const toggleModal = (collegeName: string) => {
         setShowApplyModal(!showApplyModal);
         setCollegeName(collegeName);
-    }, [showApplyModal]);
+    }
 
     //return the view
     return (
