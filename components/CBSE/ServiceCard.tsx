@@ -5,30 +5,37 @@ import projects from '@/public/assets/practice.png'
 import note from '@/public/assets/note.png';
 import samplePaper from '@/public/assets/documents.png'
 import Image from 'next/image';
+import Link from 'next/link';
 const cardContent = [
     {
         title: 'Syllabus',
-        image: syllabus
+        image: syllabus,
+        link:'/cbse/syllabus'
     },
     {
         title: 'Books',
-        image: books
+        image: books,
+        link:'/cbse/books'
     },
     {
         title: 'Exam Paper',
-        image: examPaper
+        image: examPaper,
+        link:'/cbse/exam-papers'
     },
     {
         title: 'Practical Notes',
-        image: note
+        image: note,
+        link:'/cbse/practical-notes'
     },
     {
         title: 'Sample Paper',
-        image: samplePaper
+        image: samplePaper,
+        link:'/cbse/sample-paper'
     },
     {
         title: 'Projects',
-        image: projects
+        image: projects,
+        link:'/cbse/projects'
     },
 ]
 
@@ -37,7 +44,8 @@ const ServiceCard = () => {
         <div className='grid md:grid-cols-3 md:gap-y-6 sm:grid-cols-2 grid-cols-1 gap-4'>
             {
                 cardContent.map(card =>
-                    <div
+                    <Link
+                        href={card.link}
                         key={card.title}
                         className='flex flex-col gap-6 justify-center cursor-pointer  items-center px-2 py-4 rounded-md shadow-md shadow-indigo-300 bg-indigo-700 text-white h-48 
                         hover:-translate-y-2 hover:shadow-lg hover:shadow-indigo-500 duration-200 ease-in
@@ -56,7 +64,7 @@ const ServiceCard = () => {
                             <Image src={card.image} alt='Card image' width={100} height={100} className='w-11 h-11 object-fill ' draggable={false} />
                         </div>
                         <p className='font-medium text-xl'>{card.title}</p>
-                    </div>
+                    </Link>
                 )
             }
         </div>

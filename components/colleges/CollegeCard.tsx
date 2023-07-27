@@ -6,13 +6,14 @@ import React from 'react'
 import { BsFillPersonFill } from 'react-icons/bs'
 import { FaLocationDot } from 'react-icons/fa6'
 import { IoCall } from 'react-icons/io5'
+import { useModalContext } from '../ContactModalContext'
 
 type CollegeCardProps = {
     data: fetchCollegeDetailsWithCourses,
-    toggleModal: (collegeName: string) => void
 }
 
-const CollegeCard = ({ data, toggleModal }: CollegeCardProps) => {
+const CollegeCard = ({ data }: CollegeCardProps) => {
+    const {setName,handleChange}=useModalContext();
     const { id, collegePhoto, collegeName, city, state, ownership, description, courses } = data;
     const d: string = (JSON.parse(description));
     const desc = checkLength(d, 150);
@@ -58,7 +59,10 @@ const CollegeCard = ({ data, toggleModal }: CollegeCardProps) => {
                 {/* listaction */}
                 <div className='flex md:flex-col justify-center px-4 md:w-[30%] mt-3 md:mt-0 gap-3 '>
 
-                    <button onClick={() => toggleModal(collegeName)} className='bg-blue-600 rounded text-white py-2 px-4 text-center shadow-md shadow-blue-400'>Apply Now</button>
+                    <button onClick={() =>{
+                        handleChange();
+                        setName(collegeName)
+                    }} className='bg-blue-600 rounded text-white py-2 px-4 text-center shadow-md shadow-blue-400'>Apply Now</button>
 
                     <Link href={'/contact'} className='border shadow shadow-black/50 rounded py-2 px-4 text-center flex items-center gap-2'>
                         <IoCall />

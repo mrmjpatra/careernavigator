@@ -3,15 +3,17 @@ import Skeleton from 'react-loading-skeleton'
 import CoachingItem from './CoachingItem'
 import { CoachingFetchDataType } from '@/app/coachings'
 import { convertWord } from '@/utils/functions'
+import { useFilterContext } from './CoachingFilterContext'
+import CoachingCategoryComp from './CoachingCategoryComp'
+import CoachingSelectFilterComp from './CoachingSelectFilterComp'
 
 type CoachingDisplayType = {
     coachingList: CoachingFetchDataType[],
     isLoading: boolean
-    toggleModal: (value: string) => void
-    selectedCity: string
 }
 
-const CoachingDisplayComp = ({ coachingList, isLoading, toggleModal, selectedCity }: CoachingDisplayType) => {
+const CoachingDisplayComp = ({ coachingList, isLoading }: CoachingDisplayType) => {
+    const { selectedFilters } = useFilterContext()
     const [sortingValue, setSortingValue] = useState('')
     const [sortedCoachingList, setSortedCoachingList] = useState<CoachingFetchDataType[]>([]);
     const filteringCollges = useCallback(() => {
@@ -33,10 +35,11 @@ const CoachingDisplayComp = ({ coachingList, isLoading, toggleModal, selectedCit
             &nbsp;
             <h2 className="text-2xl font-medium text-blue-600 pl-2">
                 {
-                    selectedCity !== '' ? <span>Top Coachings in {convertWord(selectedCity)}</span> : <span>Top Coachings List</span>
+                    selectedFilters.selectedCity === '' ? <span>Top Coachings</span> : <span>Top Coachings in {convertWord(selectedFilters.selectedCity)}</span>
                 }
 
             </h2>
+            <CoachingSelectFilterComp/>
             {/* filtersort */}
             <div className='text-right mt-1 font-medium'>
                 <select name="sorting" id="sorting" className='py-2 px-3 mr-10 border rounded 
@@ -63,7 +66,7 @@ const CoachingDisplayComp = ({ coachingList, isLoading, toggleModal, selectedCit
                     </div>
                 </div>
             }
-            <CoachingListComp list={sortedCoachingList} toggleModal={toggleModal} />
+            <CoachingListComp list={sortedCoachingList} />
         </div>
     )
 }
@@ -74,9 +77,8 @@ export default CoachingDisplayComp;
 
 type CoachingListCompProps = {
     list: CoachingFetchDataType[],
-    toggleModal: (schoolName: string) => void
 }
-const CoachingListComp = ({ list, toggleModal }: CoachingListCompProps) => {
+const CoachingListComp = ({ list }: CoachingListCompProps) => {
     const [displayedColleges, setDisplayedColleges] = useState(list);
     const loadMoreRef = useRef(null);
     useEffect(() => {
@@ -104,7 +106,7 @@ const CoachingListComp = ({ list, toggleModal }: CoachingListCompProps) => {
     return (
         <>
             {
-                displayedColleges.map(list => <CoachingItem toggleModal={toggleModal} key={list.id} data={{ ...list }} />)
+                displayedColleges.map(list => <CoachingItem  key={list.id} data={{ ...list }} />)
             }
             <div ref={loadMoreRef}></div>
         </>

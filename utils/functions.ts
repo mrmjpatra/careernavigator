@@ -26,11 +26,12 @@ export const convertWord = (name: string | undefined) => {
 
 export const getFormattedString = (name: string, separator?: string) => {
     if (separator) {
-        return name.split(' ').join('-')
+        return name.split(' ').join(separator)
     } else {
         return name.split('-').join(' ')
     }
 }
+
 
 export const sortArray = <T extends { [K in keyof T]: string | Date }>(list: T[], createdAtProperty: keyof T) => {
     const sortedArray = list.sort((a, b) => {

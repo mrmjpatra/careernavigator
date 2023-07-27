@@ -1,14 +1,17 @@
 'use client'
 import { useCallback, useRef, useEffect, MouseEventHandler } from 'react'
 import { FaXmark } from 'react-icons/fa6'
+import { useModalContext } from '../ContactModalContext'
+import ApplyForm from '../ApplyForm'
 
-export default function ApplyModal({ children, onClose }: { children: React.ReactNode, onClose: () => void }) {
+export default function ApplyModal() {
   const overlay = useRef(null)
   const wrapper = useRef(null)
+  const { handleChange, instituteName, showContactModal } = useModalContext();
 
   const onDismiss = useCallback(() => {
-    onClose();
-  }, [onClose])
+    handleChange();
+  }, [handleChange])
 
 
   const onClick: MouseEventHandler = useCallback(
@@ -31,7 +34,11 @@ export default function ApplyModal({ children, onClose }: { children: React.Reac
     document.addEventListener('keydown', onKeyDown)
     return () => document.removeEventListener('keydown', onKeyDown)
   }, [onKeyDown])
-
+  if (!showContactModal) {
+    return (
+      <></>
+    )
+  }
   return (
     <div
       ref={overlay}
@@ -44,7 +51,7 @@ export default function ApplyModal({ children, onClose }: { children: React.Reac
         <div className='flex justify-between px-5 bg-blue-500 py-4'>
           <div className='bg-white cursor-pointer hover:bg-white/40  rounded-full p-2 border shadow' onClick={onDismiss}><FaXmark /></div>
         </div>
-        {children}
+        <ApplyForm instituteName={instituteName} />
       </div>
     </div>
   )

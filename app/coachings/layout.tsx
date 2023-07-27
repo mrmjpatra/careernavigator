@@ -1,3 +1,4 @@
+import { CoachingFilterProvider } from "@/components/Coaching/CoachingFilterContext";
 import React from "react";
 
 
@@ -12,6 +13,6 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <>{children}</>
+        <CoachingFilterProvider>{children}</CoachingFilterProvider>
     );
 }

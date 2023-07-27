@@ -8,14 +8,15 @@ import { BsPersonFill } from 'react-icons/bs'
 import { MdSchool } from 'react-icons/md'
 import { SchoolFormDetailsType } from '@/app/schools'
 import { convertWord, getFormattedString } from '@/utils/functions'
+import { useModalContext } from '../ContactModalContext'
 
 type SchoolItemProps = {
     data: SchoolFormDetailsType,
-    toggleModal: (collegeName: string) => void
 }
 
-const SchoolItem = ({ data, toggleModal }: SchoolItemProps) => {
+const SchoolItem = ({ data }: SchoolItemProps) => {
     const { id, schoolName, state, city, board, ownership, schoolPhoto } = data;
+    const {setName,handleChange,showContactModal}=useModalContext();
     return (
         <section className='p-0 bg-slate-100 mx-2 my-7 border relative rounded-md hover:shadow-md  hover:-translate-y-1 cursor-pointer transition-transform duration-300 ease-out'>
             <div className='flex w-full py-3 px-2 items-center flex-col sm:flex-row '>
@@ -57,7 +58,7 @@ const SchoolItem = ({ data, toggleModal }: SchoolItemProps) => {
                 {/* listaction */}
                 <div className='flex md:flex-col justify-center px-4 md:w-[30%] mt-3 md:mt-0 gap-3 '>
                     <button
-                        onClick={() => toggleModal(schoolName)}
+                        onClick={() => {setName(schoolName),handleChange() }}
                         className='bg-blue-600 rounded text-white py-2 px-4 text-center shadow-md shadow-blue-400'>Apply Now</button>
                     <Link href={'/contact'} className='border shadow shadow-black/50 rounded py-2 px-4 text-center flex items-center gap-2'>
                         <IoCall />

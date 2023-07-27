@@ -1,15 +1,14 @@
 'use client'
 import CoachingDisplayComp from '@/components/Coaching/CoachingDisplayComp';
-import SchoolCategoryComp from '@/components/School/SchoolCategoryComp';
 import UseCollegesFormData from '@/utils/collegesFormData';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import React, { useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { IoClose } from 'react-icons/io5';
 import { LuSettings2 } from 'react-icons/lu';
 import { CoachingFetchDataType } from '.';
-import ApplyModal from '@/components/ApplyModal';
-import ApplyForm from '@/components/ApplyForm';
+import { useFilterContext } from '@/components/Coaching/CoachingFilterContext';
+import CoachingCategoryComp from '@/components/Coaching/CoachingCategoryComp';
 
 
 const fetchCoachingDetails = async () => {
@@ -19,55 +18,38 @@ const fetchCoachingDetails = async () => {
 }
 
 const CoachingHomePage = () => {
+    const { selectedFilters } = useFilterContext();
     const [showModal, setShowModal] = useState(false);
     const [isFilterSelected, setIsFilterSelected] = useState(false);
-    // const [filteredCoachings, setFilteredSchools] = useState<CoachingFetchDataType[]>([]);
-
-    //Apply form Modal state
-    const [showApplyModal, setShowApplyModal] = useState(false);
-    const [coachingName, setCoachingName] = useState('');
-
-    const [listOfCategoryList, setListOfCategoryList] = useState({
-        selectedState: '',
-        selectedCity: '',
-        selectedProvider: '',
-    })
+    const [filteredCoachings, setFilteredSchools] = useState<CoachingFetchDataType[] | undefined>();
     const { uniqueStatesArray, sortedCityList, soretdCoachingList } = UseCollegesFormData();
 
     const { isLoading, error, data: allCoachingDetails } = useQuery({
         queryKey: ['coachingData'],
         queryFn: () => fetchCoachingDetails()
     });
-
-    const handleFilterChange = (selected: string, value: string) => {
-        setIsFilterSelected(true);
-        setListOfCategoryList(prev => ({ ...prev, [selected]: value }))
-    };
-
-    const filteredCoachings = useMemo(() => {
-        return allCoachingDetails?.filter(coach => {
-            return (coach.state === listOfCategoryList.selectedState || coach.city === listOfCategoryList.selectedCity)
+    const filterCategory = useCallback(() => {
+        const filterSchools = allCoachingDetails?.filter(coach => {
+            return (coach.state === selectedFilters.selectedState || coach.city === selectedFilters.selectedCity)
         })
-    }, [allCoachingDetails, listOfCategoryList]);
+        setFilteredSchools(filterSchools);
+    }, [allCoachingDetails, selectedFilters]);
 
-    //set the apply form modal value using the below funciton
-    const toggleModal = (coachingName: string) => {
-        setShowApplyModal(!showApplyModal);
-        setCoachingName(coachingName);
-    };
+    useEffect(() => {
+        if (Object.values(selectedFilters).some((val) => val !== '')) {
+            filterCategory();
+        } else {
+            setFilteredSchools(allCoachingDetails)
+        }
+    }, [selectedFilters, filterCategory, allCoachingDetails]);
 
     return (
         <div className="xl:max-[1100px] mx-auto h-full xl:w-[96%] py-4 md:[1000px] ">
-            {
-                showApplyModal && <ApplyModal onClose={() => setShowApplyModal(false)}>
-                    <ApplyForm instituteName={coachingName} />
-                </ApplyModal>
-            }
             <div className="md:flex md:gap-3 md:justify-between">
                 {/* filter state */}
                 <div className='flex justify-end pr-4 pb-5 items-center cursor-pointer md:hidden' onClick={() => setShowModal(prev => !prev)} >
-                <span className='bg-blue-700 text-white rounded-full p-2 hover:bg-blue-900 hover:shadow-md hover:shadow-blue-400 transition-all duration-200 ease-in'>
-                        <LuSettings2  size={'1.5rem'} />
+                    <span className='bg-blue-700 text-white rounded-full p-2 hover:bg-blue-900 hover:shadow-md hover:shadow-blue-400 transition-all duration-200 ease-in'>
+                        <LuSettings2 size={'1.5rem'} />
                     </span>
                     <span className='pl-2 font-bold'>Filters</span>
                 </div>
@@ -80,31 +62,23 @@ const CoachingHomePage = () => {
                         </div>
 
                         {/* ALL Category List */}
-                        <SchoolCategoryComp
+                        <CoachingCategoryComp
                             title='State'
                             list={uniqueStatesArray}
-                            onFilterChange={handleFilterChange}
                             selected='selectedState'
-                            checked={listOfCategoryList.selectedState}
-                            isLoading={isLoading}
+                            checked={selectedFilters.selectedState}
                         />
-                        <SchoolCategoryComp
+                        <CoachingCategoryComp
                             title='City'
                             list={sortedCityList}
-                            onFilterChange={handleFilterChange}
                             selected='selectedCity'
-                            checked={listOfCategoryList.selectedCity}
-                            isLoading={isLoading}
-
+                            checked={selectedFilters.selectedCity}
                         />
-                        <SchoolCategoryComp
+                        <CoachingCategoryComp
                             title='Providing'
                             list={soretdCoachingList}
-                            onFilterChange={handleFilterChange}
                             selected='selectedProvider'
-                            checked={listOfCategoryList.selectedProvider}
-                            isLoading={isLoading}
-
+                            checked={selectedFilters.selectedProvider}
                         />
                     </div>
                 </div>
@@ -116,7 +90,14 @@ const CoachingHomePage = () => {
                             isFilterSelected ?
                                 (
                                     filteredCoachings &&
-                                    <CoachingDisplayComp selectedCity={listOfCategoryList.selectedCity} toggleModal={toggleModal} isLoading={isLoading} coachingList={filteredCoachings} />) : <CoachingDisplayComp selectedCity={listOfCategoryList.selectedCity} toggleModal={toggleModal} isLoading={isLoading} coachingList={allCoachingDetails ? allCoachingDetails : []} />
+                                    <CoachingDisplayComp
+                                        isLoading={isLoading}
+                                        coachingList={filteredCoachings}
+                                    />) :
+                                <CoachingDisplayComp
+                                    isLoading={isLoading}
+                                    coachingList={allCoachingDetails ? allCoachingDetails : []}
+                                />
                         }
                     </div>
                 </div>

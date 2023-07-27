@@ -1,3 +1,4 @@
+import { SchoolFilterProvider } from "@/components/School/FilterContext";
 import React from "react";
 
 
@@ -12,6 +13,6 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <>{children}</>
+        <SchoolFilterProvider>{children}</SchoolFilterProvider>
     );
 }

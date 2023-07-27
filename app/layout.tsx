@@ -9,6 +9,8 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { Toaster } from "react-hot-toast";
 import { SkeletonTheme } from "react-loading-skeleton";
 import { Metadata } from "next";
+import { ContactModalProvider } from "@/components/ContactModalContext";
+import ApplyModal from "@/components/ApplyModal";
 const Footer = dynamic(() => import('@/components/Footer'));
 
 
@@ -21,7 +23,10 @@ const roboto = Roboto({
 const baseUrl = 'https://careernavigator.vercel.app'
 
 export const metadata: Metadata = {
-  title: "Career Navigator",
+  title: {
+    template: '%s | Career Navigator',
+    default:'Career Navigator'
+  },
   description: "Choose Best College with us",
   keywords: ['Carrer Navigator', 'Best Colleges', 'Exams', 'Best Coachings', 'Best School', 'Choose Carrer', "top colleges", 'university top', 'college university', 'university colleges', 'colleges university', 'popular colleges', 'career navigator', 'university career', 'global colleges', 'career university', 'navigation career', 'iit top colleges', 'university navigator', 'university popular', 'navigator career'],
   creator: 'Mrutyunjaya Patra',
@@ -35,7 +40,7 @@ export const metadata: Metadata = {
     siteName: 'Carrer Navigator',
     images: [
       {
-        url: `${baseUrl}/opengraph-image.png`,
+        url: `${baseUrl}/opengraph-image?60c1579eb90e4b11`,
         width: 800,
         height: 600,
       },
@@ -66,7 +71,7 @@ export const metadata: Metadata = {
     creator: '@nextjs',
     creatorId: '1467726470533754880',
     images: {
-      url: `${baseUrl}/opengraph-image.png`,
+      url: `${baseUrl}/opengraph-image?60c1579eb90e4b11`,
       alt: 'Carrer Navigator',
     },
     app: {
@@ -120,17 +125,20 @@ const RootLayout: FC<RootLayoutProps> = ({
         suppressHydrationWarning={true}
       >
         <ReduxProvider>
-          <Providers>
-            <Toaster />
-            <SkeletonTheme baseColor="#cecece" highlightColor="#444">
-              <NavigationBar />
-              {children}
-              {college}
-              {school}
-              {coaching}
-              <Footer />
-            </SkeletonTheme>
-          </Providers>
+          <ContactModalProvider>
+            <Providers>
+              <Toaster />
+              <SkeletonTheme baseColor="#cecece" highlightColor="#444">
+                <ApplyModal/>
+                  <NavigationBar />
+                  {children}
+                  {college}
+                  {school}
+                  {coaching}
+                <Footer />
+              </SkeletonTheme>
+            </Providers>
+          </ContactModalProvider>
         </ReduxProvider>
       </body>
     </html>

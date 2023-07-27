@@ -2,8 +2,8 @@ import { convertWord } from '@/utils/functions';
 import React, { useEffect, useState } from 'react'
 import { FiSearch } from 'react-icons/fi';
 import { TiTick } from 'react-icons/ti';
-import Skeleton from 'react-loading-skeleton';
-import { useFilterContext } from './FilterContext';
+import { useFilterContext } from './CoachingFilterContext';
+
 
 type SchoolCategoryType = {
   title: string,
@@ -12,14 +12,14 @@ type SchoolCategoryType = {
   checked: string
 }
 
-const SchoolCategoryComp = ({ title, list, selected, checked }: SchoolCategoryType) => {
+const CoachingCategoryComp = ({ title, list, selected, checked }: SchoolCategoryType) => {
   const { handleFilterChange } = useFilterContext()
   const [searchQuery, setSearchQuery] = useState('');
   const [filteredList, setFilteredList] = useState<string[]>(list);
   const [visibleItems, setVisibleItems] = useState(10); // Number of items to initially display
   const itemsPerPage = 10; // Number of items to load when scrolling to the bottom
   const scrollThreshold = 200; // Number of pixels from the bottom to trigger loading more items 
-  
+
 
   const filterList = (list: any[], searchValue: string): any[] => {
     return list.filter((item: string) =>
@@ -60,7 +60,7 @@ const SchoolCategoryComp = ({ title, list, selected, checked }: SchoolCategoryTy
 
   return (
     <section className="border-b border-black/10 mb-3 px-4 pb-5">
-      <div className="py-3 uppercase font-bold text-xl text-blue-500">{title}</div>
+      <div className="py-3 uppercase font-bold text-xl text-blue-500">{convertWord(title.toLowerCase())}</div>
       <div className="max-h-[165px] overflow-y-auto pr-1">
         <div className="mb-3 sticky top-0 z-10 bg-white">
           <input
@@ -71,8 +71,6 @@ const SchoolCategoryComp = ({ title, list, selected, checked }: SchoolCategoryTy
             id={title}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-
-
           <FiSearch className="absolute top-3 left-3" color='#0041b9' />
         </div>
         <ul>
@@ -107,4 +105,4 @@ const SchoolCategoryComp = ({ title, list, selected, checked }: SchoolCategoryTy
   )
 }
 
-export default SchoolCategoryComp
+export default CoachingCategoryComp

@@ -4,13 +4,12 @@ import SchoolDisplayComp from '@/components/School/SchoolDisplayComp';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { useSearchParams } from 'next/navigation';
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { IoClose } from 'react-icons/io5';
 import { LuSettings2 } from 'react-icons/lu';
 import { SchoolFormDetailsType } from '.';
-import ApplyModal from '@/components/ApplyModal';
-import ApplyForm from '@/components/ApplyForm';
 import UseCollegesFormData from '@/utils/collegesFormData';
+import { useFilterContext } from '@/components/School/FilterContext';
 
 
 const fetchSchoolDetails = async () => {
@@ -20,62 +19,63 @@ const fetchSchoolDetails = async () => {
 }
 
 const SchoolHomePage = () => {
+    const { selectedFilters, handleFilterChange } = useFilterContext()
     const searchParams = useSearchParams()
-    const search = searchParams.get('data');
-    //Apply form Modal state
-    const [showApplyModal, setShowApplyModal] = useState(false);
-    const [schoolName, setSchoolName] = useState('');
+    const board = searchParams.get('data');
     const [showModal, setShowModal] = useState(false);
     const [isFilterSelected, setIsFilterSelected] = useState(false);
-    // const [filteredSchools, setFilteredSchools] = useState<SchoolFormDetailsType[]>([]);
-    const [listOfCategoryList, setListOfCategoryList] = useState({
-        selectedState: '',
-        selectedCity: '',
-        selectedOwnership: '',
-        selectedBoard: search ?? '',
-    })
+    const [filteredSchools, setFilteredSchools] = useState<SchoolFormDetailsType[] | undefined>();
+
     const { uniqueStatesArray, sortedCityList, sortedOwnerShip, sortedBoardList } = UseCollegesFormData();
 
     const { isLoading, error, data: allSchoolDetails } = useQuery({
         queryKey: ['schoolData'],
         queryFn: () => fetchSchoolDetails()
     });
-
-    const handleFilterChange = (selected: string, value: string) => {
-        setIsFilterSelected(true);
-        setListOfCategoryList(prev => ({ ...prev, [selected]: value }))
-    };
-
-    const filteredSchools = useMemo(() => {
-        return allSchoolDetails?.filter(school => {
+    
+    const filterCategory = useCallback(() => {
+        const filterSchools = allSchoolDetails?.filter(school => {
             return (
-                school.state === listOfCategoryList.selectedState ||
-                school.city === listOfCategoryList.selectedCity ||
-                school.ownership === listOfCategoryList.selectedOwnership ||
-                school.board === listOfCategoryList.selectedBoard
+                school.state === selectedFilters.selectedState ||
+                school.city === selectedFilters.selectedCity ||
+                school.ownership === selectedFilters.selectedOwnership ||
+                school.board === selectedFilters.selectedBoard
             )
         })
-    }, [allSchoolDetails, listOfCategoryList]);
+        setIsFilterSelected(true);
+        setFilteredSchools(filterSchools);
+    }, [allSchoolDetails, selectedFilters]);
+
+    const [isInitialUpdate, setIsInitialUpdate] = useState(true);
+
+
+    useEffect(() => {
+        if (Object.values(selectedFilters).some((val) => val !== '')) {
+            filterCategory();
+        } else {
+            setFilteredSchools(allSchoolDetails)
+        }
+    }, [selectedFilters, filterCategory, allSchoolDetails]);
+
+    useEffect(() => {
+        // Check if it's the initial update and there are query parameters
+        if (isInitialUpdate && (board)) {
+            setIsInitialUpdate(false);
+            handleFilterChange('selectedBoard', board);
+        }
+    }, [board, handleFilterChange, isInitialUpdate, selectedFilters]);
 
 
     //set the apply form modal value using the below funciton
-    const toggleModal = (schoolName: string) => {
-        setShowApplyModal(!showApplyModal);
-        setSchoolName(schoolName);
-    };
+
 
     return (
         <div className="xl:max-[1100px] mx-auto h-full xl:w-[96%] py-4 md:[1000px] ">
-            {
-                showApplyModal && <ApplyModal onClose={() => setShowApplyModal(false)}>
-                    <ApplyForm instituteName={schoolName} />
-                </ApplyModal>
-            }
             <div className="md:flex md:gap-3 md:justify-between pb-4">
                 {/* filter state */}
                 <div className='flex justify-end pr-4 pb-5 items-center cursor-pointer md:hidden' onClick={() => setShowModal(prev => !prev)} >
                     <span className='bg-blue-700 text-white rounded-full p-2 hover:bg-blue-900 hover:shadow-md hover:shadow-blue-400 transition-all duration-200 ease-in'>
-                        <LuSettings2  size={'1.5rem'} />
+                        <LuSettings2 size={'1.5rem'} />
                     </span>
                     <span className='pl-2 font-bold'>Filters</span>
                 </div>
@@ -91,36 +91,27 @@ const SchoolHomePage = () => {
                         <SchoolCategoryComp
                             title='State'
                             list={uniqueStatesArray}
-                            onFilterChange={handleFilterChange}
                             selected='selectedState'
-                            checked={listOfCategoryList.selectedState}
-                            isLoading={isLoading}
+                            checked={selectedFilters.selectedState}
                         />
                         <SchoolCategoryComp
                             title='City'
                             list={sortedCityList}
-                            onFilterChange={handleFilterChange}
                             selected='selectedCity'
-                            checked={listOfCategoryList.selectedCity}
-                            isLoading={isLoading}
+                            checked={selectedFilters.selectedCity}
 
                         />
                         <SchoolCategoryComp
                             title='Board'
                             list={sortedBoardList}
-                            onFilterChange={handleFilterChange}
                             selected='selectedBoard'
-                            checked={listOfCategoryList.selectedBoard}
-                            isLoading={isLoading}
-
+                            checked={selectedFilters.selectedBoard}
                         />
                         <SchoolCategoryComp
                             title='Ownership'
                             list={sortedOwnerShip}
-                            onFilterChange={handleFilterChange}
                             selected='selectedOwnership'
-                            checked={listOfCategoryList.selectedOwnership}
-                            isLoading={isLoading}
+                            checked={selectedFilters.selectedOwnership}
                         />
                     </div>
                 </div>
@@ -132,7 +123,14 @@ const SchoolHomePage = () => {
                             isFilterSelected ?
                                 (
                                     filteredSchools &&
-                                    <SchoolDisplayComp selectedCity={listOfCategoryList.selectedCity} toggleModal={toggleModal} isLoading={isLoading} schoolList={filteredSchools} />) : <SchoolDisplayComp selectedCity={listOfCategoryList.selectedCity} toggleModal={toggleModal} isLoading={isLoading} schoolList={allSchoolDetails ? allSchoolDetails : []} />
+                                    <SchoolDisplayComp
+                                        isLoading={isLoading}
+                                        schoolList={filteredSchools}
+                                    />) :
+                                <SchoolDisplayComp
+                                    isLoading={isLoading}
+                                    schoolList={allSchoolDetails ? allSchoolDetails : []}
+                                />
                         }
                     </div>
                 </div>

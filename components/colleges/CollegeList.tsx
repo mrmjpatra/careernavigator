@@ -9,11 +9,10 @@ import { useFilterContext } from "./FilterContext";
 type CollegeListProps = {
     filteredColleges: fetchCollegeDetailsWithCourses[]
     isLoading: boolean
-    toggleModal: (collegeName: string) => void
 }
 
 
-const CollegeList: FC<CollegeListProps> = ({ filteredColleges, isLoading, toggleModal }) => {
+const CollegeList: FC<CollegeListProps> = ({ filteredColleges, isLoading }) => {
     const {selectedFilters}=useFilterContext();
     const [sortingValue, setSortingValue] = useState('')
     const [sortingCollegesList, setSortingCollegesList] = useState<fetchCollegeDetailsWithCourses[]>(filteredColleges);
@@ -72,7 +71,7 @@ const CollegeList: FC<CollegeListProps> = ({ filteredColleges, isLoading, toggle
                         </div>
                     </div>
                 }
-                <CollegeListComp list={sortingCollegesList} toggleModal={toggleModal} />
+                <CollegeListComp list={sortingCollegesList} />
             </div>
         </>
     )
@@ -82,10 +81,9 @@ export default CollegeList;
 
 type CollegeListCompProps = {
     list: fetchCollegeDetailsWithCourses[],
-    toggleModal: (collegeName: string) => void
 }
 
-const CollegeListComp = ({ list, toggleModal }: CollegeListCompProps) => {
+const CollegeListComp = ({ list }: CollegeListCompProps) => {
     const [displayedColleges, setDisplayedColleges] = useState(list);
     const loadMoreRef = useRef(null);
     useEffect(() => {
@@ -113,7 +111,7 @@ const CollegeListComp = ({ list, toggleModal }: CollegeListCompProps) => {
     return (
         <>
             {
-                displayedColleges.map(list => <CollegeCard key={list.collegeName} data={{ ...list }} toggleModal={toggleModal} />)
+                displayedColleges.map(list => <CollegeCard key={list.collegeName} data={{ ...list }}  />)
             }
             <div ref={loadMoreRef}>Loading more...</div>
         </>

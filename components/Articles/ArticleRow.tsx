@@ -12,7 +12,7 @@ const ArticleRow = ({ id, content, title, updatedAt }: fetchArticlesType) => {
             <Link href={`/articles/${getFormattedString(title,'-')}`} className='text-2xl text-blue-500 font-bold hover:text-red-500 ' >
                 <h2>{convertWord(title) || <Skeleton/> }</h2>
             </Link>
-            <div dangerouslySetInnerHTML={{ __html: desc }} className='text-gray-800 pl-2'>
+            <div dangerouslySetInnerHTML={{ __html: desc }} className='text-gray-800 pl-2 text-xl'>
             </div>
             <span className='text-gray-700 pl-1'>Published Date: {getFormatedDate(updatedAt)}</span>
             <hr className='h-1 text-gray-200' />

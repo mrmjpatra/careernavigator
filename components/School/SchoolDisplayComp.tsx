@@ -3,19 +3,20 @@ import Skeleton from 'react-loading-skeleton';
 import SchoolItem from './SchoolItem';
 import { SchoolFormDetailsType } from '@/app/schools';
 import { convertWord } from '@/utils/functions';
+import { useFilterContext } from './FilterContext';
+import SchoolSelectFilterComp from './SchoolSelectFilterComp';
 
 
 
 type SchoolDisplayType = {
   schoolList: SchoolFormDetailsType[],
   isLoading: boolean
-  toggleModal: (collegeName: string) => void
-  selectedCity: string
+
 }
-const SchoolDisplayComp = ({ schoolList, isLoading, toggleModal, selectedCity }: SchoolDisplayType) => {
+const SchoolDisplayComp = ({ schoolList, isLoading }: SchoolDisplayType) => {
   const [sortingValue, setSortingValue] = useState('')
   const [sortingSchoolList, setSortingSchoolList] = useState<SchoolFormDetailsType[]>([]);
-
+  const { selectedFilters } = useFilterContext()
 
   const filteringCollges = useCallback(() => {
     let sortList: SchoolFormDetailsType[] = [...schoolList]; // Create a copy of the array
@@ -36,7 +37,15 @@ const SchoolDisplayComp = ({ schoolList, isLoading, toggleModal, selectedCity }:
     <div>
       &nbsp;
       {/* filterListTitle */}
-      <h2 className="text-2xl pl-2 font-medium text-blue-600">Top {convertWord(selectedCity)} Schools in India 2023</h2>
+      <h2 className="text-2xl pl-2 font-medium text-blue-600">
+       
+        {
+          selectedFilters.selectedCity===''?<span> Top Schools in India 2023</span>:<span>
+              Top Schools in {convertWord(selectedFilters.selectedCity)}
+             </span>
+        }
+      </h2>
+      <SchoolSelectFilterComp />
       {/* filtersort */}
       <div className='text-right mt-1 font-medium'>
         <select name="sorting" id="sorting" className='py-2 px-3 mr-10 border rounded 
@@ -63,7 +72,7 @@ const SchoolDisplayComp = ({ schoolList, isLoading, toggleModal, selectedCity }:
           </div>
         </div>
       }
-      <SchoolListComp list={sortingSchoolList} toggleModal={toggleModal} />
+      <SchoolListComp list={sortingSchoolList} />
     </div>
   )
 }
@@ -73,9 +82,8 @@ export default SchoolDisplayComp;
 
 type SchoolListCompProps = {
   list: SchoolFormDetailsType[],
-  toggleModal: (schoolName: string) => void
 }
-const SchoolListComp = ({ list, toggleModal }: SchoolListCompProps) => {
+const SchoolListComp = ({ list }: SchoolListCompProps) => {
   const [displayedColleges, setDisplayedColleges] = useState(list);
   const loadMoreRef = useRef(null);
   useEffect(() => {
@@ -103,7 +111,7 @@ const SchoolListComp = ({ list, toggleModal }: SchoolListCompProps) => {
   return (
     <>
       {
-        displayedColleges.map(list => <SchoolItem key={list.id} data={{ ...list }} toggleModal={toggleModal} />)
+        displayedColleges.map(list => <SchoolItem key={list.id} data={{ ...list }}  />)
       }
       <div ref={loadMoreRef}></div>
     </>

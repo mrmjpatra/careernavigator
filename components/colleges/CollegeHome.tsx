@@ -7,8 +7,6 @@ import FilteredList from '@/components/colleges/FilteredList';
 import { LuSettings2 } from 'react-icons/lu';
 import { IoClose } from 'react-icons/io5';
 import { useSearchParams } from 'next/navigation';
-import ApplyModal from '@/components/ApplyModal';
-import ApplyForm from '@/components/ApplyForm';
 import { fetchCollegeDetailsWithCourses } from '@/app/colleges';
 import { fetchCategoryList, fetchCollegeDataWithCourse } from '@/lib/helper-fetch';
 import FetchFilterComp from './FetchFilterComp';
@@ -42,9 +40,6 @@ const CollegeHome = ({ sortedDegreeList, sortedStreamList, sortedSpecializationL
     const stream = searchParams.get('stream');
     const degree = searchParams.get('degree');
     const state = searchParams.get('state');
-    //Apply form Modal state
-    const [showApplyModal, setShowApplyModal] = useState(false);
-    const [collegeName, setCollegeName] = useState('');
     //custom hook for getting all the filtered arrays
     const { uniqueStatesArray, sortedCourse, sortedOwnerShip, sortedStudyMode, sortedCityList } = UseCollegesFormData()
 
@@ -98,20 +93,11 @@ const CollegeHome = ({ sortedDegreeList, sortedStreamList, sortedSpecializationL
 
 
 
-    //set the apply form modal value using the below funciton
-    const toggleModal = (collegeName: string) => {
-        setShowApplyModal(!showApplyModal);
-        setCollegeName(collegeName);
-    }
+  
 
     //return the view
     return (
         <div className="xl:max-[1100px] mx-auto h-full xl:w-[96%] py-4 md:[1000px] ">
-            {
-                showApplyModal && <ApplyModal onClose={() => setShowApplyModal(false)}>
-                    <ApplyForm instituteName={collegeName} />
-                </ApplyModal>
-            }
             <div className="md:flex md:gap-10">
                 {/* filter state */}
                 <div className='flex justify-end pr-4 pb-5 items-center cursor-pointer md:hidden' onClick={() => setShowModal(prev => !prev)} >
@@ -205,14 +191,13 @@ const CollegeHome = ({ sortedDegreeList, sortedStreamList, sortedSpecializationL
                                 isFilterSelected ?
                                     (
                                         filteredColleges &&
-                                        <CollegeList toggleModal={toggleModal}
+                                        <CollegeList 
                                             isLoading={isLoading}
                                             filteredColleges={filteredColleges}
                                         />
                                     ) :
                                     (
                                         <CollegeList
-                                            toggleModal={toggleModal}
                                             isLoading={isLoading}
                                             filteredColleges={allCollegeDetails ?? []}
                                         />
