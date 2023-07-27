@@ -4,7 +4,7 @@ import React from 'react'
 const Syllabus = () => {
     return (
         <div>
-            <Class12Syallbus />
+            Syllabus
         </div>
     )
 }
