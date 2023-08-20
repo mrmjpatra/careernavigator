@@ -39,7 +39,21 @@ export const metadata: Metadata = {
     initialScale: 1,
     maximumScale: 3,
   },
- 
+  openGraph:{
+    title:'Insitute Insider',
+    description:'Choose your best Carrer. We guide you to choose best path with best College. Based on your rank and score, we can show you the best college.You gurantee you to get 100% seat on your wishlist collge.',
+    url: baseUrl,
+    siteName: 'Institute Insider',
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Institute Insider',
+    description: 'Choose your best Carrer. We guide you to choose best path with best College. Based on your rank and score, we can show you the best college.You gurantee you to get 100% seat on your wishlist collge.',
+    creator: '@mrmjpatra',
+  },
+
 };
 
 interface RootLayoutProps {
