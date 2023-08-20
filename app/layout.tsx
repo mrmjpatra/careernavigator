@@ -20,57 +20,20 @@ const roboto = Roboto({
   display: "swap",
 });
 
-const baseUrl = 'https://careernavigator.vercel.app'
+const baseUrl = process.env.BASE_URL
 
 export const metadata: Metadata = {
   title: {
     template: '%s | Institute Insider',
     default:'Institute Insider'
   },
-  description: "Choose Best College with us",
+  description: "Choose your best Carrer. We guide you to choose best path with best College. Based on your rank and score, we can show you the best college.You gurantee you to get 100% seat on your wishlist collge.",
   keywords: ['Institute Insider', 'Best Colleges', 'Exams', 'Best Coachings', 'Best School', 'Choose Carrer', "top colleges", 'university top', 'college university', 'university colleges', 'colleges university', 'popular colleges', 'career navigator', 'university career', 'global colleges', 'career university', 'navigation career', 'iit top colleges', 'university navigator', 'university popular', 'navigator career'],
   creator: 'Mrutyunjaya Patra',
   publisher: 'Mrutyunjaya Patra',
   authors: [{ name: 'mrmjpatra' }, { name: 'mrmjpatra', url: baseUrl }],
   colorScheme: 'light',
-  icons: {
-    icon: [{ url: '/icon.png' }, new URL('/icon.png', baseUrl)],
-    shortcut: ['/shortcut-icon.png'],
-    apple: [
-      { url: '/apple-icon.png' },
-      { url: '/apple-icon-x3.png', sizes: '180x180', type: 'image/png' },
-    ],
-    other: [
-      {
-        rel: 'apple-touch-icon-precomposed',
-        url: '/apple-touch-icon-precomposed.png',
-      },
-    ],
-  },
-  twitter: {
-    card: 'app',
-    title: 'Institute Insider',
-    description: 'Choose your best Carrer. We guide you to choose best path with best College.',
-    siteId: '1467726470533754880',
-    creator: '@nextjs',
-    creatorId: '1467726470533754880',
-    images: {
-      url: `${baseUrl}/opengraph-image?60c1579eb90e4b11`,
-      alt: 'Institute Insider',
-    },
-    app: {
-      name: 'twitter_app',
-      id: {
-        iphone: 'twitter_app://iphone',
-        ipad: 'twitter_app://ipad',
-        googleplay: 'twitter_app://googleplay',
-      },
-      url: {
-        iphone: 'https://iphone_url',
-        ipad: 'https://ipad_url',
-      },
-    },
-  },
+  metadataBase:new URL(baseUrl??""),
   viewport: {
     width: 'device-width',
     initialScale: 1,

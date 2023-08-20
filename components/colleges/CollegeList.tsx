@@ -113,7 +113,7 @@ const CollegeListComp = ({ list }: CollegeListCompProps) => {
             {
                 displayedColleges.map(list => <CollegeCard key={list.collegeName} data={{ ...list }}  />)
             }
-            <div ref={loadMoreRef}>Loading more...</div>
+            <div ref={loadMoreRef}></div>
         </>
     )
 }

@@ -54,3 +54,14 @@ export const getAllArticles = async () => {
     }
 }
 
+
+export const getAllProjects=async()=>{
+    try {
+        const res = await fetch(`${process.env.HOST}/api/projects`,{next:{revalidate:120}});
+        const json = await res.json()
+        return json.message
+    } catch (error) {
+        console.log(error);
+        return null;
+    }
+}
