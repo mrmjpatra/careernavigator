@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
-import carrernavigator from '@/public/assets/footerlogo.png'
+import footerlogo from '@/public/assets/footerlogo.svg'
 import { BiLogoLinkedin } from 'react-icons/bi'
 import { BsInstagram } from 'react-icons/bs'
 import { TbBrandFacebook } from 'react-icons/tb'
@@ -288,10 +288,10 @@ const Footer = () => {
                 </div>
                 {/* Bottom Footer */}
                 <hr />
-                <div className='flex py-2 md:flex-row flex-col md:justify-between items-center'>
+                <div className='flex py-6 md:flex-row flex-col md:justify-between items-center'>
                     {/* logo */}
-                    <Image src={carrernavigator} width={100} alt="logo" />
-                    <span>&copy;2023 College Navigator Pvt. Ltd. All Rights Reserved</span>
+                    <Image src={footerlogo} width={200} alt="logo" />
+                    <span>&copy;2023 Institute Insider Pvt. Ltd. All Rights Reserved</span>
                 </div>
             </div>
         </div>

@@ -117,7 +117,7 @@ const ContactUsForm = () => {
                             }
                         </form>
                         <p className='my-4 text-slate-600 text-sm'>
-                            By proceeding ahead you expressly agree to the Carrer Navigator Terms & Conditions and Privacy Policy
+                            By proceeding ahead you expressly agree to the Institute Insider Terms & Conditions and Privacy Policy
                         </p>
                     </div>
                 </div>

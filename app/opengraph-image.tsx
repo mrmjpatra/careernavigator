@@ -1,21 +1,43 @@
 import { ImageResponse } from 'next/server'
+ 
+// Route segment config
 export const runtime = 'edge'
-
-export const alt = 'Carrer Navigator'
+ 
+// Image metadata
+export const alt = 'Institute Insider'
 export const size = {
   width: 1200,
   height: 630,
 }
+ 
 export const contentType = 'image/png'
-
-export default async function Image({ params }: { params: { name: string } }) {
-
+ 
+// Image generation
+export default async function Image() {
+  
+ 
   return new ImageResponse(
     (
-      <div tw="relative flex w-full h-full flex items-center justify-center">
-          <img src={'https://careernavigator.vercel.app/assets/carrernavigator.svg'} alt="logo" tw='w-full h-full object-fill' />
+      // ImageResponse JSX element
+      <div
+        style={{
+          fontSize: 128,
+          background: 'white',
+          width: '100%',
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+       Institute Insider
       </div>
     ),
-    size
-  );
+    // ImageResponse options
+    {
+      // For convenience, we can re-use the exported opengraph-image
+      // size config to also set the ImageResponse's width and height.
+      ...size,
+    }
+  )
 }

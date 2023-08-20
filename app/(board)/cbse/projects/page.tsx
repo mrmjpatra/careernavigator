@@ -8,8 +8,8 @@ export type fetchProjectsType = {
   createdAt: string
   updatedAt: string
 }
-const fetchProjects = async () => {
-  const res = await fetch(`${process.env.HOST}/api/projects`, { next: { revalidate: 60 } });
+const fetchProjects = async (page: number, limit: number) => {
+  const res = await fetch(`${process.env.HOST}/api/projects?page=${page}&limit=${limit}`, { next: { revalidate: 60 } });
   const data = await res.json();
   return data.message as fetchProjectsType[];
 }
@@ -19,9 +19,11 @@ export async function generateMetadata() {
   return { title: "Projects", description };
 }
 
-
-const Projects = async () => {
-  const projectsList = await fetchProjects();
+//main page component
+const Projects = async ({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) => {
+  const page = typeof searchParams.page === 'string' ? Number(searchParams.page) : 1;
+  const limit = typeof searchParams.limit === 'string' ? Number(searchParams.limit) : 2;
+  const projectsList = await fetchProjects(page, limit);
   return (
     <div className='px-5 py-6'>
       <h1 className='text-blue-700 text-5xl font-bold'>CBSE Projects</h1>
@@ -33,6 +35,13 @@ const Projects = async () => {
           projectsList.map(list => <ProjectCard key={list.id} {...list} />)
         }
       </div>
+      <div className='flex justify-around gap-4'>
+        <Link href={`/cbse/projects?page=${page > 1 ? page - 1 : 1}`} className={`${page===1?'bg-gray-700 pointer-events-none':'bg-slate-800 hover:bg-slate-900'} text-white px-7 py-3 text-xl  duration-200 ease-in transition-all shadow-lg shadow-black/50 rounded-md`} >Previous</Link>
+
+        <Link href={`/cbse/projects?page=${projectsList.length === 1 ? page : page + 1}`}
+          className={`${projectsList.length===1?'bg-gray-700 pointer-events-none':'bg-slate-800 hover:bg-slate-900'} text-white px-7 py-3 text-xl  duration-200 ease-in transition-all shadow-lg shadow-black/50 rounded-md`}
+        >Next</Link>
+      </div>
     </div>
   )
 }
@@ -40,6 +49,7 @@ const Projects = async () => {
 export default Projects;
 
 
+//Component
 const ProjectCard = ({ name, content, updatedAt }: fetchProjectsType) => {
   const desc = checkLength((JSON.parse(content)), 100);
   return (

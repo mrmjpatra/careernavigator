@@ -1,7 +1,7 @@
 'use client'
 import { CategoryItem, MenuItem, navmenulist } from "@/utils/navmenulist"
 import Image from "next/image"
-import cnlogo from '@/public/assets/carrernavigator4.svg'
+import iilogo from '@/public/assets/institute insider.svg'
 import { createElement, useEffect, useRef, useState } from "react"
 import { HiOutlineBars3BottomRight } from 'react-icons/hi2'
 import { FaXmark } from 'react-icons/fa6';
@@ -31,7 +31,7 @@ const NavigationBar = () => {
             <div className="sm:w-[640px] md:w-[768px] lg:w-[1200px] max-w-[1300px] mx-auto flex  justify-between md:justify-start items-center gap-5">
                 {/* logo */}
                 <Link href={'/'}>
-                    <Image src={cnlogo} width={100} alt="logo" className="pl-4 w-96" priority={true} loading="eager" />
+                    <Image src={iilogo} width={100} alt="logo" className="pl-4 w-96" priority={true} loading="eager" />
                 </Link>
                 {/* menu */}
                 {/* Mobile View */}
@@ -56,7 +56,7 @@ const NavigationBar = () => {
                     </div>
                     <div className={`${open ? 'translate-x-[0px]' : 'translate-x-[340px]'}  fixed right-0 top-[8%] w-[340px] pb-3 z-10 rounded bg-white transition-all duration-500 ease-in-out`}>
                         <div className="p-5 bg-sky-600 text-black">
-                            <h3 className="text-white font-bold text-xl">Hi Welcome to Carrer Navigator!</h3>
+                            <h3 className="text-white font-bold text-xl">Hi Welcome to Institute Insider!</h3>
                         </div>
                         <ul>
                             {

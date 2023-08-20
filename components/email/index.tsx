@@ -32,7 +32,7 @@ export const CarrerNavigatorContactEmail = ({name,email,phoneNumber,stream}:Cont
     return (
         <Html>
             <Head />
-            <Preview>Carrer Navigator Contact Us</Preview>
+            <Preview>Institute Insider Contact Us</Preview>
             <Body style={main}>
                 <Container style={container}>
                     <Section style={logo}>
@@ -41,7 +41,7 @@ export const CarrerNavigatorContactEmail = ({name,email,phoneNumber,stream}:Cont
                     <Row style={header}>
                         <Column style={headerContent}>
                             <Heading style={headerContentTitle}>
-                                Carrer Navigator
+                                Institute Insider
                             </Heading>
                             <Text style={headerContentSubtitle}>
                                 New Admission Apply Request
@@ -85,7 +85,7 @@ export const CarrerNavigatorContactEmail = ({name,email,phoneNumber,stream}:Cont
 
                 <Section style={footer}>
                     <Text style={footerText}>
-                        You &apos; re receiving this email because your Carrer Navigator activity
+                        You &apos; re receiving this email because your Institute Insider activity
                         triggered this tip or reminder.
                     </Text>
 
@@ -101,7 +101,7 @@ export const CarrerNavigatorContactEmail = ({name,email,phoneNumber,stream}:Cont
                     <Hr style={footerDivider} />
                     <Img width={111} src={`${baseUrl}/static/stack-overflow-logo-sm.png`} />
                     <Text style={footerAddress}>
-                        <strong>Carrer Navigator</strong>, Choudwar, Cuttack, Odisha
+                        <strong>Institute Insider</strong>, Choudwar, Cuttack, Odisha
                     </Text>
                 </Section>
             </Body>

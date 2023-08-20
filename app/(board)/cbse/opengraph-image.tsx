@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/server'
 export const runtime = 'edge'
 
-export const alt = 'CBSE|Carrer Navigator'
+export const alt = 'CBSE|Institute Insider'
 export const size = {
     width: 1200,
     height: 630,
@@ -22,7 +22,7 @@ export default async function Image({ params }: { params: { name: string } }) {
                 </div>
                 <div tw="flex flex-col text-neutral-50">
                     {/* Title */}
-                    <div tw="text-7xl font-bold text-center">CBSE | Carrer Navigator</div>
+                    <div tw="text-7xl font-bold text-center">CBSE | Institute Insider</div>
                     {/* Tags */}
                     <div tw="flex mt-6 flex-wrap items-center text-4xl text-neutral-200">
                         <div tw='pb-4'>The Central Board of Secondary Education (CBSE) is one of the most prestigious and preferred educational boards in India.</div>

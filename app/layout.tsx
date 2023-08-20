@@ -24,20 +24,20 @@ const baseUrl = 'https://careernavigator.vercel.app'
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | Career Navigator',
-    default:'Career Navigator'
+    template: '%s | Institute Insider',
+    default:'Institute Insider'
   },
   description: "Choose Best College with us",
-  keywords: ['Carrer Navigator', 'Best Colleges', 'Exams', 'Best Coachings', 'Best School', 'Choose Carrer', "top colleges", 'university top', 'college university', 'university colleges', 'colleges university', 'popular colleges', 'career navigator', 'university career', 'global colleges', 'career university', 'navigation career', 'iit top colleges', 'university navigator', 'university popular', 'navigator career'],
+  keywords: ['Institute Insider', 'Best Colleges', 'Exams', 'Best Coachings', 'Best School', 'Choose Carrer', "top colleges", 'university top', 'college university', 'university colleges', 'colleges university', 'popular colleges', 'career navigator', 'university career', 'global colleges', 'career university', 'navigation career', 'iit top colleges', 'university navigator', 'university popular', 'navigator career'],
   creator: 'Mrutyunjaya Patra',
   publisher: 'Mrutyunjaya Patra',
   authors: [{ name: 'mrmjpatra' }, { name: 'mrmjpatra', url: baseUrl }],
   colorScheme: 'light',
   openGraph: {
-    title: 'Carrer Navigator',
+    title: 'Institute Insider',
     description: 'Choose your best Carrer. We guide you to choose best path with best College. Based on your rank and score, we can show you the best college.You gurantee you to get 100% seat on your wishlist collge.',
     url: baseUrl,
-    siteName: 'Carrer Navigator',
+    siteName: 'Institute Insider',
     images: [
       {
         url: `${baseUrl}/opengraph-image?60c1579eb90e4b11`,
@@ -65,14 +65,14 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'app',
-    title: 'Carrer Navigator',
+    title: 'Institute Insider',
     description: 'Choose your best Carrer. We guide you to choose best path with best College.',
     siteId: '1467726470533754880',
     creator: '@nextjs',
     creatorId: '1467726470533754880',
     images: {
       url: `${baseUrl}/opengraph-image?60c1579eb90e4b11`,
-      alt: 'Carrer Navigator',
+      alt: 'Institute Insider',
     },
     app: {
       name: 'twitter_app',
@@ -92,17 +92,7 @@ export const metadata: Metadata = {
     initialScale: 1,
     maximumScale: 3,
   },
-  appleWebApp: {
-    title: 'Carrer Navigator',
-    statusBarStyle: 'black-translucent',
-    startupImage: [
-      '/assets/startup/apple-touch-startup-image-768x1004.png',
-      {
-        url: '/assets/startup/apple-touch-startup-image-1536x2008.png',
-        media: '(device-width: 768px) and (device-height: 1024px)',
-      },
-    ],
-  },
+ 
 };
 
 interface RootLayoutProps {
