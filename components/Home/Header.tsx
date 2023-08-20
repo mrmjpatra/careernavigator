@@ -14,7 +14,7 @@ const Header = () => {
             </div>
             <div className='md:w-1/2 w-full flex justify-center'>
                 <Image src={PersonHoldingBook} 
-                    width={100}
+                    width={300}
                     height={100}
                     alt='Person holding Book' draggable={false} 
                     loading='eager' 

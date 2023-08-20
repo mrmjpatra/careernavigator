@@ -27,11 +27,11 @@ const NavigationBar = () => {
 
 
     return (
-        <nav className="bg-[#F2F6F9] py-2 navbar sticky top-0 z-20 " ref={menuRef}>
-            <div className="sm:w-[640px] md:w-[768px] lg:w-[1200px] max-w-[1300px] mx-auto flex  justify-between md:justify-start items-center gap-5">
+        <nav className="bg-[#F2F6F9] py-2 pb-4 md:pb-0 navbar sticky top-0 z-20 " ref={menuRef}>
+            <div className="sm:w-[640px] md:w-[768px] lg:w-[1200px] max-w-[1300px] mx-auto flex  justify-between md:justify-start flex-col md:flex-row items-center gap-2 md:gap-5">
                 {/* logo */}
-                <Link href={'/'}>
-                    <Image src={iilogo} width={100} alt="logo" className="pl-4 w-96" priority={true} loading="eager" />
+                <Link href={'/'} className="inline-block md:inline py-2 md:py-0">
+                    <Image src={iilogo} width={300} alt="logo" className="pl-4" priority={true} loading="eager" />
                 </Link>
                 {/* menu */}
                 {/* Mobile View */}
