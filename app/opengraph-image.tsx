@@ -23,10 +23,9 @@ export default async function Image() {
         {/* Background */}
         <div tw="absolute flex inset-0">
           <img
-            tw="flex flex-1"
             src={`https://carrernavigator.vercel.app/assets/institute%20insider.svg`}
             alt='institute insider'
-            tw='w-[90%] mx-auto mt-10 p-4 bg-white'
+            tw='w-[90%] mx-auto mt-10 flex bg-white'
           />
           {/* Overlay */}
           <div tw="absolute flex inset-0 bg-black bg-opacity-50" />
