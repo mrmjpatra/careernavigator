@@ -8,11 +8,11 @@ export default function Home() {
   return (
     <main className="bg-[#F2F6F9]">
       <section>
-        <Header/>
+        {/* <Header/>
         <HomeSwipper/>
         <TopCategories/>
         <FeaturedCollege/>
-        <ExploreSchoolBoard/>
+        <ExploreSchoolBoard/> */}
       </section>
     </main>
   )

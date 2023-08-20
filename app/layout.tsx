@@ -33,22 +33,6 @@ export const metadata: Metadata = {
   publisher: 'Mrutyunjaya Patra',
   authors: [{ name: 'mrmjpatra' }, { name: 'mrmjpatra', url: baseUrl }],
   colorScheme: 'light',
-  openGraph: {
-    title: 'Institute Insider',
-    description: 'Choose your best Carrer. We guide you to choose best path with best College. Based on your rank and score, we can show you the best college.You gurantee you to get 100% seat on your wishlist collge.',
-    url: baseUrl,
-    siteName: 'Institute Insider',
-    images: [
-      {
-        url: `${baseUrl}/opengraph-image?60c1579eb90e4b11`,
-        width: 800,
-        height: 600,
-      },
-    ],
-    locale: 'en-US',
-    type: 'website',
-
-  },
   icons: {
     icon: [{ url: '/icon.png' }, new URL('/icon.png', baseUrl)],
     shortcut: ['/shortcut-icon.png'],
