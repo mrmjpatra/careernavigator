@@ -17,9 +17,19 @@ const SwipperTab = ({
   return (
     <div>
       <Swiper
-        slidesPerView={8}
         spaceBetween={30}
         navigation={true}
+        breakpoints={{
+          640: {
+            slidesPerView: 2,
+          },
+          768: {
+            slidesPerView: 4,
+          },
+          1024: {
+            slidesPerView: 8,
+          },
+        }}
         modules={[Pagination, Navigation]}
         className="swipperTab"
       >
@@ -28,16 +38,16 @@ const SwipperTab = ({
           className={`${activeTab === 1
               ? "border-b-2 border-red-500 rounded bg-red-400/10"
               : "border-0 transition-all duration-300 ease-out"
-            } text-xl font-bold text-blue-500 cursor-pointer `}
+            } md:text-xl  text-base font-bold text-blue-500 cursor-pointer `}
         >
-          Overview
+          <span>Overview</span>
         </SwiperSlide>
         <SwiperSlide
           onClick={() => setActiveTab(2)}
           className={`${activeTab === 2
               ? "border-b-2 border-red-500 rounded bg-red-400/10"
               : "border-0 transition-all duration-300 ease-out"
-            } text-xl font-bold text-blue-500 cursor-pointer `}
+            } md:text-xl  text-base font-bold text-blue-500 cursor-pointer `}
         >
           Important Dates
         </SwiperSlide>
@@ -46,7 +56,7 @@ const SwipperTab = ({
           className={`${activeTab === 3
               ? "border-b-2 border-red-500 rounded bg-red-400/10"
               : "border-0 transition-all duration-300 ease-out"
-            } text-xl font-bold text-blue-500 cursor-pointer `}
+            } md:text-xl text-base font-bold text-blue-500 cursor-pointer `}
         >
           Eligibility
         </SwiperSlide>
@@ -55,7 +65,7 @@ const SwipperTab = ({
           className={`${activeTab === 4
               ? "border-b-2 border-red-500 rounded bg-red-400/10"
               : "border-0 transition-all duration-300 ease-out"
-            } text-xl font-bold text-blue-500 cursor-pointer `}
+            } md:text-xl text-base font-bold text-blue-500 cursor-pointer `}
         >
           Application Form
         </SwiperSlide>
@@ -64,7 +74,7 @@ const SwipperTab = ({
           className={`${activeTab === 5
               ? "border-b-2 border-red-500 rounded bg-red-400/10"
               : "border-0 transition-all duration-300 ease-out"
-            } text-xl font-bold text-blue-500 cursor-pointer `}
+            } md:text-xl text-base font-bold text-blue-500 cursor-pointer `}
         >
           Admit Card
         </SwiperSlide>
@@ -73,7 +83,7 @@ const SwipperTab = ({
           className={`${activeTab === 6
               ? "border-b-2 border-red-500 rounded bg-red-400/10"
               : "border-0 transition-all duration-300 ease-out"
-            } text-xl font-bold text-blue-500 cursor-pointer `}
+            } md:text-xl text-base font-bold text-blue-500 cursor-pointer `}
         >
           Exam Pattern
         </SwiperSlide>
@@ -82,7 +92,7 @@ const SwipperTab = ({
           className={`${activeTab === 7
               ? "border-b-2 border-red-500 rounded bg-red-400/10"
               : "border-0 transition-all duration-300 ease-out"
-            } text-xl font-bold text-blue-500 cursor-pointer `}
+            } md:text-xl text-base font-bold text-blue-500 cursor-pointer `}
         >
           Syllabus
         </SwiperSlide>
@@ -91,7 +101,7 @@ const SwipperTab = ({
           className={`${activeTab === 8
               ? "border-b-2 border-red-500 rounded bg-red-400/10"
               : "border-0 transition-all duration-300 ease-out"
-            } text-xl font-bold text-blue-500 cursor-pointer `}
+            } md:text-xl text-base font-bold text-blue-500 cursor-pointer `}
         >
           How to Prepare
         </SwiperSlide>
@@ -100,7 +110,7 @@ const SwipperTab = ({
           className={`${activeTab === 9
               ? "border-b-2 border-red-500 rounded bg-red-400/10"
               : "border-0 transition-all duration-300 ease-out"
-            } text-xl font-bold text-blue-500 cursor-pointer `}
+            } md:text-xl text-base font-bold text-blue-500 cursor-pointer `}
         >
           Books
         </SwiperSlide>
@@ -109,7 +119,7 @@ const SwipperTab = ({
           className={`${activeTab === 10
               ? "border-b-2 border-red-500 rounded bg-red-400/10"
               : "border-0 transition-all duration-300 ease-out"
-            } text-xl font-bold text-blue-500 cursor-pointer `}
+            } md:text-xl text-base font-bold text-blue-500 cursor-pointer `}
         >
           Previous Year Question Paper
         </SwiperSlide>
@@ -118,7 +128,7 @@ const SwipperTab = ({
           className={`${activeTab === 11
               ? "border-b-2 border-red-500 rounded bg-red-400/10"
               : "border-0 transition-all duration-300 ease-out"
-            } text-xl font-bold text-blue-500 cursor-pointer `}
+            } md:text-xl text-base font-bold text-blue-500 cursor-pointer `}
         >
           Result
         </SwiperSlide>
@@ -127,7 +137,7 @@ const SwipperTab = ({
           className={`${activeTab === 12
               ? "border-b-2 border-red-500 rounded bg-red-400/10"
               : "border-0 transition-all duration-300 ease-out"
-            } text-xl font-bold text-blue-500 cursor-pointer `}
+            } md:text-xl text-base font-bold text-blue-500 cursor-pointer `}
         >
           Selection Process
         </SwiperSlide>
@@ -136,7 +146,7 @@ const SwipperTab = ({
           className={`${activeTab === 13
               ? "border-b-2 border-red-500 rounded bg-red-400/10"
               : "border-0 transition-all duration-300 ease-out"
-            } text-xl font-bold text-blue-500 cursor-pointer `}
+            } md:text-xl text-base font-bold text-blue-500 cursor-pointer `}
         >
           Answer Key
         </SwiperSlide>

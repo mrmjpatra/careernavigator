@@ -26,22 +26,39 @@
   color: #fff !important;
   background: #007aff !important;
 }
-.swiper-pagination-bullets.swiper-pagination-horizontal{
+
+.swiper-pagination-bullets.swiper-pagination-horizontal {
   bottom: 2rem !important;
 }
-.swipperTab .swiper-wrapper{
-  align-items: center;
-  padding: 0 3rem !important;
+.swipperTab .swiper-wrapper {
+  padding: 0 !important;
 }
 
-.swipperTab .swiper-button-next::after,.swiper-button-prev::after{
+
+.swipperTab .swiper-button-next::after,
+.swiper-button-prev::after {
   font-size: 2rem !important;
 }
 
-.swipperTab .swiper-slide{
+
+/* Exam Slider */
+.swipperTab .swiper-slide {
   text-align: center;
-  padding: .7rem 0;
-  width: 10rem !important;
+  padding: .4rem 0;
+  width: 8rem !important;
+
+}
+
+@media (min-width: 768px) {
+  .swipperTab .swiper-slide {
+    text-align: center;
+    padding: .7rem 0;
+    width: 10rem !important;
+  }
+  .swipperTab .swiper-wrapper {
+    align-items: center;
+    padding: 0 3rem !important;
+  }
 }
 
 @font-face {
@@ -49,20 +66,20 @@
   font-style: normal;
   font-weight: 400;
   src: local('Pacifico Regular'), local('Pacifico-Regular'),
-    url(https://fonts.gstatic.com/s/pacifico/v12/FwZY7-Qmy14u9lezJ-6H6MmBp0u-.woff2)
-      format('woff2');
+    url(https://fonts.gstatic.com/s/pacifico/v12/FwZY7-Qmy14u9lezJ-6H6MmBp0u-.woff2) format('woff2');
   font-display: swap;
 }
 
 .player-wrapper {
-  width: auto; 
-  height: auto; 
-}
-.react-player {
-  padding-top: 56.25%; 
-  position: relative; 
+  width: auto;
+  height: auto;
 }
 
-.react-player > div {
-  position: absolute; 
+.react-player {
+  padding-top: 56.25%;
+  position: relative;
+}
+
+.react-player>div {
+  position: absolute;
 }
