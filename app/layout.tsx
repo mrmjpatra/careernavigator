@@ -11,6 +11,9 @@ import { SkeletonTheme } from "react-loading-skeleton";
 import { Metadata } from "next";
 import { ContactModalProvider } from "@/components/ContactModalContext";
 import ApplyModal from "@/components/ApplyModal";
+import { Analytics } from '@vercel/analytics/react';
+
+
 const Footer = dynamic(() => import('@/components/Footer'));
 
 
@@ -85,8 +88,9 @@ const RootLayout: FC<RootLayoutProps> = ({
                   {children}
                   {college}
                   {school}
-                  {coaching}
+                  {coaching}       
                 <Footer />
+                <Analytics />
               </SkeletonTheme>
             </Providers>
           </ContactModalProvider>
