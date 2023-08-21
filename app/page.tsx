@@ -11,7 +11,7 @@ export default function Home() {
         <Header/>
         <HomeSwipper/>
         <TopCategories/>
-        <FeaturedCollege/>
+        {/* <FeaturedCollege/> */}
         <ExploreSchoolBoard/>
       </section>
     </main>
